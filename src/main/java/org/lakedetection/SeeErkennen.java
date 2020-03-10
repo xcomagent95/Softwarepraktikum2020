@@ -4,13 +4,13 @@ public class SeeErkennen {
 
 	
 	
-	/* || Bilder ¸bereinanderlegen ||
+	/* || Bilder √ºbereinanderlegen ||
 	 * 
 	 * Es liegen 2 2D-Arrays vor. 
 	 * Nun sollen beide Arrays durchlaufen werden 
 	 * und die Werte an den jeweils gleichen Pos. miteinander addiert 
 	 * und durch 2 dividiert werden. 
-	 * */
+	 */
 
 	public static float[][] connect(float[][] b1, float[][] b2){
 		
@@ -23,6 +23,8 @@ public class SeeErkennen {
 		} 
 		return a;
 	}
+	
+	////////////////////////////
 	
 	// Hilfsfkt. zum Anzeigen einer Matrix 5 x 5
 	public static void show(float[][] a) {
@@ -52,11 +54,11 @@ public class SeeErkennen {
 	
 	
 	///////////////////////
-	/* || Wasserfl‰chen erkennen ||
+	/* || Wasserfl√§chen erkennen ||
 	 * 
 	 * Mit der Schwellwertfunktion arbeiten 
-	 * und alle Wasserfl‰chen schwarz einf‰rben.
-	 * */
+	 * und alle Wasserfl√§chen schwarz einf√§rben.
+	 */
 	
 	public static float[][] makeBlack(float[][] a) {
 		for(int i=0; i<a.length; i++) {
@@ -64,7 +66,7 @@ public class SeeErkennen {
 				if(a[i][j] >= 150) { // Schwellwert muss noch gesetzt werden
 					a[i][j] = 0;
 				}
-				else a[i][j] = 255; // max. ist mittelwert der maxima von vh und vv (4142,5) __ jetzt doch ge‰ndert auf 255
+				else a[i][j] = 255; // max. ist mittelwert der maxima von vh und vv (4142,5) __ jetzt doch ge√§ndert auf 255
 			}
 		}
 		return a;
@@ -72,8 +74,12 @@ public class SeeErkennen {
 	
 	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich
 	
-	/* Fkt. die die Fl‰che gl‰ttet -- Test war erfolgreich
-	 * */
+	////////////////////////
+	
+	/* || Fl√§che gl√§tten ||
+	 * 
+	 * Fkt. die die Fl√§che gl√§ttet -- Test war erfolgreich
+	 */
 	public static float[][] smoothing(float[][] a){
 		float[][] b = new float[a.length][a.length];
 		
@@ -86,3 +92,4 @@ public class SeeErkennen {
 		return b;
 	}
 }
+
