@@ -39,8 +39,7 @@ public class Main {
      */
     public static void main(String[] args) { //main Methode
     	//Laden des Datensatzes
-    	Loadzip dataset = new Loadzip("E:\\Uni\\Softwarepraktikum\\Project\\softwarepraktikum2020\\src\\main\\resources\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
-    //try {
+    	Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
 		try {
 			//Product lesen
 			Product product = ProductIO.readProduct(dataset.getFile());
@@ -52,5 +51,10 @@ public class Main {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		//Erzeugen der Arrays
+		ToArray array = new ToArray(dataset, "Intensity_VH"); 
+		//Ausgabe des Arrays
+		array.getArray();
     }
 }

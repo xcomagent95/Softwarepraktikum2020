@@ -19,6 +19,17 @@ public class ToArray {
 			e.printStackTrace();
 		}
 		datasetArray = new float[product.getBand(band).getRasterHeight()][product.getBand(band).getRasterWidth()]; //Array erzeugen getPixelFloat(x, y)
-		System.out.println("dataset +  band " + " is converted into array!");
+		arrayHeight = product.getBand(band).getRasterHeight();
+		arrayWidth = product.getBand(band).getRasterWidth();
+		System.out.println("dataset " +  band  + " is converted into array!");
+	}
+	
+	public float[][] getArray() {
+		System.out.println("array build! with height: " + arrayHeight + " and width: " + arrayWidth);
+		return datasetArray;
+	}
+	
+	public void writeArrayValues() {
+		
 	}
 }
