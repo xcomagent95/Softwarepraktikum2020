@@ -39,7 +39,10 @@ public class Main {
 		//Ausgabe des Arrays
 		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
 		
-		//Fuellen des Arrays
-		//datasetarray.writeArrayValues(dataset, datasetarray.getArray(), "Intensity_VH");
+		//Fuellen das Arrays
+		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), 0, 0, 10, 10);
+		
+		//Testausgabe
+		System.out.println("sample value at 100/100: " + datasetarray.getArray()[5][5]);
     }
 }

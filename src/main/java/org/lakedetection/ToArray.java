@@ -1,16 +1,26 @@
 package org.lakedetection;
 
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
 import java.io.IOException;
 
 import org.esa.snap.core.dataio.ProductIO;
 import org.esa.snap.core.datamodel.Product;
-//import org.esa.snap.core.dataop.resamp.Raster;
+
+import com.bc.ceres.core.PrintWriterProgressMonitor;
 
 public class ToArray {
 	private int arrayHeight; //Hoehe des Rasters
 	private int arrayWidth; //Breite des Rasters
 	private float[][] datasetArray; //Array von Float Werten für die Speicherung von Farbwerten
+	
+	private int requestedCornerX;
+	private int requestedCornerY;
+	private int requestedHeight;
+	private int requestedWidth;
+	
+	
 	
 	//ToArray Konstruktor
 	public ToArray(Loadzip dataset, String band) { //Uebergeben wird der Datensatz vom Typ Loadzip und das gewuenschte Band als String
@@ -22,7 +32,7 @@ public class ToArray {
 			e.printStackTrace();
 		}
 		//Erzeugen des Arrays
-		datasetArray = new float[product.getBand(band).getRasterHeight()][product.getBand(band).getRasterWidth()]; //Array erzeugen getPixelFloat(x, y)
+		datasetArray = new float[product.getBand(band).getRasterWidth()][product.getBand(band).getRasterWidth()]; //Array erzeugen 
 		arrayHeight = product.getBand(band).getRasterHeight(); //Abfragen der Hoehe
 		arrayWidth = product.getBand(band).getRasterWidth(); //Abfragen der Breite
 		System.out.println("dataset " +  band  + " is converted into array!"); //i = height / j = width
@@ -34,29 +44,32 @@ public class ToArray {
 		return datasetArray;
 	}
 	
-	/*
-	//Fuellen des Arrays mit Korrespondierenden Farbwerten
-	public void writeArrayValues(Loadzip dataset, float[][] array, String band) { //Uebergeben werden: dataset vom Typ Loadzip, das zu fuellende Array sowie das gewünschte Band
-		Product product = null; //Product initialisieren
-		try {
-			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			Rectangle testviereck = new Rectangle(25,25,50,50);
-			Raster raster = product.getBand(band).getGeophysicalImage().getData(testviereck);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		for(int i = 0; i < arrayHeight; i++) {
-			for(int j = 0; j < arrayWidth; j++) {
-				product.getBand(band).getPixelFloat(i, j);
-			}
-		}
-		System.out.println("datasetarray loaded! Value 0/0 " + datasetArray[0][0]);
+	public void bufferedImageToArray(BufferedImage img, float[][] targetarray, int requestedCornerX, int requestedCornerY, int requestedHeight, int requestedWidth) {
+        Raster raster = img.getData(new Rectangle(requestedCornerX, requestedCornerY, requestedHeight, requestedWidth)); 
+		for(int x = 0; x < 10; x++) {
+	        for(int y = 0; y < 10; y++) {
+	        	targetarray[x][y] = raster.getSampleFloat(x, y, 0);
+	        }
+	    }
 	}
-	*/
+	
+	public void fillArray(Loadzip dataset, String band, float[][] datasetarray, int requestedCornerX, int requestedCornerY, int requestedHeight, int requestedWidth) {
+		Product product = null; //Product initialisieren
+		
+		 //Product lesen
+		try {
+			product = ProductIO.readProduct(dataset.getFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		BufferedImage image = product.getBand(band).getSourceImage().getAsBufferedImage();
+		System.out.println("image buffered!");
+		
+		System.out.println(image.getColorModel());
+		
+		bufferedImageToArray(image, datasetarray, requestedCornerX, requestedCornerY, requestedHeight, requestedWidth);
+		System.out.println("buffered image converted into array!");
+	}
 }
