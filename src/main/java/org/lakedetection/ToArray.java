@@ -46,13 +46,30 @@ public class ToArray {
 	
 	public void bufferedImageToArray(BufferedImage img, float[][] targetarray, int requestedCornerX, int requestedCornerY, int requestedHeight, int requestedWidth) {
         Raster raster = img.getData(new Rectangle(requestedCornerX, requestedCornerY, requestedHeight, requestedWidth)); 
-		for(int x = 0; x < 10; x++) {
-	        for(int y = 0; y < 10; y++) {
+		for(int x = 0; x < requestedHeight; x++) {
+	        for(int y = 0; y < requestedWidth; y++) {
 	        	targetarray[x][y] = raster.getSampleFloat(x, y, 0);
 	        }
 	    }
 	}
 	
 	public void fillArray(Loadzip dataset, String band, float[][] datasetarray, int requestedCornerX, int requestedCornerY, int requestedHeight, int requestedWidth) {
+		Product product = null; //Product initialisieren
+		
+		 //Product lesen
+		try {
+			product = ProductIO.readProduct(dataset.getFile());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		BufferedImage image = product.getBand(band).getSourceImage().getAsBufferedImage();
+		System.out.println("image buffered!");
+		
+		//System.out.println(image.getColorModel());
+		
+		bufferedImageToArray(image, datasetarray, requestedCornerX, requestedCornerY, requestedHeight, requestedWidth);
+		System.out.println("buffered image converted into array!");
 	}
 }

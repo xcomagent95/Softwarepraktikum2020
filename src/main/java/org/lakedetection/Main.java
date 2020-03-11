@@ -41,8 +41,13 @@ public class Main {
 		
 		//Fuellen das Arrays
 		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), 0, 0, 10, 10);
-		
+
 		//Testausgabe
-		System.out.println("sample value at 100/100: " + datasetarray.getArray()[5][5]);
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				System.out.println( datasetarray.getArray()[i][j]);
+			}
+		}
+		System.out.println("sample value at 5/5: " + datasetarray.getArray()[5][5]);
     }
 }
