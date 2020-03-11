@@ -10,7 +10,7 @@ public class SeeErkennenTest extends TestCase{
      * Create the test case*/
      
      public static void main (String[] args){
-		float[][] b = new float[5][5];
+		float[][] b = new float[6][5];
 		b[0][0] = 120.0f;
 		b[0][1] = 120.0f;
 		b[0][2] = 120.0f;
@@ -36,8 +36,14 @@ public class SeeErkennenTest extends TestCase{
 		b[4][2] = 160.0f;
 		b[4][3] = 140.0f;
 		b[4][4] = 120.0f;
+		b[5][0] = 200.0f;
+		b[5][1] = 180.0f;
+		b[5][2] = 160.0f;
+		b[5][3] = 140.0f;
+		b[5][4] = 120.0f;
 		
-		float[][] c = new float[5][5];
+		
+		float[][] c = new float[6][5];
 		c[0][0] = 100.0f;
 		c[0][1] = 100.0f;
 		c[0][2] = 100.0f;
@@ -63,8 +69,17 @@ public class SeeErkennenTest extends TestCase{
 		c[4][2] = 140.0f;
 		c[4][3] = 120.0f;
 		c[4][4] = 100.0f;
+		c[5][0] = 180.0f;
+		c[5][1] = 160.0f;
+		c[5][2] = 140.0f;
+		c[5][3] = 120.0f;
+		c[5][4] = 100.0f;
 		
-		SeeErkennen.show(SeeErkennen.smoothing(SeeErkennen.connect(b,c)));
+		
+		
+		SeeErkennen.show(SeeErkennen.connect(b,c));
+		
+		//System.out.println("b.length: " +b.length + ", b[0].length: " + b[0].length); 
 				
 	}
      

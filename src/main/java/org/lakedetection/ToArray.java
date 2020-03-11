@@ -13,7 +13,7 @@ import com.bc.ceres.core.PrintWriterProgressMonitor;
 public class ToArray {
 	private int arrayHeight; //Hoehe des Rasters
 	private int arrayWidth; //Breite des Rasters
-	private float[][] datasetArray; //Array von Float Werten für die Speicherung von Farbwerten
+	private float[][] datasetArray; //Array von Float Werten fï¿½r die Speicherung von Farbwerten
 	
 	private int requestedCornerX;
 	private int requestedCornerY;
@@ -54,22 +54,5 @@ public class ToArray {
 	}
 	
 	public void fillArray(Loadzip dataset, String band, float[][] datasetarray, int requestedCornerX, int requestedCornerY, int requestedHeight, int requestedWidth) {
-		Product product = null; //Product initialisieren
-		
-		 //Product lesen
-		try {
-			product = ProductIO.readProduct(dataset.getFile());
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		BufferedImage image = product.getBand(band).getSourceImage().getAsBufferedImage();
-		System.out.println("image buffered!");
-		
-		System.out.println(image.getColorModel());
-		
-		bufferedImageToArray(image, datasetarray, requestedCornerX, requestedCornerY, requestedHeight, requestedWidth);
-		System.out.println("buffered image converted into array!");
 	}
 }
