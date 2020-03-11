@@ -12,45 +12,34 @@ import javax.imageio.stream.FileImageOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-/**
- * This is an example program which writes out an NDVI value in the range 0 to 255 computed from the MERIS L1b bands
- * "radiance_6" and "radiance_10".
- * <p>The program expects two input arguments: <ol> <li><i>input-file</i> - the file path to an input data product
- * containing the bands "radiance_6" and "radiance_10". The format can be either ENVISAT or BEAM-DIMAP</li>
- * <li><i>output-file</i> - the file path to the NDVI image file to be written</li> </ol>
- * <p>
- * <i><b>Note:</b> If you want to work with product subsets, you can use the {@link
- * ProductSubsetBuilder} class. It has a static method which lets you create a subset of a
- * given product and subset definition.</i>
- *
- * @see ProductIO
- * @see ProductSubsetBuilder
- * @see ProductSubsetDef
- * @see Product
- * @see Band
- * @see TiePointGrid
- */
 public class Main {
 
-    /**
-     * The main method. Fetches the input arguments and delegates the call to the <code>run</code> method.
-     *
-     * @param args the program arguments
-     */
     public static void main(String[] args) { //main Methode
-    	//Laden des Datensatzes
-    	Loadzip dataset = new Loadzip("E:\\Uni\\Softwarepraktikum\\Project\\softwarepraktikum2020\\src\\main\\resources\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
-    //try {
+    	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
+    	Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+    	
+    	//Lesen des Produktes als Objekt vom typ Product und dem Namen product
 		try {
 			//Product lesen
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
-			//Bänder ausgeben
+			
+			//Bänder ausgeben (hier werden über eine vorhanden Methode alle Baender ausgegeben welche product enthält
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		//Hier wird aus dataset unter Angabe des gewünschten Bandes ein Array erzeugt. 
+		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
+		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
+		ToArray datasetarray = new ToArray(dataset, "Intensity_VH"); 
+		//Ausgabe des Arrays
+		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
+		
+		//Fuellen des Arrays
+		//datasetarray.writeArrayValues(dataset, datasetarray.getArray(), "Intensity_VH");
     }
 }

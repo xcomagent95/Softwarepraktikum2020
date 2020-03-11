@@ -5,13 +5,13 @@ import java.io.File;
 public class Loadzip {
 	
 	//File Attribut
-	private File file = null;
+	private File file = null; //Attribut vom Typ File
 	
-	//loadzip Object
+	//Loadzip Konstruktor
 	public Loadzip(String pathname) {
-		file = new File(pathname);
-		System.out.println(file.exists());
-		System.out.println(".zip to File done!");
+		file = new File(pathname); //Uebergabe des Pfades als String
+		System.out.println("file exists: " + file.exists()); //Pruefen ob File existiert
+		System.out.println(".zip to File done!"); //File gefunden und in File gespeichtert
 	}
 	
 	//Getter fuer File
