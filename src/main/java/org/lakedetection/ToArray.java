@@ -10,7 +10,7 @@ import org.esa.snap.core.datamodel.Product;
 public class ToArray {
 	private int arrayHeight; //Hoehe des Rasters
 	private int arrayWidth; //Breite des Rasters
-	private float[][] datasetArray; //Array von Float Werten für die Speicherung von Farbwerten
+	private float[][] datasetArray; //Array von Float Werten fï¿½r die Speicherung von Farbwerten
 	
 	//ToArray Konstruktor
 	public ToArray(Loadzip dataset, String band) { //Uebergeben wird der Datensatz vom Typ Loadzip und das gewuenschte Band als String
@@ -34,9 +34,9 @@ public class ToArray {
 		return datasetArray;
 	}
 	
-	/*
+	
 	//Fuellen des Arrays mit Korrespondierenden Farbwerten
-	public void writeArrayValues(Loadzip dataset, float[][] array, String band) { //Uebergeben werden: dataset vom Typ Loadzip, das zu fuellende Array sowie das gewünschte Band
+	/*public void writeArrayValues(Loadzip dataset, float[][] array, String band) { //Uebergeben werden: dataset vom Typ Loadzip, das zu fuellende Array sowie das gewï¿½nschte Band
 		Product product = null; //Product initialisieren
 		try {
 			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
@@ -59,4 +59,6 @@ public class ToArray {
 		System.out.println("datasetarray loaded! Value 0/0 " + datasetArray[0][0]);
 	}
 	*/
+	
+	
 }

@@ -15,6 +15,11 @@ public class SeeErkennen {
 	public static float[][] connect(float[][] b1, float[][] b2){
 		
 		float[][] a = new float[b1.length][b1[0].length];
+<<<<<<< Updated upstream
+=======
+		
+		System.out.println(b1.length);
+>>>>>>> Stashed changes
 		
 		for(int i=0; i<b1.length; i++) {
 			for(int j=0; j<b1[i].length; j++) { 
@@ -24,30 +29,59 @@ public class SeeErkennen {
 		return a;
 	}
 	
-	// Hilfsfkt. zum Anzeigen einer Matrix 5 x 5
+	// Hilfsfkt. zum Anzeigen einer Matrix 6 x 5
 	public static void show(float[][] a) {
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<6; i++) {
 			System.out.print(a[i][0] + " ");
 		}
 		System.out.println();
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<6; i++) {
 			System.out.print(a[i][1] + " ");
 		}
 		System.out.println();
 
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<6; i++) {
 			System.out.print(a[i][2] + " ");
 		}
 		System.out.println();
 
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<6; i++) {
 			System.out.print(a[i][3] + " ");
 		}		
 		System.out.println();
-		for(int i=0; i<5; i++) {
+		for(int i=0; i<6; i++) {
 			System.out.print(a[i][4] + " ");
 		}
+		System.out.println();
+	
+
+	}
+	
+	public static void showEff(float[][] a) {
 		
+		for(int i=0; i<a.length; i++) {
+			for(int j=0; j<a[0].length; j++) {
+				System.out.print(a[i][j] + " ");
+			}
+		}
+		
+	}
+	
+	public static void showArray(float[][] a) {
+		int counter1 = 0;
+		int counter2 = 0;
+		for(int i=0; i<a.length; i++) {
+			counter1++;
+			for(int j=0; j<a[i].length; j++) {
+				System.out.print(a[i][j]);
+				counter2++;
+			}
+		}
+		System.out.println(counter1);
+		System.out.println(counter2);
+		System.out.println("");
+		System.out.println("a.length: " + a.length);
+		System.out.println("a[0].length: " + a[0].length);
 	}
 	
 	
@@ -75,7 +109,7 @@ public class SeeErkennen {
 	/* Fkt. die die Fl�che gl�ttet -- Test war erfolgreich
 	 * */
 	public static float[][] smoothing(float[][] a){
-		float[][] b = new float[a.length][a.length];
+		float[][] b = new float[a.length][a[0].length];
 		
 		for(int i=1; i<(a.length)-1; i++) {
 			for(int j=1; j<(a[i].length)-1; j++) {
