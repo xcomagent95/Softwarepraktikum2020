@@ -25,9 +25,9 @@ public class Main {
 			System.out.println("product loaded!");
 			
 			//Bänder ausgeben (hier werden über eine vorhanden Methode alle Baender ausgegeben welche product enthält
-			for(int i = 0; i < product.getBandNames().length; i++) {
-				System.out.println(product.getBandNames()[i]);
-			}
+			//for(int i = 0; i < product.getBandNames().length; i++) {
+				//System.out.println(product.getBandNames()[i]);
+			//}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -35,19 +35,12 @@ public class Main {
 		//Hier wird aus dataset unter Angabe des gewünschten Bandes ein Array erzeugt. 
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
-		ToArray datasetarray = new ToArray(dataset, "Intensity_VH"); 
-		//Ausgabe des Arrays
-		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
+		ToArray datasetarray = new ToArray(dataset, "Intensity_VH", 50, 50, 100, 100); 
 		
 		//Fuellen das Arrays
-		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), 0, 0, 10, 10);
-
-		//Testausgabe
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				System.out.println( datasetarray.getArray()[i][j]);
-			}
-		}
-		System.out.println("sample value at 5/5: " + datasetarray.getArray()[5][5]);
+		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), datasetarray.getRequestedCornerX(), datasetarray.getRequestedCornerY(), datasetarray.getRequestedHeight(), datasetarray.getRequestedWidth());
+		
+		//Ein paar Infos zum erzeugten Array
+		datasetarray.probeArray();
     }
 }
