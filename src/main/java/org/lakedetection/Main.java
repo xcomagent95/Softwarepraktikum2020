@@ -35,10 +35,10 @@ public class Main {
 		//Hier wird aus dataset unter Angabe des gewünschten Bandes ein Array erzeugt. 
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
-		ToArray datasetarray = new ToArray(dataset, "Intensity_VH", 50, 50, 100, 100); 
+		ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
 		
 		//Fuellen das Arrays
-		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), datasetarray.getRequestedCornerX(), datasetarray.getRequestedCornerY(), datasetarray.getRequestedHeight(), datasetarray.getRequestedWidth());
+		datasetarray.fillArray(dataset, "Amplitude_VV", datasetarray.getArray(), datasetarray.getRequestedCornerX(), datasetarray.getRequestedCornerY(), datasetarray.getRequestedHeight(), datasetarray.getRequestedWidth());
 		
 		//Ein paar Infos zum erzeugten Array
 		datasetarray.probeArray();

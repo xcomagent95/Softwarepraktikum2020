@@ -88,18 +88,13 @@ public class ToArray {
 		//buffered Image aus Produkt hohlen !!!lauft noch nicht!!!
 		BufferedImage image = product.getBand(band).getGeophysicalImage().getAsBufferedImage().getSubimage(requestedCornerX, requestedCornerY, requestedWidth, requestedHeight);
 		System.out.println("image buffered!");
-		
-		//System.out.println(image.getHeight());
-		//System.out.println(image.getWidth());
-		
 
 		//Raster aus buffered Image hohlen und Farbwerte in Array speichern
 		Raster raster = image.getData();
         System.out.println("raster requested!");
-        //System.out.println(raster.getNumBands());
 		for(int i = 0; i < requestedHeight; i++) {
 			for(int j = 0; j < requestedWidth; j++) {
-				datasetArray[i][j] = raster.getSampleFloat(i, j, 0);
+				 datasetArray[i][j] = raster.getSampleFloat(i, j, 0);
 			}
 		}
         System.out.println("raster read from image!");
