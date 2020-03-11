@@ -79,9 +79,11 @@ public class SeeErkennen {
 	/* || Fläche glätten ||
 	 *
 	 * Fkt. die die Fläche glättet -- Test war erfolgreich
+	 * Dabei wird von einem 3x3-Ausschnitt der Mittelwert berechnet und in die Mitte eingetragen. 
+	 * Aus den neuen Werten wird eine neues Array gebaut.
 	 */
 	public static float[][] smoothing(float[][] a){
-		float[][] b = new float[a.length][a.length];
+		float[][] b = new float[a.length][a[0].length];
 
 		for(int i=1; i<(a.length)-1; i++) {
 			for(int j=1; j<(a[i].length)-1; j++) {
