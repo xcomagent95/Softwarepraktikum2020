@@ -13,42 +13,25 @@ import java.io.InputStreamReader;
 
 public class Request{
 	public File requesting() {
-		
-		
-		
-		BufferedReader reader =  
-                 new BufferedReader(new InputStreamReader(System.in)); 
-       
-      // Reading data using readLine 
-		String username = null;
-		String password = null;
-		
-		
-		System.out.println("Insert your username for SciHub");
-		try {
-			username = reader.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-          // Printing the read line 
-          
-        
-          System.out.println("insert your password");
-		try {
-			password = reader.readLine();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		System.out.println(password);
-        
-
+		LoginScihub userdata = new LoginScihub();
+		userdata.login();
+		System.out.println("Status: " + userdata.getPassword());
+		System.out.println("Status: " + userdata.getUsername());
     	      
-
+	
 		try {
 			//	https://jsonplaceholder.typicode.com/posts
 			// .get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic("username", "p4ssw0rd")
-			HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic(username, password);
+			boolean one = true;
+			while(one) {
+				HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic(userdata.getUsername(), userdata.getPassword());
+				if(request.code() == 401) {
+					userdata.login();
+				}else {
+					one = false;
+				}
+			}
+			HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic(userdata.getUsername(), userdata.getPassword());
 		    File file = null;
 		    System.out.println("Status: " + request.code());
 		      if (request.ok()) {

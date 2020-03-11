@@ -35,10 +35,10 @@ public class LoginScihub {
 		System.out.println(password);
 	}
 	
-	public String username() {
+	public String getUsername() {
 		return username;
 	}
-	public String password() {
+	public String getPassword() {
 		return password;
 	}
 }
