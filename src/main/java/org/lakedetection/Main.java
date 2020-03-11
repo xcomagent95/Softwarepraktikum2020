@@ -39,6 +39,16 @@ public class Main {
 		//Ausgabe des Arrays
 		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
 		
+<<<<<<< Updated upstream
+=======
+		//// Änderung von Josi
+		
+		Georeference test = new Georeference(dataset);
+		System.out.println(test.getName());
+		
+		/////////////
+		
+>>>>>>> Stashed changes
 		//Fuellen des Arrays
 		//datasetarray.writeArrayValues(dataset, datasetarray.getArray(), "Intensity_VH");
     }
