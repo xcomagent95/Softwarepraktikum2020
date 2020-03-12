@@ -45,9 +45,14 @@ public class Main {
 		
 		amplitude_vv.probeArray();
 
-		ROPs test = new ROPs();
-		test.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
+		ROPs rops = new ROPs();
+		rops.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
 		
-		
+		/* Objekt "test" der Klasse "Georeference" wird erzeugt. Übergeben wird dafür der Test-Datensatz.
+		 * 
+		 * */
+		Georeference test = new Georeference(dataset);
+		System.out.println(test.getName().toString());
+		System.out.println(test.georef().toString());
     }
 }
