@@ -14,6 +14,7 @@ import org.esa.snap.core.datamodel.Product;
 import org.esa.snap.core.image.ImageManager;
 
 import com.bc.ceres.core.PrintWriterProgressMonitor;
+import com.bc.ceres.glevel.MultiLevelImage;
 
 public class ToArray {
 	private int arrayHeight; //Hoehe des Rasters
@@ -74,6 +75,8 @@ public class ToArray {
 	//Methode zum fuellen des Arrays mit den Pixelwerten des Datensatzes im angefragten Bildausschnitt
 	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte Band als String
 	public void fillArray(Loadzip dataset) {
+		Rectangle rect = new Rectangle(requestedWidth, requestedHeight);
+		
 		//Product initialisieren
 		Product product = null;
 
@@ -85,12 +88,13 @@ public class ToArray {
 		}
 
 		//buffered Image aus Produkt hohlen
-		//Hier wird aus dem Datensatz das entsprechende band als buffredImage angefragt und von diesem ein Subimage gelesen
-		BufferedImage image = product.getBand(this.requested_Band).getGeophysicalImage().getAsBufferedImage().getSubimage(requestedCornerX, requestedCornerY, requestedWidth, requestedHeight);
+		//Hier wird aus dem Datensatz das entsprechende Band als buffredImage angefragt und von diesem ein Subimage gelesen
+		MultiLevelImage geoImage = product.getBand(this.requested_Band).getGeophysicalImage();
+	;// .getColorModel();
+		BufferedImage image = geoImage.getAsBufferedImage(rect, geoImage.getColorModel());
 		System.out.println("image buffered!");
-
 		//Raster aus buffered Image hohlen und Farbwerte in Array speichern
-		//Hier wird �ber eine Schleife das 2D-Array mit den korespondierenden Pixelwerten aus dem Subimage gefuellt
+		//Hier wird ueber eine Schleife das 2D-Array mit den korespondierenden Pixelwerten aus dem Subimage gefuellt
 		Raster raster = image.getData();
         System.out.println("raster requested!");
 		for(int i = 0; i < requestedHeight; i++) {

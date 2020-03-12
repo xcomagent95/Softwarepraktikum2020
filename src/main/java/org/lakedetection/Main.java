@@ -16,7 +16,7 @@ public class Main {
 
     public static void main(String[] args) { //main Methode
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
-    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+    	Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
 
     	//Lesen des Produktes als Objekt vom typ Product und dem Namen product
 		try {
@@ -24,7 +24,7 @@ public class Main {
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
 
-			//B�nder ausgeben (hier werden �ber eine vorhanden Methode alle Baender ausgegeben welche product enth�lt
+			//Baender ausgeben (hier werden �ber eine vorhanden Methode alle Baender ausgegeben welche product enth�lt
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
@@ -44,5 +44,8 @@ public class Main {
 		//datasetarray.fillArray(dataset, "Amplitude_VH");
 		amplitude_vh.fillArray(dataset);
 		amplitude_vv.fillArray(dataset);
+
+		SeeErkennen test = new SeeErkennen();
+		test.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
     }
 }
