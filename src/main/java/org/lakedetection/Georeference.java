@@ -8,7 +8,6 @@ import org.esa.snap.core.datamodel.Product;
 
 public class Georeference {
 
-	/*public Georeference(Loadzip dataset) {
 		Product product = null; //Product initialisieren
 		try {
 			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
@@ -16,8 +15,6 @@ public class Georeference {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		product.getTiePointGridNames();
-		
 	
 	}
 	*/

@@ -32,7 +32,6 @@ public class ToArray {
 			e.printStackTrace();
 		}
 		//Erzeugen des Arrays
-		datasetArray = new float[product.getBand(band).getRasterWidth()][product.getBand(band).getRasterWidth()]; //Array erzeugen 
 		arrayHeight = product.getBand(band).getRasterHeight(); //Abfragen der Hoehe
 		arrayWidth = product.getBand(band).getRasterWidth(); //Abfragen der Breite
 		System.out.println("dataset " +  band  + " is converted into array!"); //i = height / j = width
