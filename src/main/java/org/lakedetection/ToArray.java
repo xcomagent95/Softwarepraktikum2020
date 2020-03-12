@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import javax.media.jai.PlanarImage;
 
 import org.esa.snap.core.dataio.ProductIO;
+import org.esa.snap.core.datamodel.Band;
 import org.esa.snap.core.datamodel.Product;
 import org.esa.snap.core.image.ImageManager;
 
@@ -88,29 +89,36 @@ public class ToArray {
 		}
 
 		//buffered Image aus Produkt hohlen
-		//Hier wird aus dem Datensatz das entsprechende Band als buffredImage angefragt und von diesem ein Subimage gelesen
-		MultiLevelImage geoImage = product.getBand(this.requested_Band).getGeophysicalImage();
-	;// .getColorModel();
-		BufferedImage image = geoImage.getAsBufferedImage(rect, geoImage.getColorModel());
-		System.out.println("image buffered!");
-		//Raster aus buffered Image hohlen und Farbwerte in Array speichern
-		//Hier wird ueber eine Schleife das 2D-Array mit den korespondierenden Pixelwerten aus dem Subimage gefuellt
-		Raster raster = image.getData();
-        System.out.println("raster requested!");
-		for(int i = 0; i < requestedHeight; i++) {
-			for(int j = 0; j < requestedWidth; j++) {
-				 datasetArray[i][j] = raster.getSampleFloat(i, j, 0); //Bandnummer 0
+		Band loadedBand = product.getBand(this.requested_Band);
+		try {
+			float[] data = loadedBand.readPixels(this.requestedCornerX, this.requestedCornerY, this.arrayWidth, this.arrayHeight, (float[]) null);
+			System.out.println(data[1]);
+			System.out.println("image buffered!");
+			//Raster aus buffered Image hohlen und Farbwerte in Array speichern
+			//Hier wird ueber eine Schleife das 2D-Array gefuellt
+	        System.out.println("raster requested!");
+	        for(int row = 0; row < this.requestedHeight; row++) {
+	        	for(int column = 0; column < this.requestedWidth; column++) {
+	        		this.datasetArray[row][column] = data[column + row*requestedWidth];
+	        	}
+	        }
+	        
+	        System.out.println("raster read from image!");
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-		}
-        System.out.println("raster read from image!");
 	}
 
-	//Tester 10x10 Area
+	//Tester 
 	public void probeArray() {
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				System.out.println(datasetArray[i][j]);
+		for (int i=0; i<this.getArray().length; i++)
+		{
+			System.out.print("[");
+			for (int j=0; j<this.getArray()[i].length; j++)
+			{
+				System.out.print(this.getArray()[i][j] + ",");
 			}
+			System.out.print("]\n");
 		}
 	}
 }
