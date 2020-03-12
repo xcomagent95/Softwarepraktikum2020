@@ -40,6 +40,7 @@ public class ToArray {
 		}
 
 		//Erzeugen des Arrays
+
 		datasetArray = new float[height][width]; //Array erzeugen
 		requestedCornerX = requestedX;
 		requestedCornerY = requestedY;

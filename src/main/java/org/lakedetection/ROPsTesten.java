@@ -4,12 +4,15 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class ROPsTest extends TestCase{
+public class ROPsTesten extends TestCase{
 
 	/**
      * Create the test case*/
      
      public static void main (String[] args){
+    	
+    	ROPs rops = new ROPs();
+    	 
 		float[][] b = new float[6][5];
 		b[0][0] = 120.0f;
 		b[0][1] = 120.0f;
@@ -76,7 +79,7 @@ public class ROPsTest extends TestCase{
 		c[5][4] = 100.0f;
 		
 		
-		ROPs rops = new ROPs();
+		
 		rops.show(rops.connect(b,c));
 		
 		//System.out.println("b.length: " +b.length + ", b[0].length: " + b[0].length); 
@@ -85,7 +88,7 @@ public class ROPsTest extends TestCase{
      
      /* @param testName name of the test case
      */
-	public ROPsTest( String testName )
+	public ROPsTesten( String testName )
     {
         super( testName );
     }
@@ -94,13 +97,13 @@ public class ROPsTest extends TestCase{
      */
     public static Test suite()
     {
-        return new TestSuite( ROPsTest.class );
+        return new TestSuite( ROPsTesten.class );
     }
 
     /**
      * Rigourous Test :-)
      */
-    public void testSeeErkennen()
+    public void testROPs()
     {
         assertTrue( true );
     }
