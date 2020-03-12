@@ -17,28 +17,29 @@ public class Main {
     public static void main(String[] args) { //main Methode
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
-    	
+
     	//Lesen des Produktes als Objekt vom typ Product und dem Namen product
 		try {
 			//Product lesen
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
-			
+
 			//B�nder ausgeben (hier werden �ber eine vorhanden Methode alle Baender ausgegeben welche product enth�lt
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
+			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//Hier wird aus dataset unter Angabe des gew�nschten Bandes ein Array erzeugt. 
+
+		//Hier wird aus dataset unter Angabe des gew�nschten Bandes ein Array erzeugt.
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es k�nnen folgende B�nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
-		ToArray datasetarray = new ToArray(dataset, "Intensity_VH"); 
+		ToArray datasetarray = new ToArray(dataset, "Intensity_VH");
 		//Ausgabe des Arrays
 		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
-		
+
 		//Fuellen das Arrays
 		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), 0, 0, 10000, 10000);
 
@@ -50,7 +51,7 @@ public class Main {
 		}
 		System.out.println("sample value at 5/5: " + datasetarray.getArray()[5][5]);
 		System.out.println("sample value at 100/100: " + datasetarray.getArray()[5][5]);
-		
+
 		Georeference test = new Georeference(dataset);
 		System.out.println(test.getName().toString());
     }
