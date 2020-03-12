@@ -3,8 +3,10 @@ package org.lakedetection;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.media.jai.PlanarImage;
 
 import org.esa.snap.core.dataio.ProductIO;
@@ -23,7 +25,7 @@ public class ToArray {
 	private int requestedHeight; //Hoehe des angefragten Bildausschnitts
 	private int requestedWidth; //Breite des angefragten Bildausschnitts
 	
-	private String requested_Band;
+	private String requested_Band; //abgefragtes Band
 	
 	
 	
@@ -74,9 +76,6 @@ public class ToArray {
 	//Methode zum fuellen des Arrays mit den Pixelwerten des Datensatzes im angefragten Bildausschnitt
 	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte Band als String
 	public void fillArray(Loadzip dataset) {
-		//Rectangle initialisieren
-		Rectangle rect = new Rectangle(this.requestedCornerX, this.requestedCornerY, this.requestedHeight, this.requestedWidth);
-		
 		//Product initialisieren
 		Product product = null; 
 		
