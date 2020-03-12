@@ -55,9 +55,22 @@ public class ToArray {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+<<<<<<< Updated upstream
 		for(int i = 0; i < arrayHeight; i++) {
 			for(int j = 0; j < arrayWidth; j++) {
 				product.getBand(band).getPixelFloat(i, j);
+=======
+        System.out.println("raster read from image!");
+        
+        product.dispose();
+	}
+
+	//Tester 10x10 Area
+	public void probeArray() {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				System.out.println(datasetArray[i][j]);
+>>>>>>> Stashed changes
 			}
 		}
 		System.out.println("datasetarray loaded! Value 0/0 " + datasetArray[0][0]);

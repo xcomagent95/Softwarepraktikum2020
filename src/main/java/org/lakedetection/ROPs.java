@@ -1,8 +1,16 @@
 package org.lakedetection;
 
-public class SeeErkennen {
+public class ROPs {
 
-	
+	/* Die Klasse enthält die Rasteroperationen, die verwendet werden, um die Bilder zu bearbeiten. 
+	 * 
+	 * Zunächst werden die beiden Bänder verknüpft miteinander (connect(a,b)).
+	 * 
+	 * Daraufhin wird das Bild geglättet, um Störpixel zu eliminieren (smoothing(c)).
+	 * 
+	 * Zuletzt werden Wasserflächen Schwarz eingefärbt und alles andere Weiß.
+	 * HIERBEI MUSS DER SCWELLWERT NOCH ANGEPASST WERDEN!!!
+	 * */
 	
 	/* || Bilder �bereinanderlegen ||
 	 * 
@@ -12,7 +20,7 @@ public class SeeErkennen {
 	 * und durch 2 dividiert werden. 
 	 * */
 
-	public static float[][] connect(float[][] b1, float[][] b2){
+	public float[][] connect(float[][] b1, float[][] b2){
 		
 		float[][] a = new float[b1.length][b1[0].length];
 <<<<<<< Updated upstream
@@ -30,7 +38,8 @@ public class SeeErkennen {
 	}
 	
 	// Hilfsfkt. zum Anzeigen einer Matrix 6 x 5
-	public static void show(float[][] a) {
+	
+	public void show(float[][] a) {
 		for(int i=0; i<6; i++) {
 			System.out.print(a[i][0] + " ");
 		}
@@ -57,7 +66,9 @@ public class SeeErkennen {
 
 	}
 	
-	public static void showEff(float[][] a) {
+	// Hilfsfkt. zum Anzeigen eines Arrays als Liste
+	
+	public void showEff(float[][] a) {
 		
 		for(int i=0; i<a.length; i++) {
 			for(int j=0; j<a[0].length; j++) {
@@ -67,7 +78,9 @@ public class SeeErkennen {
 		
 	}
 	
-	public static void showArray(float[][] a) {
+	// Hilfsfkt. zum Anzeigen eines Arrays als Liste mit Zähler für Länge und Breite
+	
+	public void showArray(float[][] a) {
 		int counter1 = 0;
 		int counter2 = 0;
 		for(int i=0; i<a.length; i++) {
@@ -84,6 +97,20 @@ public class SeeErkennen {
 		System.out.println("a[0].length: " + a[0].length);
 	}
 	
+	// Fkt. die die Fl�che gl�ttet -- Test war erfolgreich
+	 
+	public float[][] smoothing(float[][] a){
+		float[][] b = new float[a.length][a[0].length];
+		
+		for(int i=1; i<(a.length)-1; i++) {
+			for(int j=1; j<(a[i].length)-1; j++) {
+				float x = ( a[i-1][j-1] + a[i-1][j] + a[i-1][j+1] + a[i][j-1] + a[i][j] + a[i][j+1] + a[i+1][j-1] + a[i+1][j] + a[i+1][j+1]) / 9;
+				b[i][j] = x; 
+			}
+		}
+		return b;
+	}
+	
 	
 	///////////////////////
 	/* || Wasserfl�chen erkennen ||
@@ -92,7 +119,7 @@ public class SeeErkennen {
 	 * und alle Wasserfl�chen schwarz einf�rben.
 	 * */
 	
-	public static float[][] makeBlack(float[][] a) {
+	public float[][] makeBlack(float[][] a) {
 		for(int i=0; i<a.length; i++) {
 			for(int j=0; j<a[i].length; j++) {
 				if(a[i][j] >= 150) { // Schwellwert muss noch gesetzt werden
@@ -105,18 +132,4 @@ public class SeeErkennen {
 	}
 	
 	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich
-	
-	/* Fkt. die die Fl�che gl�ttet -- Test war erfolgreich
-	 * */
-	public static float[][] smoothing(float[][] a){
-		float[][] b = new float[a.length][a[0].length];
-		
-		for(int i=1; i<(a.length)-1; i++) {
-			for(int j=1; j<(a[i].length)-1; j++) {
-				float x = ( a[i-1][j-1] + a[i-1][j] + a[i-1][j+1] + a[i][j-1] + a[i][j] + a[i][j+1] + a[i+1][j-1] + a[i+1][j] + a[i+1][j+1]) / 9;
-				b[i][j] = x; 
-			}
-		}
-		return b;
-	}
 }

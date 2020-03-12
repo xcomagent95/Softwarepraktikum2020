@@ -17,7 +17,11 @@ public class Main {
     public static void main(String[] args) { //main Methode
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+<<<<<<< Updated upstream
     	
+=======
+
+>>>>>>> Stashed changes
     	//Lesen des Produktes als Objekt vom typ Product und dem Namen product
 		try {
 			//Product lesen
@@ -35,14 +39,19 @@ public class Main {
 		//Hier wird aus dataset unter Angabe des gew�nschten Bandes ein Array erzeugt. 
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es k�nnen folgende B�nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
+<<<<<<< Updated upstream
 		ToArray datasetarray = new ToArray(dataset, "Intensity_VH"); 
 		//Ausgabe des Arrays
 		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
+=======
+		//ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
+>>>>>>> Stashed changes
 		
 <<<<<<< Updated upstream
 =======
 		//// Änderung von Josi
 		
+<<<<<<< Updated upstream
 		Georeference test = new Georeference(dataset);
 		System.out.println(test.getName());
 		
@@ -51,5 +60,23 @@ public class Main {
 >>>>>>> Stashed changes
 		//Fuellen des Arrays
 		//datasetarray.writeArrayValues(dataset, datasetarray.getArray(), "Intensity_VH");
+=======
+		//Fuellen das Arrays
+		//datasetarray.fillArray(dataset, "Amplitude_VH");
+		amplitude_vh.fillArray(dataset);
+		amplitude_vv.fillArray(dataset);
+
+		ROPs newP = new ROPs();
+		newP.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
+		
+		amplitude_vh.probeArray();
+		
+		/* Objekt "test" der Klasse "Georeference" wird erzeugt. Übergeben wird dafür der Test-Datensatz.
+		 * 
+		 * */
+		Georeference test = new Georeference(dataset);
+		System.out.println(test.getName().toString());
+		System.out.println(test.georef().toString());
+>>>>>>> Stashed changes
     }
 }
