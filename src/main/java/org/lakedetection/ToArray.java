@@ -3,8 +3,10 @@ package org.lakedetection;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.io.File;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.media.jai.PlanarImage;
 
 import org.esa.snap.core.dataio.ProductIO;
@@ -23,8 +25,8 @@ public class ToArray {
 	private int requestedHeight; //Hoehe des angefragten Bildausschnitts
 	private int requestedWidth; //Breite des angefragten Bildausschnitts
 
-
-
+	private String requested_Band; //abgefragtes Band
+	
 	//ToArray Konstruktor
 	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte band als String, sowie die Eckdaten zum angefragten Bildausschnitt
 	public ToArray(Loadzip dataset, String band, int requestedX, int requestedY, int height, int width) {
@@ -43,6 +45,7 @@ public class ToArray {
 		requestedWidth = width;
 		arrayHeight = height;
 		arrayWidth = width;
+		requested_Band = band;
 		System.out.println("dataset " +  band  + " is converted into array!"); //i = height / j = width
 		System.out.println("array build! with height: " + arrayHeight + " and width: " + arrayWidth);
 		System.out.println("requested corner: " + requestedCornerX + "/" + requestedCornerY + " and bbox: " + requestedHeight + "*" + requestedWidth);
@@ -70,10 +73,7 @@ public class ToArray {
 
 	//Methode zum fuellen des Arrays mit den Pixelwerten des Datensatzes im angefragten Bildausschnitt
 	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte Band als String
-	public void fillArray(Loadzip dataset, String band) {
-		//Rectangle initialisieren
-		Rectangle rect = new Rectangle(this.requestedCornerX, this.requestedCornerY, this.requestedHeight, this.requestedWidth);
-
+	public void fillArray(Loadzip dataset) {
 		//Product initialisieren
 		Product product = null;
 
@@ -86,7 +86,7 @@ public class ToArray {
 
 		//buffered Image aus Produkt hohlen
 		//Hier wird aus dem Datensatz das entsprechende band als buffredImage angefragt und von diesem ein Subimage gelesen
-		BufferedImage image = product.getBand(band).getGeophysicalImage().getAsBufferedImage().getSubimage(requestedCornerX, requestedCornerY, requestedWidth, requestedHeight);
+		BufferedImage image = product.getBand(this.requested_Band).getGeophysicalImage().getAsBufferedImage().getSubimage(requestedCornerX, requestedCornerY, requestedWidth, requestedHeight);
 		System.out.println("image buffered!");
 
 		//Raster aus buffered Image hohlen und Farbwerte in Array speichern
@@ -101,10 +101,10 @@ public class ToArray {
         System.out.println("raster read from image!");
 	}
 
-	//Tester
+	//Tester 10x10 Area
 	public void probeArray() {
-		for(int i = 0; i < datasetArray.length; i++) {
-			for(int j = 0; j < datasetArray[0].length; j++) {
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
 				System.out.println(datasetArray[i][j]);
 			}
 		}

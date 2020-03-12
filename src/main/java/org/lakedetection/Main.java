@@ -28,31 +28,21 @@ public class Main {
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
-			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		//Hier wird aus dataset unter Angabe des gewï¿½nschten Bandes ein Array erzeugt.
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
-		//Es kï¿½nnen folgende Bï¿½nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
-		ToArray datasetarray = new ToArray(dataset, "Intensity_VH");
-		//Ausgabe des Arrays
-		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
-
+		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
+		//ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
+		
+		ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 50, 50); //VH-Band
+		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 50, 50); //VV-Band
+		
 		//Fuellen das Arrays
-		datasetarray.fillArray(dataset, "Intensity_VH", datasetarray.getArray(), 0, 0, 10000, 10000);
-
-		//Testausgabe
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				System.out.println( datasetarray.getArray()[i][j]);
-			}
-		}
-		System.out.println("sample value at 5/5: " + datasetarray.getArray()[5][5]);
-		System.out.println("sample value at 100/100: " + datasetarray.getArray()[5][5]);
-
-		Georeference test = new Georeference(dataset);
-		System.out.println(test.getName().toString());
+		//datasetarray.fillArray(dataset, "Amplitude_VH");
+		amplitude_vh.fillArray(dataset);
+		amplitude_vv.fillArray(dataset);
     }
 }
