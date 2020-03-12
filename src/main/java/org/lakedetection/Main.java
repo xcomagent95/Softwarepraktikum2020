@@ -16,25 +16,23 @@ public class Main {
 
     public static void main(String[] args) { //main Methode
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
-    	Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
-    	
+    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+
     	//Lesen des Produktes als Objekt vom typ Product und dem Namen product
 		try {
 			//Product lesen
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
-			
-			/*
-			//Bänder ausgeben (hier werden über eine vorhanden Methode alle Baender ausgegeben welche product enthält
+
+			//Bï¿½nder ausgeben (hier werden ï¿½ber eine vorhanden Methode alle Baender ausgegeben welche product enthï¿½lt
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
-			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//Hier wird aus dataset unter Angabe des gewünschten Bandes ein Array erzeugt. 
+
+		//Hier wird aus dataset unter Angabe des gewï¿½nschten Bandes ein Array erzeugt.
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
 		//ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 

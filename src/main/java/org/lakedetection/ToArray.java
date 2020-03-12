@@ -19,28 +19,26 @@ public class ToArray {
 	private int arrayHeight; //Hoehe des Rasters
 	private int arrayWidth; //Breite des Rasters
 	private float[][] datasetArray; //Array von Float Werten fuer die Speicherung von Farbwerten
-	
+
 	private int requestedCornerX; //X-Koordinate der oberen linken Ecke
 	private int requestedCornerY; //Y-Koordinate der oberen linken Ecke
 	private int requestedHeight; //Hoehe des angefragten Bildausschnitts
 	private int requestedWidth; //Breite des angefragten Bildausschnitts
-	
+
 	private String requested_Band; //abgefragtes Band
-	
-	
 	
 	//ToArray Konstruktor
 	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte band als String, sowie die Eckdaten zum angefragten Bildausschnitt
-	public ToArray(Loadzip dataset, String band, int requestedX, int requestedY, int height, int width) { 
+	public ToArray(Loadzip dataset, String band, int requestedX, int requestedY, int height, int width) {
 		Product product = null; //Product initialisieren
 		try {
 			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		//Erzeugen des Arrays
-		datasetArray = new float[height][width]; //Array erzeugen 
+		datasetArray = new float[height][width]; //Array erzeugen
 		requestedCornerX = requestedX;
 		requestedCornerY = requestedY;
 		requestedHeight = height;
@@ -52,33 +50,33 @@ public class ToArray {
 		System.out.println("array build! with height: " + arrayHeight + " and width: " + arrayWidth);
 		System.out.println("requested corner: " + requestedCornerX + "/" + requestedCornerY + " and bbox: " + requestedHeight + "*" + requestedWidth);
 	}
-	
+
 	//Getter
 	public float[][] getArray() {
 		return datasetArray;
 	}
-	
+
 	public int getRequestedCornerX() {
 		return requestedCornerX;
 	}
 	public int getRequestedCornerY() {
 		return requestedCornerY;
 	}
-	
+
 	public int getRequestedHeight() {
 		return requestedHeight;
 	}
-	
+
 	public int getRequestedWidth() {
 		return requestedWidth;
 	}
-	
+
 	//Methode zum fuellen des Arrays mit den Pixelwerten des Datensatzes im angefragten Bildausschnitt
 	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte Band als String
 	public void fillArray(Loadzip dataset) {
 		//Product initialisieren
-		Product product = null; 
-		
+		Product product = null;
+
 		 //Product lesen
 		try {
 			product = ProductIO.readProduct(dataset.getFile());
@@ -86,13 +84,13 @@ public class ToArray {
 			e.printStackTrace();
 		}
 
-		//buffered Image aus Produkt hohlen 
+		//buffered Image aus Produkt hohlen
 		//Hier wird aus dem Datensatz das entsprechende band als buffredImage angefragt und von diesem ein Subimage gelesen
 		BufferedImage image = product.getBand(this.requested_Band).getGeophysicalImage().getAsBufferedImage().getSubimage(requestedCornerX, requestedCornerY, requestedWidth, requestedHeight);
 		System.out.println("image buffered!");
 
 		//Raster aus buffered Image hohlen und Farbwerte in Array speichern
-		//Hier wird über eine Schleife das 2D-Array mit den korespondierenden Pixelwerten aus dem Subimage gefuellt
+		//Hier wird ï¿½ber eine Schleife das 2D-Array mit den korespondierenden Pixelwerten aus dem Subimage gefuellt
 		Raster raster = image.getData();
         System.out.println("raster requested!");
 		for(int i = 0; i < requestedHeight; i++) {
@@ -102,7 +100,7 @@ public class ToArray {
 		}
         System.out.println("raster read from image!");
 	}
-	
+
 	//Tester 10x10 Area
 	public void probeArray() {
 		for(int i = 0; i < 10; i++) {
@@ -112,4 +110,3 @@ public class ToArray {
 		}
 	}
 }
-
