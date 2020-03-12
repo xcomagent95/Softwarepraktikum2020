@@ -8,31 +8,39 @@ import java.io.InputStreamReader;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.github.kevinsawicki.http.HttpRequest.HttpRequestException;
 
-
+/**
+ * @version     1.0                 (current version number of program)
+ *  */
 public class FindSets {
 	// insert array [[lng, lat], [lng, lat], ...]
 	// -->type double
 	// Since we use a polygon the last array entry must be equal to the first
+	/**
+	 * Sends a request to Scihub to get a xml file with potential data sets
+	 * @return Zip Folder  with data of API Hub.
+	 */
 	public File search() {
 		// double[][] coords
-		String url = new String("https://scihub.copernicus.eu/dhus/search?start=0&rows=100&q=(platformname:Sentinel-1%20AND%20ingestiondate%5b");
+		String url = new String("https://scihub.copernicus.eu/dhus/search?start=0&rows=100&q=(platformname:Sentinel-1%20AND%20ingestiondate%5b");// set base url
+		
 		BufferedReader reader =  
                 new BufferedReader(new InputStreamReader(System.in)); 
       
 		//2014-01-01T00:00:00.000Z
-		String startdate = null;
-		System.out.println("Insert the startdate e.g. 2014-01-01T00:00:00.000Z OR NOW-XDays");
+		String startdate = null; // initialize startdate
+		System.out.println("Insert the startdate e.g. 2014-01-01T00:00:00.000Z OR NOW-XDays"); // Console show Info
+		
 		try {
-			startdate = reader.readLine();
+			startdate = reader.readLine(); //get startdate
 			url += startdate;
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		url+= "%20TO%20";
+		url+= "%20TO%20"; // Add <from> TO <to> in url
 		String enddate = null;
 		System.out.println("Insert the enddate e.g. 2019-01-01T00:00:00.000Z OR NOW");
 		try {
-			enddate = reader.readLine();
+			enddate = reader.readLine(); // add enddate in url
 			url += enddate;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -44,11 +52,11 @@ public class FindSets {
 		System.out.println("Insert your Polygon e.g. -4.53%2029.85,26.75%2029.85,26.75%2046.80,-4.53%2046.80,-4.53%2029.85  --> instead of space do %20");
 		try {
 			num = reader.readLine();
-			url += num;
+			url += num; // insert polygon
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		url += ")))%22)";
+		url += ")))%22)"; // finalize url
 		/*
 		for(int i = 0; i < coords.length; i++) {
 			if(i == coords.length -1) {
@@ -65,7 +73,7 @@ public class FindSets {
 	    System.out.println("The Url is:  " + url);
 	    
 	    LoginScihub userdata = new LoginScihub();
-		userdata.login();
+		userdata.login();// login in Scihub
     	
 	    try {
 			//	https://jsonplaceholder.typicode.com/posts
@@ -73,7 +81,7 @@ public class FindSets {
 			boolean one = true;
 			while(one) {
 				HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic(userdata.getUsername(), userdata.getPassword());
-				if(request.code() == 401) {
+				if(request.code() == 401) { // if authorisation fails try again
 					System.out.println("Error 401: Invalid Authentification. Try Again :)");
 					userdata.login();
 				}else {
@@ -83,10 +91,9 @@ public class FindSets {
 			HttpRequest request =  HttpRequest.get(url).basic(userdata.getUsername(), userdata.getPassword());
 		    File file = null;
 		    System.out.println("Status: " + request.code());
-		      if (request.ok()) {
-		    	  //System.out.println(request.body());
+		      if (request.ok()) { // check request if Code 200
+		    	  
 		    	try {
-		    		// absolute Path: C:\\Users\\Dorian\\Documents\\GitHub\\softwarepraktikum2020\\src\\main\\java\\org\\lakedetection
 		    		file = File.createTempFile("infoxml", ".xml", new File(".//"));
 		    		System.out.println("File path: "+ file.getAbsolutePath());
 		    		System.out.println("Downloaded");
@@ -98,11 +105,7 @@ public class FindSets {
 		      }
 		     return file;
 		      
-			//int status =  HttpRequest.get("https://jsonplaceholder.typicode.com/todos/1").code();
-			//System.out.println(status);
-			//String body =  HttpRequest.get("https://jsonplaceholder.typicode.com/todos/1").body();
-			//System.out.println(body);
-		
+			
 		} catch (HttpRequestException exception) {
 			System.out.println(exception);
 			return null;
