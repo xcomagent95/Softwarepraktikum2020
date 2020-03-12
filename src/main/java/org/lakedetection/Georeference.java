@@ -26,6 +26,8 @@ public class Georeference {
 		PixelPos pixelPos = new PixelPos(26472, 0); // Bsp. GCP_20
 		product.getSceneGeoCoding().getGeoPos(pixelPos, geoPos); // gibt Längen- und Breitengrad des GCP zurück
 		product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurück
+		
+		product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos); // Rückabfrage möglich?
 }
 
 	// Gibt den Namen der GCP-Punktliste zurück // Fkt. eig. nicht notw.
