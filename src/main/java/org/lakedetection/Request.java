@@ -18,20 +18,33 @@ public class Request{
 		System.out.println("Status: " + userdata.getPassword());
 		System.out.println("Status: " + userdata.getUsername());
     	      
-	
+		BufferedReader reader =  
+                new BufferedReader(new InputStreamReader(System.in)); 
+      
+		System.out.println("Insert a ID-type of file e.g. 9d08fd3f-06d9-406d-a021-b1a6291589eb");
+		String url = "https://scihub.copernicus.eu/dhus/odata/v1/Products('";
+		try {
+			String id = reader.readLine();
+			url += id;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		url += "')/$value";
+		System.out.println("requesting following url= " + url);		
 		try {
 			//	https://jsonplaceholder.typicode.com/posts
 			// .get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic("username", "p4ssw0rd")
 			boolean one = true;
 			while(one) {
-				HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic(userdata.getUsername(), userdata.getPassword());
+				HttpRequest request =  HttpRequest.get(url).basic(userdata.getUsername(), userdata.getPassword());
 				if(request.code() == 401) {
 					userdata.login();
 				}else {
 					one = false;
 				}
 			}
-			HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('9d08fd3f-06d9-406d-a021-b1a6291589eb')/$value").basic(userdata.getUsername(), userdata.getPassword());
+			
+			HttpRequest request =  HttpRequest.get(url).basic(userdata.getUsername(), userdata.getPassword());
 		    File file = null;
 		    System.out.println("Status: " + request.code());
 		      if (request.ok()) {

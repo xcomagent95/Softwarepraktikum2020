@@ -16,8 +16,14 @@ public class Main {
 
     public static void main(String[] args) { //main Methode
     	//Request
-    	Request request1 = new Request();
-    	request1.requesting();
+    	//Request request1 = new Request();
+    	//request1.requesting();
+    	double[][] num={ {51,8.1}, {53,8.2}, {52,9.9}, {51,8.1}};
+    	//FindSets request1 = new FindSets();
+    	//request1.search();
+    	
+    	Request request2 = new Request();
+    	request2.requesting();
     	
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
