@@ -25,6 +25,7 @@ public class ToArray {
 <<<<<<< Updated upstream
 		datasetArray = new float[product.getBand(band).getRasterHeight()][product.getBand(band).getRasterWidth()]; //Array erzeugen getPixelFloat(x, y)
 =======
+		datasetArray = new float[10000][10000]; //Array erzeugen 
 >>>>>>> Stashed changes
 		arrayHeight = product.getBand(band).getRasterHeight(); //Abfragen der Hoehe
 		arrayWidth = product.getBand(band).getRasterWidth(); //Abfragen der Breite
