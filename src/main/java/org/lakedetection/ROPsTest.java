@@ -76,8 +76,8 @@ public class ROPsTest extends TestCase{
 		c[5][4] = 100.0f;
 		
 		
-		
-		ROPs.show(ROPs.connect(b,c));
+		ROPs rops = new ROPs();
+		rops.show(rops.connect(b,c));
 		
 		//System.out.println("b.length: " +b.length + ", b[0].length: " + b[0].length); 
 				
