@@ -4,7 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-public class SeeErkennenTest extends TestCase{
+public class ROPsTest extends TestCase{
 
 	/**
      * Create the test case*/
@@ -77,7 +77,7 @@ public class SeeErkennenTest extends TestCase{
 		
 		
 		
-		SeeErkennen.show(SeeErkennen.connect(b,c));
+		ROPs.show(ROPs.connect(b,c));
 		
 		//System.out.println("b.length: " +b.length + ", b[0].length: " + b[0].length); 
 				
@@ -85,7 +85,7 @@ public class SeeErkennenTest extends TestCase{
      
      /* @param testName name of the test case
      */
-	public SeeErkennenTest( String testName )
+	public ROPsTest( String testName )
     {
         super( testName );
     }
@@ -94,7 +94,7 @@ public class SeeErkennenTest extends TestCase{
      */
     public static Test suite()
     {
-        return new TestSuite( SeeErkennenTest.class );
+        return new TestSuite( ROPsTest.class );
     }
 
     /**
