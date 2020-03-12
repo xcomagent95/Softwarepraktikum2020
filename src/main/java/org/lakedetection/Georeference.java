@@ -32,7 +32,9 @@ public class Georeference {
 	
 	public Georeference(Loadzip dataset) {
 
+
 		product = null; //Product initialisieren
+
 		try {
 			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
 		} catch (IOException e) {
@@ -48,6 +50,7 @@ public class Georeference {
 		
 		GeoPos geoPos = new GeoPos();//null//Bsp. GCP_20: (10.708067893981934d, 54.363765716552734d); // lat./long. // akt. auf "null" gesetzt, evtl.noch ergänzen
 		PixelPos pixelPos = new PixelPos(26472, 0); // Bsp. GCP_20
+
 		product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurück
 
 		// Bildpunkt oben links (0,0) ist Vergleichspunkt. Von dort werden die Koordinaten erfragt, damit im Vergleichsbild nach den Koordinaten gesucht werden kann. Z.B. mit product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos);

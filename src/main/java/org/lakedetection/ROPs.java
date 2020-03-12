@@ -11,6 +11,7 @@ public class ROPs {
 	 * Zuletzt werden Wasserflächen Schwarz eingefärbt und alles andere Weiß.
 	 * HIERBEI MUSS DER SCWELLWERT NOCH ANGEPASST WERDEN!!!
 	 * */
+
 	
 	/* || Bilder �bereinanderlegen ||
 	 * 
@@ -20,11 +21,9 @@ public class ROPs {
 	 * und durch 2 dividiert werden. 
 	 * */
 
-	public float[][] connect(float[][] b1, float[][] b2){
+	public static float[][] connect(float[][] b1, float[][] b2){
 		
 		float[][] a = new float[b1.length][b1[0].length];
-
-		System.out.println(b1.length);
 		
 		for(int i=0; i<b1.length; i++) {
 			for(int j=0; j<b1[i].length; j++) { 
@@ -37,6 +36,7 @@ public class ROPs {
 	// Hilfsfkt. zum Anzeigen einer Matrix 6 x 5
 	
 	public void show(float[][] a) {
+
 		for(int i=0; i<6; i++) {
 			System.out.print(a[i][0] + " ");
 		}
@@ -66,6 +66,7 @@ public class ROPs {
 	// Hilfsfkt. zum Anzeigen eines Arrays als Liste
 	
 	public void showEff(float[][] a) {
+
 		
 		for(int i=0; i<a.length; i++) {
 			for(int j=0; j<a[0].length; j++) {
@@ -78,6 +79,7 @@ public class ROPs {
 	// Hilfsfkt. zum Anzeigen eines Arrays als Liste mit Zähler für Länge und Breite
 	
 	public void showArray(float[][] a) {
+
 		int counter1 = 0;
 		int counter2 = 0;
 		for(int i=0; i<a.length; i++) {
@@ -108,6 +110,7 @@ public class ROPs {
 		return b;
 	}
 	
+
 	
 	///////////////////////
 	/* || Wasserfl�chen erkennen ||
@@ -117,6 +120,7 @@ public class ROPs {
 	 * */
 	
 	public float[][] makeBlack(float[][] a) {
+
 		for(int i=0; i<a.length; i++) {
 			for(int j=0; j<a[i].length; j++) {
 				if(a[i][j] >= 150) { // Schwellwert muss noch gesetzt werden
@@ -129,4 +133,5 @@ public class ROPs {
 	}
 	
 	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich
+
 }

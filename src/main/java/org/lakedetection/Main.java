@@ -24,39 +24,30 @@ public class Main {
 			//Product lesen
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
-			
-			//B�nder ausgeben (hier werden �ber eine vorhanden Methode alle Baender ausgegeben welche product enth�lt
+
+			//Baender ausgeben (hier werden �ber eine vorhanden Methode alle Baender ausgegeben welche product enth�lt
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		//Hier wird aus dataset unter Angabe des gew�nschten Bandes ein Array erzeugt. 
+
+		//Hier wird aus dataset unter Angabe des gew�nschten Bandes ein Array erzeugt.
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es k�nnen folgende B�nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
-
-		ToArray datasetarray = new ToArray(dataset, "Intensity_VH"); 
-		//Ausgabe des Arrays
-		datasetarray.getArray(); //Ausgabe einiger Parameter zum in datasetarray gespeicherten arrays
-		//ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
 		
-		//// Änderung von Josi
+		ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
+		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 10000, 10000, 4, 4); //VV-Band
 		
-		/////////////
-		
-		//Fuellen des Arrays
-		//datasetarray.writeArrayValues(dataset, datasetarray.getArray(), "Intensity_VH");
 		//Fuellen das Arrays
-		//datasetarray.fillArray(dataset, "Amplitude_VH");
-		//amplitude_vh.fillArray(dataset);
-		//amplitude_vv.fillArray(dataset);
-
-		//ROPs newP = new ROPs();
-		//newP.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
+		amplitude_vh.fillArray(dataset);
+		amplitude_vv.fillArray(dataset);
 		
-		//amplitude_vh.probeArray();
+		amplitude_vv.probeArray();
+
+		ROPs rops = new ROPs();
+		rops.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
 		
 		/* Objekt "test" der Klasse "Georeference" wird erzeugt. Übergeben wird dafür der Test-Datensatz.
 		 * 
