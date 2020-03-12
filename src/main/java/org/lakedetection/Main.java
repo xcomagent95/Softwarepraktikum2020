@@ -24,10 +24,12 @@ public class Main {
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
 			
+			/*
 			//Bänder ausgeben (hier werden über eine vorhanden Methode alle Baender ausgegeben welche product enthält
-			//for(int i = 0; i < product.getBandNames().length; i++) {
-				//System.out.println(product.getBandNames()[i]);
-			//}
+			for(int i = 0; i < product.getBandNames().length; i++) {
+				System.out.println(product.getBandNames()[i]);
+			}
+			*/
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -38,9 +40,9 @@ public class Main {
 		ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
 		
 		//Fuellen das Arrays
-		datasetarray.fillArray(dataset, "Amplitude_VV", datasetarray.getArray(), datasetarray.getRequestedCornerX(), datasetarray.getRequestedCornerY(), datasetarray.getRequestedHeight(), datasetarray.getRequestedWidth());
+		datasetarray.fillArray(dataset, "Amplitude_VH");
 		
 		//Ein paar Infos zum erzeugten Array
-		datasetarray.probeArray();
+		//datasetarray.probeArray();
     }
 }
