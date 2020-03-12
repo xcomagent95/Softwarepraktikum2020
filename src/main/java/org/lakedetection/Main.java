@@ -37,12 +37,14 @@ public class Main {
 		//Hier wird aus dataset unter Angabe des gewünschten Bandes ein Array erzeugt. 
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
-		ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
+		//ToArray datasetarray = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 100, 100); 
+		
+		ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 50, 50); //VH-Band
+		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 1000, 1000, 50, 50); //VV-Band
 		
 		//Fuellen das Arrays
-		datasetarray.fillArray(dataset, "Amplitude_VH");
-		
-		//Ein paar Infos zum erzeugten Array
-		//datasetarray.probeArray();
+		//datasetarray.fillArray(dataset, "Amplitude_VH");
+		amplitude_vh.fillArray(dataset);
+		amplitude_vv.fillArray(dataset);
     }
 }
