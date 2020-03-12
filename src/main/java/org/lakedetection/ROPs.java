@@ -23,11 +23,8 @@ public class ROPs {
 	public float[][] connect(float[][] b1, float[][] b2){
 		
 		float[][] a = new float[b1.length][b1[0].length];
-<<<<<<< Updated upstream
-=======
-		
+
 		System.out.println(b1.length);
->>>>>>> Stashed changes
 		
 		for(int i=0; i<b1.length; i++) {
 			for(int j=0; j<b1[i].length; j++) { 

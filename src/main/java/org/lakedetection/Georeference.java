@@ -9,13 +9,6 @@ import org.esa.snap.core.datamodel.PixelPos;
 import org.esa.snap.core.datamodel.Product;
 
 public class Georeference {
-
-<<<<<<< Updated upstream
-	/*public Georeference(Loadzip dataset) {
-=======
-	private String[] geo; // Erzeugt Array aus Strings names "geo" 
-	
-	private Product product;
 	
 	/* Das Ziel dieser Methode ist, dass die beiden zu vergleichenden Bilder georeferenziert und lokalisiert werden,
 	 * um sicherzustellen, dass es sich um dasselbe Gewässer handelt.
@@ -33,12 +26,12 @@ public class Georeference {
 	 * überlegt werden können.s
 	 * */
 	
+	private String[] geo; // Erzeugt Array aus Strings names "geo" 
+	
+	private Product product;
+	
 	public Georeference(Loadzip dataset) {
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
-		
->>>>>>> Stashed changes
+
 		Product product = null; //Product initialisieren
 		try {
 			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
@@ -46,10 +39,8 @@ public class Georeference {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-<<<<<<< Updated upstream
 		product.getTiePointGridNames();
 		
-=======
 		geo = product.getTiePointGridNames(); // Füllt das oben erzeugte Array mit dem Namen der GCP-Liste
 	}
 
@@ -57,13 +48,9 @@ public class Georeference {
 		
 		GeoPos geoPos = new GeoPos();//null//Bsp. GCP_20: (10.708067893981934d, 54.363765716552734d); // lat./long. // akt. auf "null" gesetzt, evtl.noch ergänzen
 		PixelPos pixelPos = new PixelPos(26472, 0); // Bsp. GCP_20
-<<<<<<< Updated upstream
 		product.getSceneGeoCoding().getGeoPos(pixelPos, geoPos); // gibt Längen- und Breitengrad des GCP zurück
 		product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurück
-}
 
-=======
-		
 		// Bildpunkt oben links (0,0) ist Vergleichspunkt. Von dort werden die Koordinaten erfragt, damit im Vergleichsbild nach den Koordinaten gesucht werden kann. Z.B. mit product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos);
 		PixelPos pixelPos2 = new PixelPos(0,0); 
 		
@@ -72,12 +59,10 @@ public class Georeference {
 		//product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos); // Rückabfrage möglich?
 	}
 	
->>>>>>> Stashed changes
 	// Gibt den Namen der GCP-Punktliste zurück // Fkt. eig. nicht notw.
 	public String[] getName() {
 		return geo;
 	}
->>>>>>> Stashed changes
 	
 	// Vergleicht zwei Koordinaten miteinander
 	public boolean compare(GeoPos a, GeoPos b) {
