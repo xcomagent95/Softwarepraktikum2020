@@ -15,25 +15,7 @@ public class ROPs {
 	 * */
 
 	
-	/* || Bilder �bereinanderlegen ||
-	 * 
-	 * Es liegen 2 2D-Arrays vor. 
-	 * Nun sollen beide Arrays durchlaufen werden 
-	 * und die Werte an den jeweils gleichen Pos. miteinander addiert 
-	 * und durch 2 dividiert werden. 
-	 * */
 
-	public static float[][] connect(float[][] b1, float[][] b2){
-		
-		float[][] a = new float[b1.length][b1[0].length];
-		
-		for(int i=0; i<b1.length; i++) {
-			for(int j=0; j<b1[i].length; j++) { 
-				a[i][j] = (b1[i][j] + b2[i][j]) / 2;
-			}
-		} 
-		return a;
-	}
 	
 	// Hilfsfkt. zum Anzeigen einer Matrix 15x15
 	

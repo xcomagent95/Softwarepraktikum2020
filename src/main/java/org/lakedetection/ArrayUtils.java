@@ -20,6 +20,27 @@ import com.bc.ceres.glevel.MultiLevelImage;
 
 public class ArrayUtils {
 
+	/* || Bilder �bereinanderlegen ||
+	 * 
+	 * Es liegen 2 2D-Arrays vor. 
+	 * Nun sollen beide Arrays durchlaufen werden 
+	 * und die Werte an den jeweils gleichen Pos. miteinander addiert 
+	 * und durch 2 dividiert werden. 
+	 * */
+
+	public float[][] connect(float[][] b1, float[][] b2){
+		
+		float[][] a = new float[b1.length][b1[0].length];
+		
+		for(int i=0; i<b1.length; i++) {
+			for(int j=0; j<b1[i].length; j++) { 
+				a[i][j] = (b1[i][j] + b2[i][j]) / 2;
+			}
+		} 
+		return a;
+	}
+
+	/// Doku einfuegen
 	public int[][] normaliseValues(float[][] datasetArray, int lowestPixel, int highestPixel) {
 		int[][] datasetArrayNormalised = new int[datasetArray.length][datasetArray[0].length];
 		int pixelCounter = 0;
@@ -69,4 +90,6 @@ public class ArrayUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }
