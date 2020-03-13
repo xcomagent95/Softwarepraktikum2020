@@ -80,7 +80,7 @@ public class ROPsTesten extends TestCase{
 		
 		
 		
-		rops.show(rops.connect(b,c));
+		//rops.show(rops.connect(b,c));
 		
 		//System.out.println("b.length: " +b.length + ", b[0].length: " + b[0].length); 
 				
