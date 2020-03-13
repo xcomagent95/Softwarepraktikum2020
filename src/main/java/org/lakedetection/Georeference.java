@@ -33,6 +33,8 @@ public class Georeference {
 	public Georeference(Loadzip dataset) {
 
 
+		/// Erweitern um Klassen die im uml benanntn sind. getter sind  das
+		
 		product = null; //Product initialisieren
 
 		try {
