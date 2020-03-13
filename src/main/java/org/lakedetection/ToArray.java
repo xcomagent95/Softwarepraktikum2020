@@ -47,6 +47,7 @@ public class ToArray {
 		}
 
 		//Erzeugen des Arrays
+
 		datasetArray = new float[height][width]; //Array erzeugen
 		requestedCornerX = requestedX;
 		requestedCornerY = requestedY;
@@ -103,7 +104,9 @@ public class ToArray {
 		Band loadedBand = product.getBand(this.requested_Band);
 		try {
 			float[] data = loadedBand.readPixels(this.requestedCornerX, this.requestedCornerY, this.arrayWidth, this.arrayHeight, (float[]) null);
+			
 			loadeddata = data;
+
 			System.out.println("image buffered!");
 			//Raster aus buffered Image hohlen und Farbwerte in Array speichern
 			//Hier wird ueber eine Schleife das 2D-Array gefuellt
