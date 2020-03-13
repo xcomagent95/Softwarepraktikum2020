@@ -37,18 +37,30 @@ public class Main {
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es k�nnen folgende B�nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
 		
-		//ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
+		ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 9961, 9994, 21, 21); //VH-Band
 		
 		// VON JOSI VERAENDERT:
 		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 9961, 9994, 21, 21); //VV-Band
 		 ///////  Aenderung zum Testen des Gauss-Algorithmus
 		ROPs rops = new ROPs();
 		//Fuellen das Arrays
+<<<<<<< Updated upstream
 		///////amplitude_vh.fillArray(dataset);
+=======
+
+		amplitude_vh.fillArray(dataset);
+>>>>>>> Stashed changes
 		amplitude_vv.fillArray(dataset);
 		
-		float[][] news = rops.gaussFilter(amplitude_vv.getArray());
-		rops.show(news);
+		
+		////// Erst addieren und dann in RGB umwandel!!! dennn rgb lässt sich nicht gescheit addieren
+		
+		ToArray connectedArrays = new ToArray(dataset, "ConnectedArrays", 0, 0, 21, 21);
+		
+		connectedArrays = connectedArrays.connectP(amplitude_vh.getArray(), amplitude_vv.getArray());
+		connectedArrays.convertToGreyscale();
+		connectedArrays.arrayToImage();
+		//connectedArrays.probeArrayNormalised();
 		
 		////
 		 

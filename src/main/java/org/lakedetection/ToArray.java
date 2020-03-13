@@ -121,4 +121,119 @@ public class ToArray {
 			System.out.print("]\n");
 		}
 	}
+<<<<<<< Updated upstream
+=======
+	
+	public void probeArrayNormalised() {
+		for (int i=0; i<this.datasetArrayNormalised.length; i++)
+		{
+			System.out.print("[");
+			for (int j=0; j<this.datasetArrayNormalised[i].length; j++)
+			{
+				System.out.print(this.datasetArrayNormalised[i][j] + ",");
+			}
+			System.out.print("]\n");
+		}
+	}
+	
+	  //groessten Pixelwert ausgeben
+	  public float getMax(float[] inputArray){ 
+		  float maxValue = inputArray[0]; 
+	    for(int i=1;i < inputArray.length;i++){ 
+	      if(inputArray[i] > maxValue){ 
+	         maxValue = inputArray[i]; 
+	      } 
+	    } 
+	    return maxValue; 
+	  }
+	 
+	  //kleinsten Pixelwert ausgeben
+	  public float getMin(float[] inputArray){ 
+	    float minValue = inputArray[0]; 
+	    for(int i=1;i<inputArray.length;i++){ 
+	      if(inputArray[i] < minValue){ 
+	        minValue = inputArray[i]; 
+	      } 
+	    } 
+	    return minValue; 
+	  } 
+	 
+	//Berechnen einiger Eckdaten zum Array
+	public void calculateStatistics() {
+		System.out.println("Pixel-Count: " + this.arrayHeight * this.arrayWidth);
+		System.out.println("lowest Pixel-Value: " + getMin(this.loadeddata));
+		System.out.println("highest Pixel-Value: " + getMax(this.loadeddata));
+		System.out.println("average Pixel-Value: " + (getMax(this.loadeddata) + getMin(this.loadeddata)/2));
+		
+		lowestPixel = getMin(this.loadeddata);
+		highestPixel = getMax(this.loadeddata);
+		averagePixel = (getMax(this.loadeddata) + getMin(this.loadeddata)/2);
+	}
+	
+	//Setzt alle Pixelwerte welche groesser sind als der Minimalwert auf 0
+	public void filterArrayLowestPixel() {
+		for(int i = 0; i < this.arrayHeight; i++) {
+			for(int j = 0; j < this.arrayWidth; j++) {
+				if(this.datasetArray[i][j] != lowestPixel) {
+					datasetArray[i][j] = 0.0f;
+				}
+			}
+		}
+	}
+	
+	//////// Sollte besser ein int[][] entgegennehmenn und nciht auf dem internene band arbeiten
+	//Normalisiert die Pixelwerte auf eine Skala von 0 bis 255
+	public void convertToGreyscale() {
+		datasetArrayNormalised = new int[this.arrayHeight][this.arrayWidth];
+		int pixelCounter = 0;
+		for(int i = 0; i < this.arrayHeight; i++) {
+			for(int j = 0; j < this.arrayWidth; j++) {
+				datasetArrayNormalised[i][j] = ((int) ((datasetArray[i][j]-this.lowestPixel)*(255 - 0)/(this.highestPixel-this.lowestPixel)+0)) + 
+						(((int) ((datasetArray[i][j]-this.lowestPixel)*(255 - 0)/(this.highestPixel-this.lowestPixel)+0)) << 8) +
+						(((int) ((datasetArray[i][j]-this.lowestPixel)*(255 - 0)/(this.highestPixel-this.lowestPixel)+0)) << 16);
+				pixelCounter += 1;
+				//System.out.println(pixelCounter + " pixels normalised...");
+			}
+		}
+		System.out.println("array normalised!");
+	}
+	
+	// Getter
+	public int[][] getConvertedArray(){
+		return datasetArrayNormalised;
+	}
+
+	//Schreibt ein normalisiertes Array in ein .png // arbeitet auf int[][]
+	public void arrayToImage() {
+		BufferedImage outputImage = new BufferedImage(this.arrayWidth, this.arrayHeight, BufferedImage.TYPE_INT_RGB);
+		
+		 int pixelCounter = 0;
+		 for(int i = 0; i < this.arrayHeight; i++) {
+		        for(int j = 0; j < this.arrayWidth; j++) {
+		        	outputImage.setRGB(j, i, this.datasetArrayNormalised[i][j]);
+		        	pixelCounter += 1;
+		        	//System.out.println(pixelCounter + " pixels written...");
+		        }
+		 }
+		 
+		 File file = new File("/Users/josefinabalzer/Desktop/test.png");
+		 try {
+			ImageIO.write(outputImage, "png", file);
+			System.out.println("image written!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Analog zu rops.connect(a,b), arbeitet allerdings mit int[][] und nicht mit float[][]
+	public float[][] connectP(float[][] a, float[][] b){
+		float[][] c = new float[a.length][a[0].length];
+		for(int i=0; i<a.length; i++) {
+			for(int j=0; j<a[i].length; j++) {
+				c[i][j] = (a[i][j] + b[i][j]) / 2;
+			}
+		}
+		return c;
+	}
+>>>>>>> Stashed changes
 }
