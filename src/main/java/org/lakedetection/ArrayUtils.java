@@ -1,26 +1,13 @@
 package org.lakedetection;
 
-import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.awt.image.Raster;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
-import javax.media.jai.PlanarImage;
-
-import org.esa.snap.core.dataio.ProductIO;
-import org.esa.snap.core.datamodel.Band;
-import org.esa.snap.core.datamodel.Product;
-import org.esa.snap.core.image.ImageManager;
-
-import com.bc.ceres.core.PrintWriterProgressMonitor;
-import com.bc.ceres.glevel.MultiLevelImage;
 
 public class ArrayUtils {
 
-	public int[][] normaliseValues(float[][] datasetArray, int lowestPixel, int highestPixel) {
+	public static int[][] normaliseValues(float[][] datasetArray, float lowestPixel, float highestPixel) {
 		int[][] datasetArrayNormalised = new int[datasetArray.length][datasetArray[0].length];
 		int pixelCounter = 0;
 		for(int i = 0; i < datasetArray.length; i++) {
@@ -34,7 +21,7 @@ public class ArrayUtils {
 		return datasetArrayNormalised;
 	}
 	
-	public int[][] convertToRGB(int[][] datasetArrayNormalised) {
+	public static int[][] convertToRGB(int[][] datasetArrayNormalised) {
 		int[][] datasetArrayRGB = new int[datasetArrayNormalised.length][datasetArrayNormalised[0].length];
 		int pixelCounter = 0;
 		for(int i = 0; i < datasetArrayNormalised.length; i++) {
@@ -48,8 +35,8 @@ public class ArrayUtils {
 		return(datasetArrayRGB);
 	}
 
-	//Schreibt ein normalisiertes Array in ein .png
-	public void arrayToImage(int [][] datasetArrayRGB) {
+	//Schreibt ein normalisiertes Array in ein .png //!!!!!AusgabePfad anpassen
+	public static void arrayToImage(int [][] datasetArrayRGB, String outputpath, String filename) {
 		BufferedImage outputImage = new BufferedImage(datasetArrayRGB[0].length, datasetArrayRGB.length, BufferedImage.TYPE_INT_RGB);
 		
 		 int pixelCounter = 0;
@@ -61,7 +48,7 @@ public class ArrayUtils {
 		        }
 		 }
 		 
-		 File file = new File("E:\\Raster\\test.png");
+		 File file = new File(outputpath + filename);
 		 try {
 			ImageIO.write(outputImage, "png", file);
 			System.out.println("image written!");
@@ -69,4 +56,26 @@ public class ArrayUtils {
 			e.printStackTrace();
 		}
 	}
+	
+	 //groessten Pixelwert ausgeben
+	  public static float getMax(float[] inputArray) { 
+		  float maxValue = inputArray[0]; 
+		    for(int i=1;i < inputArray.length;i++){ 
+		      if(inputArray[i] > maxValue){ 
+		         maxValue = inputArray[i]; 
+		      } 
+		    } 
+		    return maxValue; 
+	  }
+		 
+	  //kleinsten Pixelwert ausgeben
+	  public static float getMin(float[] inputArray){ 
+		    float minValue = inputArray[0]; 
+		    for(int i=1;i<inputArray.length;i++){ 
+		      if(inputArray[i] < minValue){ 
+		        minValue = inputArray[i]; 
+		      } 
+		    } 
+		    return minValue; 
+	  } 
 }
