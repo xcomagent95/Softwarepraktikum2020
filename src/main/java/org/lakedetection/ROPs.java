@@ -62,7 +62,7 @@ public class ROPs {
 		float[][] output = new float[input.length][input[0].length];
 		for(int i=0; i<input.length; i++) {
 			for(int j=0; j<input[i].length; j++) {
-				if(input[i][j] <= 100) { // Schwellwert muss noch gesetzt werden
+				if(input[i][j] <= 130) { // Schwellwert muss noch gesetzt werden
 					output[i][j] = 0;
 				}
 				else output[i][j] = 255; // max. ist mittelwert der maxima von vh und vv (4142,5) __ jetzt doch ge�ndert auf 255

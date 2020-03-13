@@ -12,14 +12,15 @@ public class Main {
 		ROPs rops = new ROPs();
 		
 		float[][] medianArray = rops.medianFilter(amplitude_vv.getArray());
-		float[][] blackArray = rops.makeBlack(medianArray);
+		float[][] medianAndGaussArray = rops.medianFilter(rops.gaussFilter(amplitude_vv.getArray()));
+		float[][] blackArray = rops.makeBlack(medianAndGaussArray);
 		int[][] normalisedArray = ArrayUtils.normaliseValues(blackArray, ArrayUtils.getMin(blackArray), ArrayUtils.getMax(blackArray));
 				
 		//float[][] gaussArray = rops.gaussFilter(amplitude_vv.getArray());
 		//int[][] normalisedArray = ArrayUtils.normaliseValues(gaussArray, ArrayUtils.getMin(gaussArray), ArrayUtils.getMax(gaussArray));
 		// int[][] normalisedArray = ArrayUtils.normaliseValues(amplitude_vv.getArray(), amplitude_vv.getLowestPixel(), amplitude_vv.getHighestPixel());
 		int[][] rgbArray = ArrayUtils.convertToRGB(normalisedArray);
-		ArrayUtils.arrayToImage(rgbArray, "/Users/josefinabalzer/Desktop/", "blackFilter5");
+		ArrayUtils.arrayToImage(rgbArray, "/Users/josefinabalzer/Desktop/TestBilder/", "blackArrayAfterMedianAndGaussArray");
 		
     }
 }
