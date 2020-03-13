@@ -28,12 +28,12 @@ public class ArrayUtils {
 	}
 
 	/// Doku einfuegen
-	public int[][] normaliseValues(float[][] datasetArray, int lowestPixel, int highestPixel) {
+	public static int[][] normaliseValues(float[][] datasetArray, float lowestPixel, float highestPixel) {
 		int[][] datasetArrayNormalised = new int[datasetArray.length][datasetArray[0].length];
 		int pixelCounter = 0;
 		for(int i = 0; i < datasetArray.length; i++) {
 			for(int j = 0; j < datasetArray[0].length; j++) {
-				datasetArrayNormalised[i][j] = ((int) ((datasetArray[i][j]-lowestPixel)*(255 - 0)/(highestPixel-lowestPixel)+0));
+				datasetArrayNormalised[i][j] = (int)(((datasetArray[i][j]-lowestPixel)*(255 - 0)/(highestPixel-lowestPixel)+0));
 				pixelCounter += 1;
 				//System.out.println(pixelCounter + " pixels normalised...");
 			}
