@@ -24,7 +24,8 @@ public class Main {
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
 
-			//Baender ausgeben (hier werden ï¿½ber eine vorhanden Methode alle Baender ausgegeben welche product enthï¿½lt
+			//Baender ausgeben (hier werden ueber eine vorhanden Methode alle Baender ausgegeben welche product enthaelt
+			System.out.println("available bands:");
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
@@ -36,18 +37,26 @@ public class Main {
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es können folgende Bänder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
 		
-		ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
-		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 10000, 10000, 4, 4); //VV-Band
+		//ToArray amplitude_vh = new ToArray(dataset, "Intensity_VH", 1000, 1000, 4, 4); //VH-Band
+		ToArray amplitude_vv = new ToArray(dataset, "Intensity_VV", 5250, 4500, 300, 500); //VV-Band
 		
 		//Fuellen das Arrays
-		amplitude_vh.fillArray(dataset);
+		//amplitude_vh.fillArray(dataset);
 		amplitude_vv.fillArray(dataset);
 		
-		amplitude_vv.probeArray();
-
-		SeeErkennen test = new SeeErkennen();
-		test.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
+		//amplitude_vh.calculateStatistics();
+		amplitude_vv.calculateStatistics();
 		
+		//amplitude_vh.convertToGreyscale();
+		amplitude_vv.convertToGreyscale();
 		
+		//amplitude_vh.probeArray();
+		//amplitude_vv.probeArray();
+		
+		//amplitude_vh.probeArrayNormalised();
+		//amplitude_vv.probeArrayNormalised();
+		
+		//amplitude_vh.arrayToImage();
+		amplitude_vv.arrayToImage();
     }
 }

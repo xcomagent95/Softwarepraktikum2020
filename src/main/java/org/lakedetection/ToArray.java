@@ -3,6 +3,7 @@ package org.lakedetection;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -21,7 +22,9 @@ public class ToArray {
 	private int arrayHeight; //Hoehe des Rasters
 	private int arrayWidth; //Breite des Rasters
 	private float[][] datasetArray; //Array von Float Werten fuer die Speicherung von Farbwerten
-
+	private int[][] datasetArrayNormalised;
+	private float[] loadeddata;
+ 
 	private int requestedCornerX; //X-Koordinate der oberen linken Ecke
 	private int requestedCornerY; //Y-Koordinate der oberen linken Ecke
 	private int requestedHeight; //Hoehe des angefragten Bildausschnitts
@@ -29,8 +32,12 @@ public class ToArray {
 
 	private String requested_Band; //abgefragtes Band
 	
+	private float lowestPixel;
+	private float highestPixel;
+	private float averagePixel;
+	
 	//ToArray Konstruktor
-	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte band als String, sowie die Eckdaten zum angefragten Bildausschnitt
+	//Uebergeben werden muss der Datensatz als Loadzip, das geuenschte Band als String, sowie die Eckdaten zum angefragten Bildausschnitt
 	public ToArray(Loadzip dataset, String band, int requestedX, int requestedY, int height, int width) {
 		Product product = null; //Product initialisieren
 		try {
@@ -56,6 +63,10 @@ public class ToArray {
 	//Getter
 	public float[][] getArray() {
 		return datasetArray;
+	}
+	
+	public int[][] getArrayNormalised() {
+		return datasetArrayNormalised;
 	}
 
 	public int getRequestedCornerX() {
@@ -92,7 +103,7 @@ public class ToArray {
 		Band loadedBand = product.getBand(this.requested_Band);
 		try {
 			float[] data = loadedBand.readPixels(this.requestedCornerX, this.requestedCornerY, this.arrayWidth, this.arrayHeight, (float[]) null);
-			System.out.println(data[1]);
+			loadeddata = data;
 			System.out.println("image buffered!");
 			//Raster aus buffered Image hohlen und Farbwerte in Array speichern
 			//Hier wird ueber eine Schleife das 2D-Array gefuellt
@@ -111,14 +122,109 @@ public class ToArray {
 
 	//Tester 
 	public void probeArray() {
-		for (int i=0; i<this.getArray().length; i++)
+		for (int i=0; i<this.datasetArray.length; i++)
 		{
 			System.out.print("[");
-			for (int j=0; j<this.getArray()[i].length; j++)
+			for (int j=0; j<this.datasetArray[i].length; j++)
 			{
-				System.out.print(this.getArray()[i][j] + ",");
+				System.out.print(this.datasetArray[i][j] + ",");
 			}
 			System.out.print("]\n");
+		}
+	}
+	
+	public void probeArrayNormalised() {
+		for (int i=0; i<this.datasetArrayNormalised.length; i++)
+		{
+			System.out.print("[");
+			for (int j=0; j<this.datasetArrayNormalised[i].length; j++)
+			{
+				System.out.print(this.datasetArrayNormalised[i][j] + ",");
+			}
+			System.out.print("]\n");
+		}
+	}
+	
+	  //groessten Pixelwert ausgeben
+	  public float getMax(float[] inputArray){ 
+		  float maxValue = inputArray[0]; 
+	    for(int i=1;i < inputArray.length;i++){ 
+	      if(inputArray[i] > maxValue){ 
+	         maxValue = inputArray[i]; 
+	      } 
+	    } 
+	    return maxValue; 
+	  }
+	 
+	  //kleinsten Pixelwert ausgeben
+	  public float getMin(float[] inputArray){ 
+	    float minValue = inputArray[0]; 
+	    for(int i=1;i<inputArray.length;i++){ 
+	      if(inputArray[i] < minValue){ 
+	        minValue = inputArray[i]; 
+	      } 
+	    } 
+	    return minValue; 
+	  } 
+	 
+	//Berechnen einiger Eckdaten zum Array
+	public void calculateStatistics() {
+		System.out.println("Pixel-Count: " + this.arrayHeight * this.arrayWidth);
+		System.out.println("lowest Pixel-Value: " + getMin(this.loadeddata));
+		System.out.println("highest Pixel-Value: " + getMax(this.loadeddata));
+		System.out.println("average Pixel-Value: " + (getMax(this.loadeddata) + getMin(this.loadeddata)/2));
+		
+		lowestPixel = getMin(this.loadeddata);
+		highestPixel = getMax(this.loadeddata);
+		averagePixel = (getMax(this.loadeddata) + getMin(this.loadeddata)/2);
+	}
+	
+	//Setzt alle Pixelwerte welche groesser sind als der Minimalwert auf 0
+	public void filterArrayLowestPixel() {
+		for(int i = 0; i < this.arrayHeight; i++) {
+			for(int j = 0; j < this.arrayWidth; j++) {
+				if(this.datasetArray[i][j] != lowestPixel) {
+					datasetArray[i][j] = 0.0f;
+				}
+			}
+		}
+	}
+	
+	//Normalisiert die Pixelwerte auf eine Skala von 0 bis 255
+	public void convertToGreyscale() {
+		datasetArrayNormalised = new int[this.arrayHeight][this.arrayWidth];
+		int pixelCounter = 0;
+		for(int i = 0; i < this.arrayHeight; i++) {
+			for(int j = 0; j < this.arrayWidth; j++) {
+				datasetArrayNormalised[i][j] = ((int) ((datasetArray[i][j]-this.lowestPixel)*(255 - 0)/(this.highestPixel-this.lowestPixel)+0)) + 
+						(((int) ((datasetArray[i][j]-this.lowestPixel)*(255 - 0)/(this.highestPixel-this.lowestPixel)+0)) << 8) +
+						(((int) ((datasetArray[i][j]-this.lowestPixel)*(255 - 0)/(this.highestPixel-this.lowestPixel)+0)) << 16);
+				pixelCounter += 1;
+				//System.out.println(pixelCounter + " pixels normalised...");
+			}
+		}
+		System.out.println("array normalised!");
+	}
+
+	//Schreibt ein normalisiertes Array in ein .png
+	public void arrayToImage() {
+		BufferedImage outputImage = new BufferedImage(this.arrayWidth, this.arrayHeight, BufferedImage.TYPE_INT_RGB);
+		
+		 int pixelCounter = 0;
+		 for(int i = 0; i < this.arrayHeight; i++) {
+		        for(int j = 0; j < this.arrayWidth; j++) {
+		        	outputImage.setRGB(j, i, this.datasetArrayNormalised[i][j]);
+		        	pixelCounter += 1;
+		        	//System.out.println(pixelCounter + " pixels written...");
+		        }
+		 }
+		 
+		 File file = new File("E:\\Raster\\test.png");
+		 try {
+			ImageIO.write(outputImage, "png", file);
+			System.out.println("image written!");
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
