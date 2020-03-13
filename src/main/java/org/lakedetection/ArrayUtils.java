@@ -82,7 +82,7 @@ public class ArrayUtils {
 		        }
 		 }
 		 
-		 File file = new File("E:\\Raster\\test.png");
+		 File file = new File("/Users/josefinabalzer/Desktoptest.png");
 		 try {
 			ImageIO.write(outputImage, "png", file);
 			System.out.println("image written!");

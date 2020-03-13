@@ -30,12 +30,12 @@ public class Georeference {
 	
 	private Product product;
 	
-	public Georeference(Loadzip dataset) {
+	public Georeference(Product p) {
 
 
 		/// Erweitern um Klassen die im uml benanntn sind. getter sind  das
 		
-		product = null; //Product initialisieren
+		/*product = null; //Product initialisieren
 
 		try {
 			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
@@ -44,10 +44,11 @@ public class Georeference {
 			e.printStackTrace();
 		}
 		product.getTiePointGridNames();
+		*/
 		
 		geo = product.getTiePointGridNames(); // Füllt das oben erzeugte Array mit dem Namen der GCP-Liste
 	}
-
+	//// Die Methode kann möglicherweise entfernt werden, da sie nichts anderes tut als der Getter in Z. 68 für den festen Punkt GCP_20(26472, 0)
 	public GeoPos georef() { // MACHT ES SINN HIER "Product p" ZU UEBERGEBEN???
 		
 		GeoPos geoPos = new GeoPos();//null//Bsp. GCP_20: (10.708067893981934d, 54.363765716552734d); // lat./long. // akt. auf "null" gesetzt, evtl.noch ergänzen
@@ -61,6 +62,15 @@ public class Georeference {
 		return product.getSceneGeoCoding().getGeoPos(pixelPos2, geoPos); // gibt Längen- und Breitengrad des GCP zurück
 		//product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurück
 		//product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos); // Rückabfrage möglich?
+	}
+	
+	//// Im Main festsetzen auf 11178 x 7116 für Müritzsee und später im Gui den Nutzer auffordern selber eine Punkt einzugeben
+	public GeoPos getGeoPos(PixelPos p) {
+		return product.getSceneGeoCoding().getGeoPos(p, null);
+	}
+	
+	public PixelPos getPixPos(GeoPos p) {
+		return product.getSceneGeoCoding().getPixelPos(p, null);
 	}
 	
 	// Gibt den Namen der GCP-Punktliste zurück // Fkt. eig. nicht notw.
