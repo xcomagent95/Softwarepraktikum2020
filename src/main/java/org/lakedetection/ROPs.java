@@ -119,7 +119,7 @@ public class ROPs {
 	 * @param rim size of the filter 
 	 * @return 2darray with edges filled with original image Pixelvalues
 	 */
-	public float[][] edgeFiller(float[][] img, int rim){
+	public float[][] rimFiller(float[][] img, int rim){
 		float[][] newimg = new float[img.length][img[1].length];
 		for(int i = 0; i < img.length; i++) {
 			if(i < 0 + rim || i > img.length - 1 - rim) {
