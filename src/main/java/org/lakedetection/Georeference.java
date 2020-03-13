@@ -31,39 +31,10 @@ public class Georeference {
 	private Product product;
 	
 	public Georeference(Product p) {
-
-
-		/// Erweitern um Klassen die im uml benanntn sind. getter sind  das
 		
-		/*product = null; //Product initialisieren
-
-		try {
-			product = ProductIO.readProduct(dataset.getFile()); //Product lesen
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		product.getTiePointGridNames();
-		*/
-		
-		geo = product.getTiePointGridNames(); // Faellt das oben erzeugte Array mit dem Namen der GCP-Liste
+		geo = product.getTiePointGridNames(); // Fuellt das oben erzeugte Array mit dem Namen der GCP-Liste
 	}
-	//// Die Methode kann moeglicherweise entfernt werden, da sie nichts anderes tut als der Getter in Z. 68 für den festen Punkt GCP_20(26472, 0)
-	public GeoPos georef() { // MACHT ES SINN HIER "Product p" ZU UEBERGEBEN???
-		
-		GeoPos geoPos = new GeoPos();//null//Bsp. GCP_20: (10.708067893981934d, 54.363765716552734d); // lat./long. // akt. auf "null" gesetzt, evtl.noch ergänzen
-		PixelPos pixelPos = new PixelPos(26472, 0); // Bsp. GCP_20
 
-		product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurueck
-
-		// Bildpunkt oben links (0,0) ist Vergleichspunkt. Von dort werden die Koordinaten erfragt, damit im Vergleichsbild nach den Koordinaten gesucht werden kann. Z.B. mit product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos);
-		PixelPos pixelPos2 = new PixelPos(0,0); 
-		
-		return product.getSceneGeoCoding().getGeoPos(pixelPos2, geoPos); // gibt Laengen- und Breitengrad des GCP zurueck
-		//product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurueck
-		//product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos); // Rueckabfrage mueglich?
-	}
-	
 	//// Im Main festsetzen auf 11178 x 7116 für Mueritzsee und später im Gui den Nutzer auffordern selber eine Punkt einzugeben
 	public GeoPos getGeoPos(PixelPos p) {
 		return product.getSceneGeoCoding().getGeoPos(p, null);
