@@ -40,18 +40,21 @@ public class Main {
 		//ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
 		
 		// VON JOSI VERAENDERT:
-		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 9957, 9974, 1, 1); //VV-Band
-		
-		
+		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 9961, 9994, 21, 21); //VV-Band
+		 ///////  Aenderung zum Testen des Gauss-Algorithmus
+		ROPs rops = new ROPs();
 		//Fuellen das Arrays
 		///////amplitude_vh.fillArray(dataset);
 		amplitude_vv.fillArray(dataset);
 		
-		amplitude_vv.probeArray();
+		float[][] news = rops.gaussFilter(amplitude_vv.getArray());
+		rops.show(news);
 		
+		////
+		 
 		/////////amplitude_vh.probeArray();
 
-		ROPs rops = new ROPs();
+		/////ROPs rops = new ROPs();
 		/////rops.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
 		
 		/* Objekt "test" der Klasse "Georeference" wird erzeugt. Übergeben wird dafür der Test-Datensatz.

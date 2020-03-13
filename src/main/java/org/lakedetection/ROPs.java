@@ -37,102 +37,18 @@ public class ROPs {
 	
 	public void show(float[][] a) {
 
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][0] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][1] + " ");
-		}
-		System.out.println();
-
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][2] + " ");
-		}
-		System.out.println();
-
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][3] + " ");
-		}		
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][4] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][5] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][6] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][7] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][8] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][9] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][10] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][11] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][12] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][13] + " ");
-		}
-		System.out.println();
-		for(int i=0; i<15; i++) {
-			System.out.print(a[i][14] + " ");
-		}
-		System.out.println();
-	}
-	
-	// Hilfsfkt. zum Anzeigen eines Arrays als Liste
-	
-	public void showEff(float[][] a) {
-
-		
-		for(int i=0; i<a.length; i++) {
-			for(int j=0; j<a[0].length; j++) {
-				System.out.print(a[i][j] + " ");
+		for (int i=0; i<a.length; i++)
+		{
+			System.out.print("[");
+			for (int j=0; j<a[i].length; j++)
+			{
+				System.out.print(a[i][j] + ",");
 			}
+			System.out.print("]\n");
 		}
-		
 	}
 	
-	// Hilfsfkt. zum Anzeigen eines Arrays als Liste mit Zähler für Länge und Breite
-	
-	public void showArray(float[][] a) {
 
-		int counter1 = 0;
-		int counter2 = 0;
-		for(int i=0; i<a.length; i++) {
-			counter1++;
-			for(int j=0; j<a[i].length; j++) {
-				System.out.print(a[i][j]);
-				counter2++;
-			}
-		}
-		System.out.println(counter1);
-		System.out.println(counter2);
-		System.out.println("");
-		System.out.println("a.length: " + a.length);
-		System.out.println("a[0].length: " + a[0].length);
-	}
 	
 	// Fkt. die die Fl�che gl�ttet -- Test war erfolgreich
 	 
@@ -208,6 +124,8 @@ public class ROPs {
 		// Test ergibt, dass der Filter korrekt arbeitet
 	
 	}
+	
+	
 	
 	
 }
