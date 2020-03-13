@@ -25,7 +25,8 @@ public class Main {
 			Product product = ProductIO.readProduct(dataset.getFile());
 			System.out.println("product loaded!");
 
-			//Baender ausgeben (hier werden �ber eine vorhanden Methode alle Baender ausgegeben welche product enth�lt
+			//Baender ausgeben (hier werden ueber eine vorhanden Methode alle Baender ausgegeben welche product enthaelt
+			System.out.println("available bands:");
 			for(int i = 0; i < product.getBandNames().length; i++) {
 				System.out.println(product.getBandNames()[i]);
 			}
@@ -33,25 +34,29 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		//Hier wird aus dataset unter Angabe des gew�nschten Bandes ein Array erzeugt.
+		//Hier wird aus dataset unter Angabe des gewuenschten Bandes ein Array erzeugt.
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
-		//Es k�nnen folgende B�nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
+		//Es koennen folgende Baender angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
 		
 		//ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
 		
 		// VON JOSI VERAENDERT:
-		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 9957, 9974, 1, 1); //VV-Band
-		
-		
+		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 9961, 9994, 21, 21); //VV-Band
+		 ///////  Aenderung zum Testen des Gauss-Algorithmus
+		ROPs rops = new ROPs();
 		//Fuellen das Arrays
+
 		///////amplitude_vh.fillArray(dataset);
 		amplitude_vv.fillArray(dataset);
 		
-		amplitude_vv.probeArray();
+		float[][] news = rops.gaussFilter(amplitude_vv.getArray());
+		rops.show(news);
 		
+		////
+		 
 		/////////amplitude_vh.probeArray();
 
-		ROPs rops = new ROPs();
+		/////ROPs rops = new ROPs();
 		/////rops.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
 		
 		/* Objekt "test" der Klasse "Georeference" wird erzeugt. Übergeben wird dafür der Test-Datensatz.
