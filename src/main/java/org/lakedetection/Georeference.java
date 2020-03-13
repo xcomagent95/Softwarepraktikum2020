@@ -59,12 +59,12 @@ public class Georeference {
 		// Bildpunkt oben links (0,0) ist Vergleichspunkt. Von dort werden die Koordinaten erfragt, damit im Vergleichsbild nach den Koordinaten gesucht werden kann. Z.B. mit product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos);
 		PixelPos pixelPos2 = new PixelPos(0,0); 
 		
-		return product.getSceneGeoCoding().getGeoPos(pixelPos2, geoPos); // gibt Längen- und Breitengrad des GCP zurück
-		//product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurück
-		//product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos); // Rückabfrage möglich?
+		return product.getSceneGeoCoding().getGeoPos(pixelPos2, geoPos); // gibt Laengen- und Breitengrad des GCP zurueck
+		//product.getTiePointGridGroup().get(product.getTiePointGridGroup().getName()); // gibt die Knoten der Gruppe zurueck
+		//product.getSceneGeoCoding().getPixelPos(geoPos, pixelPos); // Rueckabfrage mueglich?
 	}
 	
-	//// Im Main festsetzen auf 11178 x 7116 für Müritzsee und später im Gui den Nutzer auffordern selber eine Punkt einzugeben
+	//// Im Main festsetzen auf 11178 x 7116 für Mueritzsee und später im Gui den Nutzer auffordern selber eine Punkt einzugeben
 	public GeoPos getGeoPos(PixelPos p) {
 		return product.getSceneGeoCoding().getGeoPos(p, null);
 	}
