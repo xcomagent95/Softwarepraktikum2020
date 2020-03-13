@@ -48,7 +48,7 @@ public class Georeference {
 		
 		geo = product.getTiePointGridNames(); // Füllt das oben erzeugte Array mit dem Namen der GCP-Liste
 	}
-	//// Die Methode kann möglicherweise entfernt werden, da sie nichts anderes tut als der Getter in Z. 68 für den festen Punkt GCP_20(26472, 0)
+	//// Die Methode kann moeglicherweise entfernt werden, da sie nichts anderes tut als der Getter in Z. 68 für den festen Punkt GCP_20(26472, 0)
 	public GeoPos georef() { // MACHT ES SINN HIER "Product p" ZU UEBERGEBEN???
 		
 		GeoPos geoPos = new GeoPos();//null//Bsp. GCP_20: (10.708067893981934d, 54.363765716552734d); // lat./long. // akt. auf "null" gesetzt, evtl.noch ergänzen
