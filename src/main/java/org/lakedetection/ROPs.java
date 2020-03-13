@@ -33,34 +33,72 @@ public class ROPs {
 		return a;
 	}
 	
-	// Hilfsfkt. zum Anzeigen einer Matrix 6 x 5
+	// Hilfsfkt. zum Anzeigen einer Matrix 15x15
 	
 	public void show(float[][] a) {
 
-		for(int i=0; i<6; i++) {
+		for(int i=0; i<15; i++) {
 			System.out.print(a[i][0] + " ");
 		}
 		System.out.println();
-		for(int i=0; i<6; i++) {
+		for(int i=0; i<15; i++) {
 			System.out.print(a[i][1] + " ");
 		}
 		System.out.println();
 
-		for(int i=0; i<6; i++) {
+		for(int i=0; i<15; i++) {
 			System.out.print(a[i][2] + " ");
 		}
 		System.out.println();
 
-		for(int i=0; i<6; i++) {
+		for(int i=0; i<15; i++) {
 			System.out.print(a[i][3] + " ");
 		}		
 		System.out.println();
-		for(int i=0; i<6; i++) {
+		for(int i=0; i<15; i++) {
 			System.out.print(a[i][4] + " ");
 		}
 		System.out.println();
-	
-
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][5] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][6] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][7] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][8] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][9] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][10] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][11] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][12] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][13] + " ");
+		}
+		System.out.println();
+		for(int i=0; i<15; i++) {
+			System.out.print(a[i][14] + " ");
+		}
+		System.out.println();
 	}
 	
 	// Hilfsfkt. zum Anzeigen eines Arrays als Liste
@@ -133,5 +171,46 @@ public class ROPs {
 	}
 	
 	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich
-
+	
+	
+	/* Gauss-Filter mit 7x7-Matrix 
+	 * */
+	public float[][] gaussFilter(float[][] a){
+		
+		float[][] b = new float[a.length][a[0].length];
+		
+		for(int i=3; i<(a.length)-3; i++) {
+			for(int j=3; j<(a[i].length)-3; j++) {
+				float x = (( (a[i-3][j-3] + a[i-3][j+3] + a[i+3][j-3] + a[i+3][j+3]) 
+									* (4/49) * (1/5))  // Gewicht = 1
+						
+						+ ( (a[i-3][j-2] + a[i-3][j-1] + a[i-3][j  ] + a[i-3][j+1] + a[i-3][j+2]  +  a[i-2][j-2]  
+								+  a[i+3][j-2] + a[i+3][j-1] + a[i+3][j  ] + a[i+3][j+1] + a[i+3][j+2]  +  a[i+2][j-2]  
+								+  a[i-2][j-3] + a[i-1][j-3] + a[i  ][j-3] + a[i+1][j-3] + a[i+2][j-3]  +  a[i+2][j+2]  
+								+  a[i-3][j+3] + a[i-3][j+3] + a[i-3][j+3] + a[i-3][j+3] + a[i-3][j+3]  +  a[i-2][j+2] ) 
+									* (2/5)) // Gewicht = 2
+						+ ( (a[i-2][j-1] + a[i-2][j  ] + a[i-2][j+1]  
+								+  a[i+2][j-1] + a[i+2][j] + a[i+2][j+1]  
+								+  a[i-2][j-1] + a[i-2][j] + a[i-2][j+1]  
+								+  a[i-1][j-2] + a[i][j-2] + a[i+1][j-2]  
+								+  a[i-1][j+2] + a[i][j+2] + a[i+1][j+2]) 
+									* (3/5)) // Gewicht = 3
+						+ ( (a[i-1][j-1] + a[i-1][j  ] + a[i-1][j+1] 
+								+ a[i  ][j-1] + a[i  ][j] + a[i  ][j+1] 
+								+ a[i+1][j-1] + a[i+1][j] + a[i+1][j+1]) 
+									* 1)
+						) / 49;	   // Gewicht = 5
+						
+				b[i][j] = x; 
+			}
+		}
+		return b;
+		
+		// Test ergibt, dass die Randpunkte beachtet werden müssen.OutOfBounce!!!! Rand ignorieren??
+	
+	}
+	
+	
 }
+
+

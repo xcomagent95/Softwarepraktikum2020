@@ -93,7 +93,6 @@ public class ToArray {
 		Band loadedBand = product.getBand(this.requested_Band);
 		try {
 			float[] data = loadedBand.readPixels(this.requestedCornerX, this.requestedCornerY, this.arrayWidth, this.arrayHeight, (float[]) null);
-			System.out.println(data[1]);
 			System.out.println("image buffered!");
 			//Raster aus buffered Image hohlen und Farbwerte in Array speichern
 			//Hier wird ueber eine Schleife das 2D-Array gefuellt

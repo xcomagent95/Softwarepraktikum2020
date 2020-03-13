@@ -37,17 +37,22 @@ public class Main {
 		//Das Ergebnis ist ein Objekt vom Typ ToArray mit dem Namen datasetarray
 		//Es k�nnen folgende B�nder angefragt werden: Amplitude_VH, Intensity_VH, Amplitude_VV, Intensity_VV
 		
-		ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
-		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 10000, 10000, 4, 4); //VV-Band
+		//ToArray amplitude_vh = new ToArray(dataset, "Amplitude_VH", 1000, 1000, 4, 4); //VH-Band
+		
+		// VON JOSI VERAENDERT:
+		ToArray amplitude_vv = new ToArray(dataset, "Amplitude_VV", 9957, 9974, 1, 1); //VV-Band
+		
 		
 		//Fuellen das Arrays
-		amplitude_vh.fillArray(dataset);
+		///////amplitude_vh.fillArray(dataset);
 		amplitude_vv.fillArray(dataset);
 		
 		amplitude_vv.probeArray();
+		
+		/////////amplitude_vh.probeArray();
 
 		ROPs rops = new ROPs();
-		rops.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
+		/////rops.connect(amplitude_vh.getArray(), amplitude_vv.getArray());
 		
 		/* Objekt "test" der Klasse "Georeference" wird erzeugt. Übergeben wird dafür der Test-Datensatz.
 		 * 
