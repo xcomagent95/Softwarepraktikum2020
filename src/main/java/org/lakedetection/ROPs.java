@@ -184,10 +184,10 @@ public class ROPs {
 				float x = (( (a[i-3][j-3] + a[i-3][j+3] + a[i+3][j-3] + a[i+3][j+3]) 
 									* 1)  // Gewicht = 1
 						
-						+ ( (a[i-3][j-2] + a[i-3][j-1] + a[i-3][j  ] + a[i-3][j+1] + a[i-3][j+2]  +  a[i-2][j-2]  
+						+ ( (  	   a[i-3][j-2] + a[i-3][j-1] + a[i-3][j  ] + a[i-3][j+1] + a[i-3][j+2]  +  a[i-2][j-2]  
 								+  a[i+3][j-2] + a[i+3][j-1] + a[i+3][j  ] + a[i+3][j+1] + a[i+3][j+2]  +  a[i+2][j+2]  
 								+  a[i-2][j-3] + a[i-1][j-3] + a[i  ][j-3] + a[i+1][j-3] + a[i+2][j-3]  +  a[i+2][j-2]  
-								+  a[i-2][j+3] + a[i-1][j+3] + a[i  ][j+3] + a[i-1][j+3] + a[i-2][j+3]  +  a[i-2][j+2] ) //
+								+  a[i-2][j+3] + a[i-1][j+3] + a[i  ][j+3] + a[i+1][j+3] + a[i+2][j+3]  +  a[i-2][j+2] ) //
 									* 2) // Gewicht = 2
 						+ ( (a[i-2][j-1] + a[i-2][j  ] + a[i-2][j+1]  
 								+  a[i+2][j-1] + a[i+2][j  ] + a[i+2][j+1]  
@@ -205,7 +205,7 @@ public class ROPs {
 		}
 		return b;
 		
-		// Test ergibt, dass die Randpunkte beachtet werden müssen.OutOfBounce!!!! Rand ignorieren??
+		// Test ergibt, dass der Filter korrekt arbeitet
 	
 	}
 	
