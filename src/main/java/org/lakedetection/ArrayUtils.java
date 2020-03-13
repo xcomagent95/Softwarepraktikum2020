@@ -89,6 +89,20 @@ public class ArrayUtils {
 		    } 
 		    return maxValue; 
 	  }
+	  
+	  public static float getMax(float[][] inputArray) { 
+		  float maxValue = inputArray[0][0]; 
+		    for(int i=1;i < inputArray.length;i++){ 
+		      for(int j=0;j<inputArray[i].length;j++) {
+		    	if(inputArray[i][j] > maxValue){ 
+		         maxValue = inputArray[i][j]; 
+		    	} 
+		      }
+		    } 
+		    return maxValue; 
+	  }
+	  
+	  
 		 
 	  //kleinsten Pixelwert ausgeben
 	  public static float getMin(float[] inputArray){ 
@@ -96,6 +110,18 @@ public class ArrayUtils {
 		    for(int i=1;i<inputArray.length;i++){ 
 		      if(inputArray[i] < minValue){ 
 		        minValue = inputArray[i]; 
+		      } 
+		    } 
+		    return minValue; 
+	  } 
+	  
+	  public static float getMin(float[][] inputArray){ 
+		    float minValue = inputArray[0][0]; 
+		    for(int i=0;i<inputArray.length;i++){ 
+		    	for(int j=0;j<inputArray[i].length;j++) {
+		    		if(inputArray[i][j] < minValue){ 
+				        minValue = inputArray[i][j]; 
+		    	}
 		      } 
 		    } 
 		    return minValue; 
