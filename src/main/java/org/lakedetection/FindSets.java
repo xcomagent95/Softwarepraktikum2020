@@ -15,6 +15,7 @@ public class FindSets {
 	// insert array [[lng, lat], [lng, lat], ...]
 	// -->type double
 	// Since we use a polygon the last array entry must be equal to the first
+	
 	/**
 	 * Sends a request to Scihub to get a xml file with potential data sets
 	 * @return Zip Folder  with data of API Hub.
@@ -94,9 +95,9 @@ public class FindSets {
 		      if (request.ok()) { // check request if Code 200
 		    	  
 		    	try {
-		    		file = File.createTempFile("infoxml", ".xml", new File(".//"));
-		    		System.out.println("File path: "+ file.getAbsolutePath());
-		    		System.out.println("Downloaded");
+		    		file = File.createTempFile("sets", ".xml", new File(".//")); //set file
+		    		System.out.println("File path: "+ file.getAbsolutePath()); // show filepath on user pc
+		    		System.out.println("Downloading"); // show user progress
 		    	} catch(IOException exception) {
 		    		System.out.println(exception);
 		    	}
