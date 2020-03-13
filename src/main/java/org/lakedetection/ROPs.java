@@ -1,5 +1,7 @@
 package org.lakedetection;
 
+import java.util.Arrays;
+
 public class ROPs {
 
 	/* Die Klasse enthält die Rasteroperationen, die verwendet werden, um die Bilder zu bearbeiten. 
@@ -89,6 +91,42 @@ public class ROPs {
 	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich
 	
 	
+	 /**
+	  * Function takes an image and filtering it with an array
+	  * @param img float[][]
+	  * @return float[][] Input image filterd
+	  */
+	public float[][] medianFilter(float[][] img){
+		
+		
+		float[][] newimg = new float[img.length][img[0].length];
+		
+		
+		System.out.println(Arrays.deepToString(img));
+		for(int i = 1; i < img.length - 1; i++) {
+			for(int j = 1; j < img[i].length - 1; j++) {
+				float[] medianarray = {
+						img[i - 1][j - 1], img[i - 1][j], img[i - 1][j + 1], 
+						img[i][j - 1], img[i][j], img[i][j + 1],
+						img[i + 1][j - 1], img[i + 1][j], img[i + 1][j + 1]};
+				
+				
+				Arrays.sort(medianarray);
+				float median = medianarray[4];
+				
+				/*
+				 System.out.println(
+						" Feld i:  " + i + ", Feld j: " + j + 
+						" , Median Array: " + Arrays.toString(medianarray) +
+						" , Median: " + median);
+				*/
+				newimg[i][j] = median;
+				//System.out.println(Arrays.deepToString(newimg));
+			}
+		}
+		
+		return newimg;
+	}
 	/* Gauss-Filter mit 7x7-Matrix 
 	 * */
 	public float[][] gaussFilter(float[][] a){
