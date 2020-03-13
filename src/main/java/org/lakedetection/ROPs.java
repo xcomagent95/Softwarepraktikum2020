@@ -110,6 +110,33 @@ public class ROPs {
 		
 		return newimg;
 	}
+	
+	/**
+	 * Adding Original rim Pixel data to a new 2d array.
+	 * The Image will keep it size and the inner pixel might be used
+	 * for a filter, rim Pixels wont be edited in all of our filter
+	 * @param img original image
+	 * @param rim size of the filter 
+	 * @return 2darray with edges filled with original image Pixelvalues
+	 */
+	public float[][] edgeFiller(float[][] img, int rim){
+		float[][] newimg = new float[img.length][img[1].length];
+		for(int i = 0; i < img.length; i++) {
+			if(i < 0 + rim || i > img.length - 1 - rim) {
+				for(int j = 0; j < img[i].length; j++) {
+					newimg[i][j] = img[i][j];
+				}
+			} else {
+				for(int j = 0; j < rim; j++) {
+					newimg[i][j] = img[i][j];	
+					newimg[i][newimg[i].length - 1 - j] = img[i][img[i].length - 1 - j ];
+				}
+				newimg[i][0] = img[i][0];
+				newimg[i][newimg[i].length - 1] = img[i][img[i].length - 1];
+			}
+		}
+		return newimg;
+	}
 	/* Gauss-Filter mit 7x7-Matrix 
 	 * */
 	public float[][] gaussFilter(float[][] input){
