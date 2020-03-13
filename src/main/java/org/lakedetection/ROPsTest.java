@@ -97,7 +97,7 @@ public class ROPsTest extends TestCase{
     	d[7][4] = 0.0f;
     	d[7][5] = 0.0f;
     	d[7][6] = 0.0f;
-    	d[7][7] = 100.0f;
+    	d[7][7] = 1000.0f;
     	d[7][8] = 0.0f;
     	d[7][9] = 0.0f;
     	d[7][10] = 0.0f;
@@ -109,6 +109,8 @@ public class ROPsTest extends TestCase{
     	 
 		ROPs rops = new ROPs();
 		rops.show(d);
+		System.out.println();
+		rops.show(rops.smoothing(d));
 		System.out.println();
 		rops.show(rops.gaussFilter(d));
 		//rops.show(rops.connect(b,c));
