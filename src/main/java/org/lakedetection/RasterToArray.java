@@ -1,6 +1,11 @@
 package org.lakedetection;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
+
 import org.esa.snap.core.datamodel.Band;
 import org.esa.snap.core.datamodel.Product;
 
@@ -154,17 +159,6 @@ public class RasterToArray {
 	    return minValue;
 	  }
 
-	//Berechnen einiger Eckdaten zum Array
-	public void calculateStatistics() {
-		System.out.println("Pixel-Count: " + this.arrayHeight * this.arrayWidth);
-		System.out.println("lowest Pixel-Value: " + getMin(this.loadeddata));
-		System.out.println("highest Pixel-Value: " + getMax(this.loadeddata));
-		System.out.println("average Pixel-Value: " + (getMax(this.loadeddata) + getMin(this.loadeddata)/2));
-
-		lowestPixel = getMin(this.loadeddata);
-		highestPixel = getMax(this.loadeddata);
-		averagePixel = (getMax(this.loadeddata) + getMin(this.loadeddata)/2);
-	}
 
 	//Setzt alle Pixelwerte welche groesser sind als der Minimalwert auf 0
 	public void filterArrayLowestPixel() {
@@ -233,4 +227,3 @@ public class RasterToArray {
 	}
 }
 
-}
