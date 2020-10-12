@@ -9,11 +9,13 @@ public class Main {
 
     public static void main(String[] args) throws IOException { //main Methode
     	
-    	Request req = new Request();
-    	File file = req.requesting();
+    	//Request req = new Request();
+    	//File file = req.requesting();
     	
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
-    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020"+file.getAbsolutePath());
+    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020"+file.getAbsolutePath());
+
+    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
     	/*GUI try1 = new GUI();
     	Loadzip dataset = new Loadzip(try1.loadPic());*/
     	/// Funktionert 
@@ -51,7 +53,7 @@ public class Main {
   		int[][] VVrgbArray = ArrayUtils.convertToRGB(VVnormalisedArray);
   		int[][] connectedRGBArray = ArrayUtils.convertToRGB(connectedBandsNormalised);
   		
-  		ArrayUtils.arrayToImage(medianArrayNormalised, "/Users/josefinabalzer/Desktop/TestBilder/", "medianArrayNormalised");
+  		ArrayUtils.arrayToImage(medianArrayNormalised, "/Users/josefinabalzer/Desktop/TestBilder/", "test");
 
     }
 }
