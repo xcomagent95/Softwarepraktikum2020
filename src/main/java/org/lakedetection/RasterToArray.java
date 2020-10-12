@@ -192,7 +192,28 @@ public class RasterToArray {
 	public int[][] getConvertedArray(){
 		return datasetArrayNormalised;
 	}
+	
+	//Schreibt ein normalisiertes Array in ein .png // arbeitet auf int[][]
+	public void arrayToImage() {
+		BufferedImage outputImage = new BufferedImage(this.arrayWidth, this.arrayHeight, BufferedImage.TYPE_INT_RGB);
 
+		 int pixelCounter = 0;
+		 for(int i = 0; i < this.arrayHeight; i++) {
+		        for(int j = 0; j < this.arrayWidth; j++) {
+		        	outputImage.setRGB(j, i, this.datasetArrayNormalised[i][j]);
+		        	pixelCounter += 1;
+		        	//System.out.println(pixelCounter + " pixels written...");
+		        }
+		 }
+
+		 File file = new File("E:\\Raster\test.png");
+		 try {
+			ImageIO.write(outputImage, "png", file);
+			System.out.println("image written!");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// Analog zu rops.connect(a,b), arbeitet allerdings mit int[][] und nicht mit float[][]
 	public float[][] connectP(float[][] a, float[][] b){
