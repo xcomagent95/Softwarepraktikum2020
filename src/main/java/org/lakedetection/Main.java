@@ -3,11 +3,17 @@ package org.lakedetection;
 import java.io.IOException;
 import java.util.Scanner;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) throws IOException { //main Methode
+    	
+    	Request req = new Request();
+    	File file = req.requesting();
+    	
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
-    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020"+file.getAbsolutePath());
     	/*GUI try1 = new GUI();
     	Loadzip dataset = new Loadzip(try1.loadPic());*/
     	/// Funktionert 
