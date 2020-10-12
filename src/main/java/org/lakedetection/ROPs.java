@@ -1,5 +1,6 @@
 package org.lakedetection;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ROPs {
@@ -57,18 +58,66 @@ public class ROPs {
 	 * und alle Wasserfl�chen schwarz einf�rben.
 	 * */
 	
-	public float[][] makeBlack(float[][] input) {
-
-		float[][] output = new float[input.length][input[0].length];
+	public int[][] makeBlack(int[][] input, int schwellwert) {
+		int[][] output = new int[input.length][input[0].length];
 		for(int i=0; i<input.length; i++) {
 			for(int j=0; j<input[i].length; j++) {
-				if(input[i][j] <= 130) { // Schwellwert muss noch gesetzt werden
+				if(input[i][j] <= schwellwert) { // Schwellwert muss noch gesetzt werden
 					output[i][j] = 0;
 				}
 				else output[i][j] = 255; // max. ist mittelwert der maxima von vh und vv (4142,5) __ jetzt doch ge�ndert auf 255
 			}
 		}
 		return output;
+	}
+	
+	public void verticalScanList(int[][] input, int px, int py) {
+		ArrayList<Integer> horizontalList=new ArrayList<Integer>();  
+		int basepy = py;
+		int counter = 0;
+		if(input[px][py] == 0) {
+			while(input[px][py] == 0) {
+				horizontalList.add(input[px][py]);
+				input[px][py] = 150;
+				py++;
+				counter++;
+			}
+			py = basepy;
+			input[px][py] = 0;
+			while(input[px][py] == 0) {
+				horizontalList.add(input[px][py]);
+				input[px][py] = 150;
+				py--;
+				counter++;
+			}
+			System.out.println("Scanline: " + counter);
+			input[px][py] = 150;
+		}
+		else {
+		}
+	}
+	
+	public void horizontalScanLine(int[][] input, int px, int py) {
+		int basepy = py;
+		int counter = 0;
+		if(input[px][py] == 0) {
+			while(input[px][py] == 0) {
+				input[px][py] = 150;
+				py++;
+				counter++;
+			}
+			py = basepy;
+			input[px][py] = 0;
+			while(input[px][py] == 0) {
+				input[px][py] = 150;
+				py--;
+				counter++;
+			}
+			System.out.println("Scanline: " + counter);
+			input[px][py] = 150;
+		}
+		else {
+		}
 	}
 	
 	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich

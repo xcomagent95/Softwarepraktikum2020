@@ -11,12 +11,10 @@ public class FloodFillAlgo {
 	private static int px;
 	private static int py;
 	private static int numPixel = 0;
-	private static float[][] inputArr;
-	
-	
+	private static int[][] inputArr;
 	
 	//Kernstuek des Algor. ist die checkNeighbour()
-	public static void calcAndPrintNumOfConnenctedPixel(float[][] inInputArr, int inPx, int inPy){
+	public static void calcAndPrintNumOfConnenctedPixel(int[][] inInputArr, int inPx, int inPy){
 		px = inPx;
 		py = inPy;
 		inputArr = inInputArr;
@@ -46,80 +44,80 @@ public class FloodFillAlgo {
 	//jeweiligen if-Abfragen enthaelt den Rekursionsschritt, der den untersuchten 
 	//Nachbarpixel zum neuen Startpixel macht.
 	private static void checkNeighbour(int inPx, int inPy) {
-		if((py < (inputArr[px].length - 1)) && (inputArr[px][py + 1] == 255.0f)) {
+		if((py < (inputArr[px].length - 1)) && (inputArr[px][py + 1] == 255)) {
 			pixelCounter();
 			py += 1;
-			inputArr[px][py] = 100.01f;
+			inputArr[px][py] = 101;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			py -= 1;
 		}//else System.err.println("unten");
 		
-		if((py < (inputArr[px].length - 1)) && (px > 0) && (inputArr[px - 1][py + 1] == 255.0f)) {
+		if((py < (inputArr[px].length - 1)) && (px > 0) && (inputArr[px - 1][py + 1] == 255)) {
 			pixelCounter();
 			px -= 1;
 			py += 1;
-			inputArr[px][py] = 100.02f;
+			inputArr[px][py] = 102;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			px += 1;
 			py -= 1;
 		}//else System.err.println("unten links");
 		
-		if((px > 0) && (inputArr[px - 1][py] == 255.0f)) {
+		if((px > 0) && (inputArr[px - 1][py] == 255)) {
 			pixelCounter();
 			px -= 1;
-			inputArr[px][py] = 100.03f;
+			inputArr[px][py] = 103;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			px += 1;
 		}//else System.err.println("links");
 		
-		if((py > 0) && (px > 0) && (inputArr[px - 1][py - 1] == 255.0f)) {
+		if((py > 0) && (px > 0) && (inputArr[px - 1][py - 1] == 255)) {
 			pixelCounter();
 			px -= 1;
 			py -= 1;
-			inputArr[px][py] = 100.04f;
+			inputArr[px][py] = 104;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			px += 1;
 			py += 1;
 		}//else System.err.println("oben links");
 
-		if((py > 0) && (inputArr[px][py - 1] == 255.0f)) {
+		if((py > 0) && (inputArr[px][py - 1] == 255)) {
 			pixelCounter();
 			py -= 1;
-			inputArr[px][py] = 100.05f;
+			inputArr[px][py] = 105;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			py += 1;
 		}//else System.err.println("oben");
 
-		if((px < (inputArr.length - 1)) && (py >0) && (inputArr[px + 1][py - 1] == 255.0f)) {
+		if((px < (inputArr.length - 1)) && (py >0) && (inputArr[px + 1][py - 1] == 255)) {
 			pixelCounter();
 			px += 1;
 			py -= 1;
-			inputArr[px][py] = 100.06f;
+			inputArr[px][py] = 106;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			px -= 1;
 			py += 1;
 		}//else System.err.println("oben rechts");
 		
-		if((px < (inputArr.length - 1)) && (inputArr[px + 1][py] == 255.0f)) {
+		if((px < (inputArr.length - 1)) && (inputArr[px + 1][py] == 255)) {
 			pixelCounter();
 			px += 1;
-			inputArr[px][py] = 100.07f;
+			inputArr[px][py] = 107;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			px -= 1;
 		}//else System.err.println("rechts");
 
-		if((px < (inputArr.length - 1)) && (py < (inputArr[px].length - 1)) && (inputArr[px + 1][py + 1] == 255.0f)) {
+		if((px < (inputArr.length - 1)) && (py < (inputArr[px].length - 1)) && (inputArr[px + 1][py + 1] == 255)) {
 			pixelCounter();
 			px += 1;
 			py += 1;
-			inputArr[px][py] = 100.08f;
+			inputArr[px][py] = 108;
 			//System.out.println(ausgangsArr[px][py]);
 			checkNeighbour(px, py);
 			px -= 1;

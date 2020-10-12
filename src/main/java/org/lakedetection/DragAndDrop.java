@@ -54,7 +54,7 @@ public class DragAndDrop extends JFrame
 	getContentPane().add(lblDraganddrop);
 	
 	setVisible(true);
-	
+	/*
 	new DropTarget(lblDraganddrop, new DropTargetListener()
 	{
 	    public void drop(DropTargetDropEvent dtde)
@@ -86,13 +86,13 @@ public class DragAndDrop extends JFrame
 
 				  		float[][] medianArray = rops.medianFilter(amplitude_vv.getArray());
 				  		float[][] medianAndGaussArray = rops.medianFilter(rops.gaussFilter(amplitude_vv.getArray()));
-				  		float[][] blackArray = rops.makeBlack(medianAndGaussArray);
-				  		int[][] normalisedArray = ArrayUtils.normaliseValues(blackArray, ArrayUtils.getMin(blackArray), ArrayUtils.getMax(blackArray));
+				  		//float[][] blackArray = rops.makeBlack(medianAndGaussArray);
+				  		//int[][] normalisedArray = ArrayUtils.normaliseValues(blackArray, ArrayUtils.getMin(blackArray), ArrayUtils.getMax(blackArray));
 
 				  		//float[][] gaussArray = rops.gaussFilter(amplitude_vv.getArray());
 				  		//int[][] normalisedArray = ArrayUtils.normaliseValues(gaussArray, ArrayUtils.getMin(gaussArray), ArrayUtils.getMax(gaussArray));
 				  		// int[][] normalisedArray = ArrayUtils.normaliseValues(amplitude_vv.getArray(), amplitude_vv.getLowestPixel(), amplitude_vv.getHighestPixel());
-				  		int[][] rgbArray = ArrayUtils.convertToRGB(normalisedArray);
+				  		//int[][] rgbArray = ArrayUtils.convertToRGB(normalisedArray);
 				  		ArrayUtils.arrayToImage(rgbArray, "/Users/josefinabalzer/Desktop/TestBilder/", "TestPic");
 					    }
 		 
@@ -127,6 +127,7 @@ public class DragAndDrop extends JFrame
 	    {}
  
 	});
+	*/
 	
     }
    
