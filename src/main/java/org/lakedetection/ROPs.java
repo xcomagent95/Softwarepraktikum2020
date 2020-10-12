@@ -59,6 +59,7 @@ public class ROPs {
 	 * */
 	
 	public int[][] makeBlack(int[][] input, int schwellwert) {
+
 		int[][] output = new int[input.length][input[0].length];
 		for(int i=0; i<input.length; i++) {
 			for(int j=0; j<input[i].length; j++) {
@@ -129,15 +130,14 @@ public class ROPs {
 	  * @return float[][] Input image filterd
 	  */
 	public float[][] medianFilter(float[][] img){
-		float[][] newimg = new float[img.length][img[0].length];
+		float[][] newimg = new float[img.length-2][img[0].length-2];
 		System.out.println(Arrays.deepToString(img));
 		for(int i = 1; i < img.length - 1; i++) {
 			for(int j = 1; j < img[i].length - 1; j++) {
 				float[] medianarray = {
 						img[i - 1][j - 1], img[i - 1][j], img[i - 1][j + 1], 
-						img[i][j - 1], img[i][j], img[i][j + 1],
+						img[i    ][j - 1], img[i    ][j], img[i    ][j + 1],
 						img[i + 1][j - 1], img[i + 1][j], img[i + 1][j + 1]};
-				
 				
 				Arrays.sort(medianarray);
 				float median = medianarray[4];
@@ -148,7 +148,7 @@ public class ROPs {
 						" , Median Array: " + Arrays.toString(medianarray) +
 						" , Median: " + median);
 				*/
-				newimg[i][j] = median;
+				newimg[i-1][j-1] = median;
 				//System.out.println(Arrays.deepToString(newimg));
 			}
 		}
@@ -185,7 +185,7 @@ public class ROPs {
 	/* Gauss-Filter mit 7x7-Matrix 
 	 * */
 	public float[][] gaussFilter(float[][] input){
-		float[][] output = new float[input.length][input[0].length];
+		float[][] output = new float[input.length-6][input[0].length-6];
 		for(int i=3; i<(input.length)-3; i++) {
 			for(int j=3; j<(input[i].length)-3; j++) {
 				float x = (( (input[i-3][j-3] + input[i-3][j+3] + input[i+3][j-3] + input[i+3][j+3]) 
@@ -196,18 +196,18 @@ public class ROPs {
 								+  input[i-2][j-3] + input[i-1][j-3] + input[i  ][j-3] + input[i+1][j-3] + input[i+2][j-3]  +  input[i+2][j-2]  
 								+  input[i-2][j+3] + input[i-1][j+3] + input[i  ][j+3] + input[i+1][j+3] + input[i+2][j+3]  +  input[i-2][j+2] ) 
 									* 2) // Gewicht = 2
-						+ ( (input[i-2][j-1] + input[i-2][j  ] + input[i-2][j+1]  
+						+ ( (	   input[i-2][j-1] + input[i-2][j  ] + input[i-2][j+1]  
 								+  input[i+2][j-1] + input[i+2][j  ] + input[i+2][j+1]  
 								+  input[i-1][j-2] + input[i  ][j-2] + input[i+1][j-2]  
 								+  input[i-1][j+2] + input[i  ][j+2] + input[i+1][j+2]) 
 									* 3) // Gewicht = 3
-						+ ( (input[i-1][j-1] + input[i-1][j  ] + input[i-1][j+1] 
-								+ input[i  ][j-1] + input[i  ][j] + input[i  ][j+1] 
-								+ input[i+1][j-1] + input[i+1][j] + input[i+1][j+1]) 
+						+ ( (      input[i-1][j-1] + input[i-1][j  ] + input[i-1][j+1] 
+								+  input[i  ][j-1] + input[i  ][j] + input[i  ][j+1] 
+								+  input[i+1][j-1] + input[i+1][j] + input[i+1][j+1]) 
 									* 5)     // Gewicht = 5
 						) / 128;	  
 						
-				output[i][j] = x; 
+				output[i-3][j-3] = x; 
 			}
 		}
 		return output;
@@ -216,8 +216,8 @@ public class ROPs {
 	
 	}
 	
-	int counter = 0;
 	public int countBlacks(int[][] input) {
+		int counter = 0;
 		for(int i=0; i<input.length; i++) {
 			for(int j=0; j<input[i].length; j++) {
 				if(input[i][j] == 0) counter++;
