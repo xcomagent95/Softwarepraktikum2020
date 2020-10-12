@@ -34,7 +34,7 @@ public class ArrayUtils {
 		for(int i = 0; i < datasetArray.length; i++) {
 			for(int j = 0; j < datasetArray[0].length; j++) {
 				datasetArrayNormalised[i][j] = (int)(((datasetArray[i][j]-lowestPixel)*(255 - 0)/(highestPixel-lowestPixel)+0));
-				pixelCounter += 1;
+				pixelCounter++;
 				//System.out.println(pixelCounter + " pixels normalised...");
 			}
 		}
@@ -54,6 +54,17 @@ public class ArrayUtils {
 		}
 		System.out.println("array converted to RGB!");
 		return(datasetArrayRGB);
+	}
+	
+	// Dieselbe Methode "connect", doch diese arbietet nicht mit zwei float[][] sondern mit int[][]
+	public static int[][] connectNormalised(int[][] datasetArrayNormalised1, int[][] datasetArrayNormalised2){
+		int[][] datasetArrayConnected = new int[datasetArrayNormalised1.length][datasetArrayNormalised1[0].length];
+		for(int i=0; i<datasetArrayNormalised1.length; i++) {
+			for(int j=0; j<datasetArrayNormalised1[i].length; j++) { 
+				datasetArrayConnected[i][j] = (datasetArrayNormalised1[i][j] + datasetArrayNormalised1[i][j]) / 2;
+			}
+		} 
+		return datasetArrayConnected;
 	}
 
 	//Schreibt ein normalisiertes Array in ein .png //!!!!!AusgabePfad anpassen
