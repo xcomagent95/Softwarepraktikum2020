@@ -80,11 +80,7 @@ public class ROPs {
 	  * @return float[][] Input image filterd
 	  */
 	public float[][] medianFilter(float[][] img){
-		
-		
 		float[][] newimg = new float[img.length][img[0].length];
-		
-		
 		System.out.println(Arrays.deepToString(img));
 		for(int i = 1; i < img.length - 1; i++) {
 			for(int j = 1; j < img[i].length - 1; j++) {
@@ -140,9 +136,7 @@ public class ROPs {
 	/* Gauss-Filter mit 7x7-Matrix 
 	 * */
 	public float[][] gaussFilter(float[][] input){
-		
 		float[][] output = new float[input.length][input[0].length];
-		
 		for(int i=3; i<(input.length)-3; i++) {
 			for(int j=3; j<(input[i].length)-3; j++) {
 				float x = (( (input[i-3][j-3] + input[i-3][j+3] + input[i+3][j-3] + input[i+3][j+3]) 
