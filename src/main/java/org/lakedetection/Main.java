@@ -59,23 +59,30 @@ public class Main {
   		int[][] connectedBandsNormalisedGauss = ArrayUtils.connectNormalised(normalisedVVGauss, normalisedVHGauss);
   		int[][] connectedBandsNormalisedMedian = ArrayUtils.connectNormalised(normalisedvvMedian, normalisedvhMedian);
 
-  		//MakeBlack
-  		//int[][] connectedBandsNormalisedBlack = rops.makeBlack(connectedBandsNormalised, i);
-  		int[][] connectedBandsNormalisedGaussBlack = rops.makeBlack(connectedBandsNormalisedGauss, 70);
-  		int[][] connectedBandsNormalisedMedianBlack = rops.makeBlack(connectedBandsNormalisedMedian, 30);
-
-	  	//Lake detect
-  		rops.horizontalScanLine(connectedBandsNormalisedGaussBlack, 200, 100);
-  		rops.horizontalScanLine(connectedBandsNormalisedMedianBlack, 200, 100);
-
-	  	//Convert to RGB
-	  	//int[][] connectedRGBArray = ArrayUtils.convertToRGB(connectedBandsNormalisedBlack);
-	  	int[][] connectedRGBArrayGauss = ArrayUtils.convertToRGB(connectedBandsNormalisedGaussBlack);
+  		
+  	
+	  	//MakeBlack
+	  	//int[][] connectedBandsNormalisedBlack = rops.makeBlack(connectedBandsNormalised, i);
+	  	//int[][] connectedBandsNormalisedGaussBlack = rops.makeBlack(connectedBandsNormalisedGauss, i);
+	  	int[][] connectedBandsNormalisedMedianBlack = rops.makeBlack(connectedBandsNormalisedMedian, 20);
+	
+		//Lake detect
+	  	//rops.horizontalScanLine(connectedBandsNormalisedGaussBlack, 200, 100);
+	  	//rops.horizontalScanLine(connectedBandsNormalisedMedianBlack, 200, 100);
+	
+		//Convert to RGB
+		//int[][] connectedRGBArray = ArrayUtils.convertToRGB(connectedBandsNormalisedBlack);
+	  	//int[][] connectedRGBArrayGauss = ArrayUtils.convertToRGB(connectedBandsNormalisedGaussBlack);
 	  	int[][] connectedRGBArrayMedian = ArrayUtils.convertToRGB(connectedBandsNormalisedMedianBlack);
-
-	  	//Write Image
-	  	//ArrayUtils.arrayToImage(connectedRGBArray, "E:\\Raster\\TestBilder\\", "normal" + i + ".png");
-	  	ArrayUtils.arrayToImage(connectedRGBArrayGauss, "E:\\Raster\\TestBilder\\", "gauss.png");
-	  	ArrayUtils.arrayToImage(connectedRGBArrayMedian, "E:\\Raster\\TestBilder\\", "median.png");
+	
+		//Write Image
+		//ArrayUtils.arrayToImage(connectedRGBArray, "E:\\Raster\\TestBilder\\", "normal" + i + ".png");
+		//ALEX:
+		//ArrayUtils.arrayToImage(connectedRGBArrayGauss, "E:\\Raster\\TestBilder\\", "gauss.png");
+		//ArrayUtils.arrayToImage(connectedRGBArrayMedian, "E:\\Raster\\TestBilder\\", "median.png");
+		//JOSI:
+		//ArrayUtils.arrayToImage(connectedRGBArrayGauss, "/Users/josefinabalzer/Desktop/TestBilder/", "gaussAlexChangedBorders.png");
+		ArrayUtils.arrayToImage(connectedRGBArrayMedian, "/Users/josefinabalzer/Desktop/TestBilder/", "medianAlexChangedBorders.png");
+	  	
     }
 }
