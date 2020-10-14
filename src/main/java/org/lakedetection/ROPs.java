@@ -18,7 +18,7 @@ public class ROPs {
 	
 
 	
-	// Hilfsfkt. zum Anzeigen einer Matrix 15x15
+	// Hilfsfunktion zum Anzeigen einer Matrix 15x15
 	
 	public void show(float[][] input) {
 
@@ -35,8 +35,7 @@ public class ROPs {
 	
 
 	
-	// Fkt. die die Flï¿½che glï¿½ttet -- Test winputr erfolgreich
-	 
+	// Funktion die die Flaeche glaettet -- Test winputr erfolgreich
 	public float[][] smoothing(float[][] input){
 		float[][] output = new float[input.length][input[0].length];
 		
@@ -55,75 +54,139 @@ public class ROPs {
 	/* || Wasserflï¿½chen erkennen ||
 	 * 
 	 * Mit der Schwellwertfunktion arbeiten 
-	 * und alle Wasserflï¿½chen schwarz einfï¿½rben.
+	 * und alle Wasserflaechen schwarz einfaerben.
 	 * */
-	
-	public int[][] makeBlack(int[][] input, int schwellwert) {
+	//In binäres Farbschema überführen
+	public int[][] convertTobinaryColorScheme(int[][] input, int schwellwert) {
 
 		int[][] output = new int[input.length][input[0].length];
 		for(int i=0; i<input.length; i++) {
 			for(int j=0; j<input[i].length; j++) {
-				if(input[i][j] <= schwellwert) { // Schwellwert muss noch gesetzt werden
+				if(input[i][j] <= schwellwert) {
 					output[i][j] = 0;
 				}
-				else output[i][j] = 255; // max. ist mittelwert der maxima von vh und vv (4142,5) __ jetzt doch geï¿½ndert auf 255
+				else output[i][j] = 255; 
 			}
 		}
 		return output;
 	}
 	
-	public void verticalScanList(int[][] input, int px, int py) {
-		ArrayList<Integer> horizontalList=new ArrayList<Integer>();  
-		int basepy = py;
+	//Scannen
+	public void scan(int[][] input, int px, int py) {
+		int origin_color = input[px][py];
+		ArrayList<Point> pointList = new ArrayList<Point>();  
+		input[px][py] = origin_color;	
 		int counter = 0;
-		if(input[px][py] == 0) {
-			while(input[px][py] == 0) {
-				horizontalList.add(input[px][py]);
-				input[px][py] = 150;
-				py++;
-				counter++;
+		int boundX = input.length;
+		int boundY = input[0].length;
+		
+		pointList.add(new Point(px, py));
+		
+		while(!pointList.isEmpty()) {
+			int x = pointList.get(0).x;
+			int y = pointList.get(0).y;
+			if(pointList.get(0) != null) {
+				if((x-1 >= 0 && input[x-1][y] != 150) || (x+1 < boundX && input[x+1][y] != 150)) {
+					verticalScanLine(input,  x, y, pointList);
+				}
+				if((y-1 >= 0 && input[x][y-1] != 150) || (y+1 < boundY && input[x][y+1] != 150)) {
+					horizontalScanLine(input, x,  y, pointList);
+				}
+				if(input[x][y] == 150) {
+					counter += 1;
+				}
+				int[][] output = input;
+				/*
+				if(counter % 500000 == 0) {
+					int[][] connectedBandsNormalisedGaussBlack = makeBlack(output, 70);
+					waterrize(output, 150);
+					ArrayUtils.arrayToImage(output, "E:\\Raster\\TestBilder\\", "median" + counter + ".png");
+				}
+				*/
 			}
-			py = basepy;
-			input[px][py] = 0;
-			while(input[px][py] == 0) {
-				horizontalList.add(input[px][py]);
-				input[px][py] = 150;
-				py--;
-				counter++;
-			}
-			System.out.println("Scanline: " + counter);
-			input[px][py] = 150;
-		}
-		else {
+			pointList.remove(0);
 		}
 	}
 	
-	public void horizontalScanLine(int[][] input, int px, int py) {
+	//Horizontal Scannen
+	public void horizontalScanLine(int[][] input, int px, int py, ArrayList<Point> pointList) {
 		int basepy = py;
 		int counter = 0;
+		int boundX = input.length;
+		int boundY = input[0].length;
+		 
 		if(input[px][py] == 0) {
-			while(input[px][py] == 0) {
+			while(py < boundY && input[px][py] == 0) {
 				input[px][py] = 150;
-				py++;
 				counter++;
+				pointList.add(new Point(px, py));
+				py++;
 			}
 			py = basepy;
 			input[px][py] = 0;
-			while(input[px][py] == 0) {
+			while(py >= 0 && input[px][py] == 0) {
 				input[px][py] = 150;
-				py--;
 				counter++;
+				pointList.add(new Point(px, py));
+				py--;
 			}
-			System.out.println("Scanline: " + counter);
-			input[px][py] = 150;
-		}
-		else {
 		}
 	}
 	
-	// Test mithilfe einer beliebigen 5x5-Matrix war erfolgreich
+	//Vertikal Scannen
+	public void verticalScanLine(int[][] input, int px, int py, ArrayList<Point> pointList) {
+		int basepx = px;
+		int basepy = py;
+		int counter = 0;
+		int boundX = input.length;
+		int boundY = input[0].length;
+		
+		if(input[px][py] == 0 || input[px][py] == 150) {
+			while(px < boundX && (input[px][py] == 0 || input[px][py] == 150)) {
+				counter++;
+				if (input[px][py] == 0) {	
+					pointList.add(new Point(px, py));
+				} 
+				px++;
+			}
+			px = basepx;
+			while(px >= 0 && (input[px][py] == 0 || input[px][py] == 150)) {
+				counter++;
+				if (input[px][py] == 0) {
+					pointList.add(new Point(px, py));
+				}
+				px--;
+			}
+		}
+	}
 	
+	public static void waterrize(int[][] input, int color) {
+		int pixelCounter = 0;
+		for(int i = 0; i < input.length; i++) {
+			for(int j = 0; j < input[0].length; j++) {
+				if(input[i][j] == 255) {
+					int shiftedColor = (255 << 16) + (255 << 8) + 255;
+					input[i][j] = shiftedColor;
+					pixelCounter++;
+				}
+			}
+		}
+		//System.out.println(pixelCounter);
+	}
 	
+	//Wasserflaeche berechnen
+	public static int calculateSurface(int[][] input) {
+		int counter = 0;
+		for(int i = 0; i < input.length; i++) {
+			for(int j = 0; j < input[0].length; j++) {
+				if(input[i][j] == 150) {
+					counter += 100;
+				}
+			}
+		}
+		return counter;
+	}
+
 	 /**
 	  * Function takes an image and filtering it with an array
 	  * @param img float[][]
@@ -131,7 +194,6 @@ public class ROPs {
 	  */
 	public float[][] medianFilter(float[][] img){
 		float[][] newimg = new float[img.length-2][img[0].length-2];
-		System.out.println(Arrays.deepToString(img));
 		for(int i = 1; i < img.length - 1; i++) {
 			for(int j = 1; j < img[i].length - 1; j++) {
 				float[] medianarray = {
@@ -216,18 +278,18 @@ public class ROPs {
 	
 	}
 	
-	public int countBlacks(int[][] input) {
-		int counter = 0;
-		for(int i=0; i<input.length; i++) {
-			for(int j=0; j<input[i].length; j++) {
-				if(input[i][j] == 0) counter++;
-			}
+	//Punkt-Klasse fuer interne Zwecke
+	public static class Point {
+		int x;
+		int y;
+		
+		public Point(int x, int y) {
+			this.x = x;
+			this.y = y;
 		}
-		return counter;
+		
 	}
-	
-	// RIM Ã¼berall einbauen
-	
+
 }
 
 

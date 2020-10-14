@@ -108,12 +108,13 @@ public class ROPsTest extends TestCase{
     	
     	 
 		ROPs rops = new ROPs();
-		rops.show(d);
+		//rops.show(d);
 		System.out.println();
-		rops.show(rops.smoothing(d));
+		//rops.show(rops.smoothing(d));
 		System.out.println();
-		rops.show(rops.gaussFilter(d));
+		//rops.show(rops.gaussFilter(d));
 		//rops.show(rops.connect(b,c));
+		System.out.println("???");
 		
 		//System.out.println("b.length: " +b.length + ", b[0].length: " + b[0].length); 
 				

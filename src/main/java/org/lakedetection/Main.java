@@ -12,9 +12,9 @@ public class Main {
     	FindSets findsets = new FindSets();
     	//Request req = new Request();
     	File file = findsets.downloadZip("61c95849-0ddd-4668-94e9-99c69942944f");
-    	
+
     	System.out.println("search done");
-    	
+
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	Loadzip dataset = new Loadzip(file.getAbsolutePath());
     	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/sets3418458721679251533.zip");
@@ -31,31 +31,69 @@ public class Main {
 
     	//new DragAndDrop();
 
-  		//Init
+    	//Parameter
+    	int tile_width;
+    	int tile_height;
+
+    	int x_in_lake = -1;
+    	int y_in_lake = -1;
+
+    	Boolean color_or_greyscale = true;
+    	int color_or_greyscale_int = 1;
+
+    	//Create a Scanner object fuer Nutzer Eingabe
+    	Scanner consoleScanner = new Scanner(System.in);
+
+        System.out.println("Enter requested tile height:");
+        tile_height = consoleScanner.nextInt();
+        System.out.println("Enter requested tile with:");
+        tile_width = consoleScanner.nextInt();
+
+        while((x_in_lake > tile_height || y_in_lake > tile_width) || (x_in_lake < 0 || y_in_lake < 0)) {
+	        System.out.println("Enter x of position in Lake:");
+	        x_in_lake = consoleScanner.nextInt();
+	        System.out.println("Enter y of position in Lake:");
+	        y_in_lake = consoleScanner.nextInt();
+        }
+
+        System.out.println("Color or Greyscale? (1 = Color / 2 = Greyscale)");
+        color_or_greyscale_int = consoleScanner.nextInt();
+
+        if(color_or_greyscale_int == 1) {
+        	color_or_greyscale = true;
+        }
+        else {
+        	color_or_greyscale = false;
+        }
+        System.out.println("running......");
+
+  		//Initialize Utils und ROP`s
   		ArrayUtils connected = new ArrayUtils();
   		ROPs rops = new ROPs();
 
-    	//GetBands
-  		RasterToArray amplitude_vv = new RasterToArray(dataset.getProduct(), "Amplitude_VV", 9961, 9994, 300, 300); //VV-Band
-  		RasterToArray amplitude_vh = new RasterToArray(dataset.getProduct(), "Amplitude_VH", 9961, 9994, 300, 300); //VH-Band
+    	//GetBands - Baender lesen und in RasterToArray ueberfuehren
+  		RasterToArray amplitude_vv = new RasterToArray(dataset.getProduct(), "Amplitude_VV", 9961, 9994, tile_height, tile_width); //VV-Band
+  		RasterToArray amplitude_vh = new RasterToArray(dataset.getProduct(), "Amplitude_VH", 9961, 9994, tile_height, tile_width); //VH-Band
 
-  		//ROP`s auf�hren
-  		//Gauss
+  		//ROP`s aufuehren
+
+  		//Gauss-Filter anwenden
   		float[][] amplitude_vvGauss = rops.gaussFilter(amplitude_vv.getArray());
   		float[][] amplitude_vhGauss = rops.gaussFilter(amplitude_vh.getArray());
 
-  		//Median
+  		//Median-Filter anwenden
   		float[][] amplitude_vvMedian = rops.medianFilter(amplitude_vv.getArray());
   		float[][] amplitude_vhMedian = rops.medianFilter(amplitude_vh.getArray());
 
   		//Normalize Arrays
+  		//Normal
   		int[][] VHnormalisedArray = ArrayUtils.normaliseValues(amplitude_vh.getArray(), ArrayUtils.getMin(amplitude_vh.getArray()), ArrayUtils.getMax(amplitude_vh.getArray()));
   		int[][] VVnormalisedArray = ArrayUtils.normaliseValues(amplitude_vv.getArray(), ArrayUtils.getMin(amplitude_vv.getArray()), ArrayUtils.getMax(amplitude_vv.getArray()));
-
+  		//Gauss
   		int[][] normalisedVVGauss = ArrayUtils.normaliseValues(amplitude_vvGauss, ArrayUtils.getMin(amplitude_vvGauss), ArrayUtils.getMax(amplitude_vvGauss));
   		int[][] normalisedVHGauss = ArrayUtils.normaliseValues(amplitude_vhGauss, ArrayUtils.getMin(amplitude_vhGauss), ArrayUtils.getMax(amplitude_vhGauss));
-
-  		int[][] normalisedvvMedian = ArrayUtils.normaliseValues(amplitude_vhGauss, ArrayUtils.getMin(amplitude_vvMedian), ArrayUtils.getMax(amplitude_vvMedian));
+  		//Median
+  		int[][] normalisedvvMedian = ArrayUtils.normaliseValues(amplitude_vvMedian, ArrayUtils.getMin(amplitude_vvMedian), ArrayUtils.getMax(amplitude_vvMedian));
   		int[][] normalisedvhMedian = ArrayUtils.normaliseValues(amplitude_vhMedian, ArrayUtils.getMin(amplitude_vhMedian), ArrayUtils.getMax(amplitude_vhMedian));
 
   		//Connect normalized Bands
@@ -63,30 +101,49 @@ public class Main {
   		int[][] connectedBandsNormalisedGauss = ArrayUtils.connectNormalised(normalisedVVGauss, normalisedVHGauss);
   		int[][] connectedBandsNormalisedMedian = ArrayUtils.connectNormalised(normalisedvvMedian, normalisedvhMedian);
 
-  		
-  	
-	  	//MakeBlack
-	  	//int[][] connectedBandsNormalisedBlack = rops.makeBlack(connectedBandsNormalised, i);
-	  	int[][] connectedBandsNormalisedGaussBlack = rops.makeBlack(connectedBandsNormalisedGauss, 50);
-	  	int[][] connectedBandsNormalisedMedianBlack = rops.makeBlack(connectedBandsNormalisedMedian, 20);
-	
-		//Lake detect
-	  	//rops.horizontalScanLine(connectedBandsNormalisedGaussBlack, 200, 100);
-	  	//rops.horizontalScanLine(connectedBandsNormalisedMedianBlack, 200, 100);
-	
-		//Convert to RGB
-		//int[][] connectedRGBArray = ArrayUtils.convertToRGB(connectedBandsNormalisedBlack);
-	  	int[][] connectedRGBArrayGauss = ArrayUtils.convertToRGB(connectedBandsNormalisedGaussBlack);
-	  	int[][] connectedRGBArrayMedian = ArrayUtils.convertToRGB(connectedBandsNormalisedMedianBlack);
-	
-		//Write Image
-		//ArrayUtils.arrayToImage(connectedRGBArray, "E:\\Raster\\TestBilder\\", "normal" + i + ".png");
-		//ALEX:
-		//ArrayUtils.arrayToImage(connectedRGBArrayGauss, "E:\\Raster\\TestBilder\\", "gauss.png");
-		//ArrayUtils.arrayToImage(connectedRGBArrayMedian, "E:\\Raster\\TestBilder\\", "median.png");
-		//JOSI:
-		ArrayUtils.arrayToImage(connectedRGBArrayGauss, "/Users/josefinabalzer/Desktop/TestBilder/", "gaussAlexChangedBorders.png");
-		ArrayUtils.arrayToImage(connectedRGBArrayMedian, "/Users/josefinabalzer/Desktop/TestBilder/", "medianAlexChangedBorders.png");
-	  	
+  		//convert to binary Color-Scheme
+  		int[][] connectedBandsNormalisedBlack = rops.convertTobinaryColorScheme(connectedBandsNormalised, 50);
+  		int[][] connectedBandsNormalisedGaussBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedGauss, 70);
+  		int[][] connectedBandsNormalisedMedianBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedMedian, 60);
+
+	  	//Lake detect
+  		if(color_or_greyscale == true) {
+  			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
+  	  		System.out.println("Wasserfl�che (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
+  			rops.waterrize(connectedBandsNormalisedBlack, 150);
+  			ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, "E:\\Raster\\TestBilder\\", "normal_blue.png");
+  		}
+  		else {
+  			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
+  	  		System.out.println("Wasserfl�che (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
+  			int[][] outputNormal = ArrayUtils.convertToGreyscale(connectedBandsNormalisedBlack);
+  			ArrayUtils.arrayToImage(outputNormal, "E:\\Raster\\TestBilder\\", "normal_grey.png");
+  		}
+
+  		if(color_or_greyscale == true) {
+  			rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
+  	  		System.out.println("Wasserfl�che (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m�");
+  			rops.waterrize(connectedBandsNormalisedGaussBlack, 150);
+  			ArrayUtils.arrayToImage(connectedBandsNormalisedGaussBlack, "E:\\Raster\\TestBilder\\", "gauss_blue.png");
+  		}
+  		else {
+  			rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
+  	  		System.out.println("Wasserfl�che (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m�");
+  			int[][] outputGauss = ArrayUtils.convertToGreyscale(connectedBandsNormalisedGaussBlack);
+  			ArrayUtils.arrayToImage(outputGauss, "E:\\Raster\\TestBilder\\", "gauss_grey.png");
+  		}
+
+  		if(color_or_greyscale == true) {
+  			rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
+  	  		System.out.println("Wasserfl�che (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m�");
+  			rops.waterrize(connectedBandsNormalisedMedianBlack, 150);
+  			ArrayUtils.arrayToImage(connectedBandsNormalisedMedianBlack, "E:\\Raster\\TestBilder\\", "median_blue.png");
+  		}
+  		else {
+  			rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
+  	  		System.out.println("Wasserfl�che (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m�");
+  			int[][] outputMedian = ArrayUtils.convertToGreyscale(connectedBandsNormalisedMedianBlack);
+  			ArrayUtils.arrayToImage(outputMedian, "E:\\Raster\\TestBilder\\", "median_grey.png");
+  		}
     }
 }
