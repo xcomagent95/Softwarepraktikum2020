@@ -9,13 +9,17 @@ public class Main {
 
     public static void main(String[] args) throws IOException { //main Methode
 
+    	FindSets findsets = new FindSets();
     	//Request req = new Request();
-    	//File file = req.requesting();
-
+    	File file = findsets.downloadZip("61c95849-0ddd-4668-94e9-99c69942944f");
+    	
+    	System.out.println("search done");
+    	
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
-    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020"+file.getAbsolutePath());
-
-    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+    	Loadzip dataset = new Loadzip(file.getAbsolutePath());
+    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/sets3418458721679251533.zip");
+    	System.out.println(dataset.getClass());
+    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
     	/*GUI try1 = new GUI();
     	Loadzip dataset = new Loadzip(try1.loadPic());*/
     	/// Funktionert
@@ -63,7 +67,7 @@ public class Main {
   	
 	  	//MakeBlack
 	  	//int[][] connectedBandsNormalisedBlack = rops.makeBlack(connectedBandsNormalised, i);
-	  	//int[][] connectedBandsNormalisedGaussBlack = rops.makeBlack(connectedBandsNormalisedGauss, i);
+	  	int[][] connectedBandsNormalisedGaussBlack = rops.makeBlack(connectedBandsNormalisedGauss, 50);
 	  	int[][] connectedBandsNormalisedMedianBlack = rops.makeBlack(connectedBandsNormalisedMedian, 20);
 	
 		//Lake detect
@@ -72,7 +76,7 @@ public class Main {
 	
 		//Convert to RGB
 		//int[][] connectedRGBArray = ArrayUtils.convertToRGB(connectedBandsNormalisedBlack);
-	  	//int[][] connectedRGBArrayGauss = ArrayUtils.convertToRGB(connectedBandsNormalisedGaussBlack);
+	  	int[][] connectedRGBArrayGauss = ArrayUtils.convertToRGB(connectedBandsNormalisedGaussBlack);
 	  	int[][] connectedRGBArrayMedian = ArrayUtils.convertToRGB(connectedBandsNormalisedMedianBlack);
 	
 		//Write Image
@@ -81,7 +85,7 @@ public class Main {
 		//ArrayUtils.arrayToImage(connectedRGBArrayGauss, "E:\\Raster\\TestBilder\\", "gauss.png");
 		//ArrayUtils.arrayToImage(connectedRGBArrayMedian, "E:\\Raster\\TestBilder\\", "median.png");
 		//JOSI:
-		//ArrayUtils.arrayToImage(connectedRGBArrayGauss, "/Users/josefinabalzer/Desktop/TestBilder/", "gaussAlexChangedBorders.png");
+		ArrayUtils.arrayToImage(connectedRGBArrayGauss, "/Users/josefinabalzer/Desktop/TestBilder/", "gaussAlexChangedBorders.png");
 		ArrayUtils.arrayToImage(connectedRGBArrayMedian, "/Users/josefinabalzer/Desktop/TestBilder/", "medianAlexChangedBorders.png");
 	  	
     }

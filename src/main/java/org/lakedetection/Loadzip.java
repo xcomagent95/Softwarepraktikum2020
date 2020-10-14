@@ -13,7 +13,7 @@ public class Loadzip {
 	//Loadzip Konstruktor
 	public Loadzip(String pathname) throws IOException {
 		File file = new File(pathname); //Uebergabe des Pfades als String
-		product = ProductIO.readProduct(file);
+		product = ProductIO.readProduct(file); // Deklaration des Produkts
 		System.out.println("file exists: " + file.exists()); //Pruefen ob File existiert
 		System.out.println(".zip to File done!"); //File gefunden und in File gespeichtert
 	}
