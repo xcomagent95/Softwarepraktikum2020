@@ -11,7 +11,7 @@ public class Main {
 
     	FindSets findsets = new FindSets();
     	//Request req = new Request();
-    	File file = findsets.downloadZip("61c95849-0ddd-4668-94e9-99c69942944f");
+    	File file = findsets.downloadZip(findsets.search());
 
     	System.out.println("search done");
 
