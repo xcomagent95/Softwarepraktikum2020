@@ -6,4 +6,4 @@ Technology:
 1. Downloads namend data fromm ESA's Copernicus Open Access Hub and loads it into the program
 2. Detects watersurfaces in radarpictures after colour-smoothing and recolouring into a black/white scheme
 3. Finds and counts all pixels within the coherent waterbody through a floodfill-algorithm. Returns number of pixels.
-4. One pixel has the area of 25m^2. Calculates the area of the waterbody.
+4. One pixel has the area of 100m^2. Calculates the area of the waterbody.
