@@ -10,27 +10,20 @@ public class Main {
     public static void main(String[] args) throws IOException { //main Methode
 
     	FindSets findsets = new FindSets();
-    	//Request req = new Request();
+    	Request req = new Request();
     	File file = findsets.downloadZip(findsets.search());
 
-    	System.out.println("search done");
+    	//System.out.println("search done");
 
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	Loadzip dataset = new Loadzip(file.getAbsolutePath());
-    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/sets3418458721679251533.zip");
     	System.out.println(dataset.getClass());
+    	
+    	//Pafd Josi
     	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
-    	/*GUI try1 = new GUI();
-    	Loadzip dataset = new Loadzip(try1.loadPic());*/
-    	/// Funktionert
-
-    	/*DragAndDrop try2 = new DragAndDrop();
-    	String path = try2.getName();
-    	Loadzip dataset = new Loadzip(path);*/
-    	/// Funktioniert nicht!!
-
-    	//new DragAndDrop();
-
+    	//Pfad Alex
+    	//Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+    	
     	//Parameter
     	int tile_width;
     	int tile_height;
@@ -40,6 +33,8 @@ public class Main {
 
     	Boolean color_or_greyscale = true;
     	int color_or_greyscale_int = 1;
+    	
+    	String outputpath = "";
 
     	//Create a Scanner object fuer Nutzer Eingabe
     	Scanner consoleScanner = new Scanner(System.in);
@@ -65,6 +60,10 @@ public class Main {
         else {
         	color_or_greyscale = false;
         }
+        
+        System.out.println("Enter outputpath:");
+        outputpath = consoleScanner.next();
+        
         System.out.println("running......");
 
   		//Initialize Utils und ROP`s
@@ -109,41 +108,41 @@ public class Main {
 	  	//Lake detect
   		if(color_or_greyscale == true) {
   			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserfl�che (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
+  	  		System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
   			rops.waterrize(connectedBandsNormalisedBlack, 150);
-  			ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, "E:\\Raster\\TestBilder\\", "normal_blue.png");
+  			ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, outputpath, "normal_blue.png");
   		}
   		else {
   			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserfl�che (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
+  	  		System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
   			int[][] outputNormal = ArrayUtils.convertToGreyscale(connectedBandsNormalisedBlack);
-  			ArrayUtils.arrayToImage(outputNormal, "E:\\Raster\\TestBilder\\", "normal_grey.png");
+  			ArrayUtils.arrayToImage(outputNormal, outputpath, "normal_grey.png");
   		}
 
   		if(color_or_greyscale == true) {
   			rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserfl�che (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m�");
+  	  		System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m�");
   			rops.waterrize(connectedBandsNormalisedGaussBlack, 150);
-  			ArrayUtils.arrayToImage(connectedBandsNormalisedGaussBlack, "E:\\Raster\\TestBilder\\", "gauss_blue.png");
+  			ArrayUtils.arrayToImage(connectedBandsNormalisedGaussBlack, outputpath, "gauss_blue.png");
   		}
   		else {
   			rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserfl�che (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m�");
+  	  		System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m�");
   			int[][] outputGauss = ArrayUtils.convertToGreyscale(connectedBandsNormalisedGaussBlack);
-  			ArrayUtils.arrayToImage(outputGauss, "E:\\Raster\\TestBilder\\", "gauss_grey.png");
+  			ArrayUtils.arrayToImage(outputGauss, outputpath, "gauss_grey.png");
   		}
 
   		if(color_or_greyscale == true) {
   			rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserfl�che (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m�");
+  	  		System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m�");
   			rops.waterrize(connectedBandsNormalisedMedianBlack, 150);
-  			ArrayUtils.arrayToImage(connectedBandsNormalisedMedianBlack, "E:\\Raster\\TestBilder\\", "median_blue.png");
+  			ArrayUtils.arrayToImage(connectedBandsNormalisedMedianBlack, outputpath, "median_blue.png");
   		}
   		else {
   			rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserfl�che (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m�");
+  	  		System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m�");
   			int[][] outputMedian = ArrayUtils.convertToGreyscale(connectedBandsNormalisedMedianBlack);
-  			ArrayUtils.arrayToImage(outputMedian, "E:\\Raster\\TestBilder\\", "median_grey.png");
+  			ArrayUtils.arrayToImage(outputMedian, outputpath, "median_grey.png");
   		}
     }
 }
