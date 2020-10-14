@@ -3,6 +3,8 @@ package org.lakedetection;
 import java.io.IOException;
 import java.util.Scanner;
 
+import org.esa.snap.core.datamodel.PixelPos;
+
 import java.io.File;
 
 public class Main {
@@ -10,17 +12,17 @@ public class Main {
     public static void main(String[] args) throws IOException { //main Methode
 
     	FindSets findsets = new FindSets();
-    	Request req = new Request();
+    	//Request req = new Request();
     	File file = findsets.downloadZip(findsets.search());
+    	
 
     	//System.out.println("search done");
 
     	//Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	Loadzip dataset = new Loadzip(file.getAbsolutePath());
-    	System.out.println(dataset.getClass());
     	
-    	//Pafd Josi
-    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
+    	//Pfad Josi
+    	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/S1B_IW_GRDH_1SDV_20201013T165207_20201013T165232_023797_02D38A_0D7E.zip");
     	//Pfad Alex
     	//Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
     	
@@ -70,9 +72,15 @@ public class Main {
   		ArrayUtils connected = new ArrayUtils();
   		ROPs rops = new ROPs();
 
+  		// PixPos
+  		Georeference georeference = new Georeference(dataset.getProduct());
+  		PixelPos pixelpos = georeference.getPixPos(53.213489, 12.863988);
+  		int pixx = (int)pixelpos.getX();
+  		int pixy = (int)pixelpos.getY();
+  		
     	//GetBands - Baender lesen und in RasterToArray ueberfuehren
-  		RasterToArray amplitude_vv = new RasterToArray(dataset.getProduct(), "Amplitude_VV", 9961, 9994, tile_height, tile_width); //VV-Band
-  		RasterToArray amplitude_vh = new RasterToArray(dataset.getProduct(), "Amplitude_VH", 9961, 9994, tile_height, tile_width); //VH-Band
+  		RasterToArray amplitude_vv = new RasterToArray(dataset.getProduct(), "Amplitude_VV", pixx, pixy, tile_height, tile_width); //VV-Band
+  		RasterToArray amplitude_vh = new RasterToArray(dataset.getProduct(), "Amplitude_VH", pixx, pixy, tile_height, tile_width); //VH-Band
 
   		//ROP`s aufuehren
 

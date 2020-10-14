@@ -31,7 +31,7 @@ public class Georeference {
 	private Product product;
 	
 	public Georeference(Product p) {
-		
+		product = p;
 		geo = product.getTiePointGridNames(); // Fuellt das oben erzeugte Array mit dem Namen der GCP-Liste
 	}
 
@@ -40,8 +40,9 @@ public class Georeference {
 		return product.getSceneGeoCoding().getGeoPos(p, null);
 	}
 	
-	public PixelPos getPixPos(GeoPos p) {
-		return product.getSceneGeoCoding().getPixelPos(p, null);
+	public PixelPos getPixPos(double x, double y) {//GeoPos p) {
+		GeoPos geopos = new GeoPos(x, y);
+		return product.getSceneGeoCoding().getPixelPos(geopos, null);
 	}
 	
 	// Gibt den Namen der GCP-Punktliste zurück // Fkt. eig. nicht notw.
