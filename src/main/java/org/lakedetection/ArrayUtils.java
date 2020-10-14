@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 public class ArrayUtils {
 
-	/* || Bilder �bereinanderlegen ||
+	/* || Bilder uebereinanderlegen ||
 	 * 
 	 * Es liegen 2 2D-Arrays vor. 
 	 * Nun sollen beide Arrays durchlaufen werden 
@@ -26,11 +26,11 @@ public class ArrayUtils {
 				//System.out.println(pixelCounter + " pixels normalised...");
 			}
 		}
-		System.out.println("array normalised!");
+		//System.out.println("array normalised!");
 		return datasetArrayNormalised;
 	}
 	
-	public static int[][] convertToRGB(int[][] datasetArrayNormalised) {
+	public static int[][] convertToGreyscale(int[][] datasetArrayNormalised) {
 		int[][] datasetArrayRGB = new int[datasetArrayNormalised.length][datasetArrayNormalised[0].length];
 		//int pixelCounter = 0;
 		for(int i = 0; i < datasetArrayNormalised.length; i++) {
@@ -40,7 +40,7 @@ public class ArrayUtils {
 				//System.out.println(pixelCounter + " pixels normalised...");
 			}
 		}
-		System.out.println("array converted to RGB!");
+		//System.out.println("array converted to RGB!");
 		return(datasetArrayRGB);
 	}
 	
@@ -71,7 +71,7 @@ public class ArrayUtils {
 		 File file = new File(outputpath + filename);
 		 try {
 			ImageIO.write(outputImage, "png", file);	
-			System.out.println("image written!");
+			//System.out.println("image written!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

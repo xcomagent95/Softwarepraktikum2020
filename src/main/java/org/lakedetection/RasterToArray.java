@@ -41,9 +41,9 @@ public class RasterToArray {
 		arrayHeight = height;
 		arrayWidth = width;
 		requested_Band = band;
-		System.out.println("dataset " +  band  + " is converted into array!"); //i = height / j = width
-		System.out.println("array build! with height: " + arrayHeight + " and width: " + arrayWidth);
-		System.out.println("requested corner: " + requestedCornerX + "/" + requestedCornerY + " and bbox: " + requestedHeight + "*" + requestedWidth);
+		//System.out.println("dataset " +  band  + " is converted into array!"); //i = height / j = width
+		//System.out.println("array build! with height: " + arrayHeight + " and width: " + arrayWidth);
+		//System.out.println("requested corner: " + requestedCornerX + "/" + requestedCornerY + " and bbox: " + requestedHeight + "*" + requestedWidth);
 		this.fillArray(product);
 		this.calculateStatistics();
 	}
@@ -94,10 +94,10 @@ public class RasterToArray {
 
 			loadeddata = data;
 
-			System.out.println("image buffered!");
+			//System.out.println("image buffered!");
 			//Raster aus buffered Image hohlen und Farbwerte in Array speichern
 			//Hier wird ueber eine Schleife das 2D-Array gefuellt
-	        System.out.println("raster requested!");
+	        //System.out.println("raster requested!");
 	        for(int row = 0; row < this.requestedHeight; row++) {
 	        	for(int column = 0; column < this.requestedWidth; column++) {
 	        		this.datasetArray[row][column] = data[column + row*requestedWidth];
@@ -114,11 +114,11 @@ public class RasterToArray {
 	private void calculateStatistics() {
 		float min = ArrayUtils.getMin(this.loadeddata);
 		float max = ArrayUtils.getMax(this.loadeddata);
-		System.out.println("Pixel-Count: " + this.arrayHeight * this.arrayWidth);
-		System.out.println("lowest Pixel-Value: " + min);
-		System.out.println("highest Pixel-Value: " + max);
-		System.out.println("average Pixel-Value: " + max + min/2);
-		System.out.println("statistics calculated! " + max + min/2);
+		//System.out.println("Pixel-Count: " + this.arrayHeight * this.arrayWidth);
+		//System.out.println("lowest Pixel-Value: " + min);
+		//System.out.println("highest Pixel-Value: " + max);
+		//System.out.println("average Pixel-Value: " + max + min/2);
+		//System.out.println("statistics calculated! " + max + min/2);
 
 		lowestPixel = min;
 		highestPixel = max;
@@ -185,7 +185,7 @@ public class RasterToArray {
 				//System.out.println(pixelCounter + " pixels normalised...");
 			}
 		}
-		System.out.println("array normalised!");
+		//System.out.println("array normalised!");
 	}
 
 	// Getter
@@ -209,7 +209,7 @@ public class RasterToArray {
 		 File file = new File("E:\\Raster\test.png");
 		 try {
 			ImageIO.write(outputImage, "png", file);
-			System.out.println("image written!");
+			//System.out.println("image written!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
