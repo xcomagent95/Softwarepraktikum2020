@@ -26,6 +26,9 @@ import com.github.kevinsawicki.http.HttpRequest.HttpRequestException;
  * @version     1.0                 (current version number of program)
  *  */
 public class FindSets {
+	
+	LoginScihub userdata = new LoginScihub();
+	
 	// insert array [[lng, lat], [lng, lat], ...]
 	// -->type double
 	// Since we use a polygon the last array entry must be equal to the first
@@ -39,8 +42,7 @@ public class FindSets {
 		// String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20%20(platformname:Sentinel-1%20AND%20producttype:GRD%20AND%20polarisationmode:VV+VH))&offset=0&limit=25&sortedby=beginposition&order=desc");// set base url
 		String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20beginPosition:[");
 		
-		BufferedReader reader =  
-                new BufferedReader(new InputStreamReader(System.in)); 
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
    		String startdate = null; // initialize startdate
 		//System.out.println("Insert the startdate e.g. 2015-01-01T00:00:00.000Z OR NOW-XDays"); // Console show Info
 		System.out.println("Insert the startdate e.g. 2020-08-01");
@@ -52,7 +54,7 @@ public class FindSets {
 		}
 		//url+= "2018-01-01T00:00:00.000Z";
 		//url+= "%20TO%20"; // Add <from> TO <to> in url
-		url+= "T00:00:00.000Z%20TO%202020-11-01T23:59:59.999Z]%20AND%20endPosition:[";
+		url+= "T00:00:00.000Z%20TO%20NOW]%20AND%20endPosition:[";
 		String enddate = null;
 		//System.out.println("Insert the enddate e.g. 2019-01-01T00:00:00.000Z OR NOW");
 		System.out.println("Insert the enddate e.g. 2020-10-01");
@@ -64,7 +66,7 @@ public class FindSets {
 		}
 		//url+= "2020-02-02T00:00:00.000Z";
 		//url += "%5d%20AND%20footprint:%22Intersects(POLYGON((";
-		url += "T00:00:00.000Z%20TO%202020-11-01T23:59:59.999Z]%20)%20AND%20(%20%20(platformname:Sentinel-1%20AND%20producttype:GRD%20AND%20polarisationmode:VV+VH))&offset=0&limit=25&sortedby=beginposition&order=desc";
+		url += "T00:00:00.000Z%20TO%20NOW]%20)%20AND%20(%20%20(platformname:Sentinel-1%20AND%20producttype:GRD%20AND%20polarisationmode:VV+VH))&offset=0&limit=25&sortedby=beginposition&order=desc";
 		
 		String num = null;
 		//System.out.println("Insert your Polygon e.g. -4.53%2029.85,26.75%2029.85,26.75%2046.80,-4.53%2046.80,-4.53%2029.85  --> instead of space do %20");
@@ -92,14 +94,13 @@ public class FindSets {
 		//   ingestiondate%5b2017-01-01T00:00:00.000Z%20TO%202014-02-01T00:00:00.000Z%5d
 	    System.out.println("The Url is:  " + url);
 	    
-	    LoginScihub userdata = new LoginScihub();
-		userdata.login();// login in Scihub
-    	
+    	userdata.login();
+	    
 	    try {
 			HttpRequest request =  HttpRequest.get(url).basic(userdata.getUsername(), userdata.getPassword());
 		    File file = null;
 		    System.out.println("Status: " + request.code());
-		    String firstImage = "Variable 'firstImage' has not been initialized";
+		    String imageNumber = "Variable 'imageNumber' has not been initialized";
 		    if (request.ok()) { // check request if Code 200  
 		    	try {
 		    		file = File.createTempFile("sets", ".json", new File(".//")); //set file
@@ -109,9 +110,20 @@ public class FindSets {
 		    		System.out.println(exception);
 		    	}
 		        request.receive(file);
-		        firstImage = parse(file.getAbsolutePath())[0];
+		        
+		        int number = 0;
+		        String[] images = parse(file.getAbsolutePath());
+		        System.out.println("Insert the the index of the date of the image you want e.g. if it is the first one (1.), enter 1");
+				try {
+					number = Integer.valueOf(reader.readLine()); //get number of the date 
+					System.out.println(number);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+		        imageNumber = images[number-1];
 		    } else System.out.println("Request does not work");
-		    return firstImage;
+		    return imageNumber;
 		} catch (HttpRequestException exception) {
 			System.out.println(exception);
 			return null;
@@ -119,8 +131,6 @@ public class FindSets {
 	}
 	
 	public File downloadZip(String firstImage) {
-		LoginScihub userdata = new LoginScihub();
-		userdata.login();// login in Scihub
 		try {
 			HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('"+ firstImage +"')/$value").basic(userdata.getUsername(), userdata.getPassword());
 		    
@@ -143,8 +153,7 @@ public class FindSets {
 		    return file;
 		} catch (HttpRequestException exception) {
 			System.out.println(exception);
-			return null;
-			
+			return null;			
 	    }
 	}
 	
@@ -160,7 +169,9 @@ public class FindSets {
 	       	images = new String[namearr.size()]; 
 	       	for(int i=0; i<namearr.size(); i++) {
 	       		JSONObject jsonProduct = (JSONObject) namearr.get(i);
-	          	System.out.println(jsonProduct.get("uuid"));
+	       		//JSONObject jsonSummary = (JSONObject) jsonProduct.get(key);
+	       		JSONArray dateArr = (JSONArray)jsonProduct.get("summary");
+	          	System.out.println((i+1)+". "+dateArr.get(0));
 	          	images[i] = (String)jsonProduct.get("uuid");
 	       	}
 		 } catch (Exception ex) {

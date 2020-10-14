@@ -83,7 +83,6 @@ public class Main {
   		RasterToArray amplitude_vh = new RasterToArray(dataset.getProduct(), "Amplitude_VH", pixx, pixy, tile_height, tile_width); //VH-Band
 
   		//ROP`s aufuehren
-
   		//Gauss-Filter anwenden
   		float[][] amplitude_vvGauss = rops.gaussFilter(amplitude_vv.getArray());
   		float[][] amplitude_vhGauss = rops.gaussFilter(amplitude_vh.getArray());
@@ -118,6 +117,7 @@ public class Main {
   			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
   	  		System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m�");
   			rops.waterrize(connectedBandsNormalisedBlack, 150);
+  			connectedBandsNormalisedBlack[200][150] = 255 << 16;
   			ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, outputpath, "normal_blue.png");
   		}
   		else {
