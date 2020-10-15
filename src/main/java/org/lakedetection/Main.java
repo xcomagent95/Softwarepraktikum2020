@@ -126,9 +126,9 @@ public class Main {
   		int[][] connectedBandsNormalisedMedian = ArrayUtils.connectNormalised(normalisedvvMedian, normalisedvhMedian);
 
 	  	//convert to binary Color-Scheme
-	  	int[][] connectedBandsNormalisedBlack = rops.convertTobinaryColorScheme(connectedBandsNormalised, 30); //30
-	  	int[][] connectedBandsNormalisedGaussBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedGauss, 50); //50
-	  	int[][] connectedBandsNormalisedMedianBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedMedian, 30); //30
+	  	int[][] connectedBandsNormalisedBlack = rops.convertToBinaryColorScheme(connectedBandsNormalised, 30); //30
+	  	int[][] connectedBandsNormalisedGaussBlack = rops.convertToBinaryColorScheme(connectedBandsNormalisedGauss, 50); //50
+	  	int[][] connectedBandsNormalisedMedianBlack = rops.convertToBinaryColorScheme(connectedBandsNormalisedMedian, 30); //30
 	
 		  //Lake detect
 	  	if(color_or_greyscale == true) {
