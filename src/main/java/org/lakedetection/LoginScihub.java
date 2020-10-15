@@ -32,7 +32,6 @@ public class LoginScihub {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println(password);
 	}
 	/**
 	 * getting the scihub Username
