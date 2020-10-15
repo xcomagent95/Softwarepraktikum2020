@@ -15,7 +15,7 @@ import com.github.kevinsawicki.http.HttpRequest.HttpRequestException;
 
 
 /**
- * @author Josefina Balzer & Dorian
+ * @author Josefina Balzer & Dorian Henningfeld
  * @version 1.0 (current version number of program)
  */
 public class FindSets {
@@ -23,8 +23,8 @@ public class FindSets {
 	LoginScihub userdata = new LoginScihub();
 	/**
 	 * Sendet eine Anfrage an Scihub um eine JSON-File mit den Informationen über alle 
-	 * verfügbaren Datensätze zu erhalten 
-	 * @return Einen String, der in die Anfrage für den expliziten Datensatz eingebettet wird 
+	 * verfügbaren Datensätze zu erhalten.
+	 * @return Einen String, der in die Anfrage für den expliziten Datensatz eingebettet wird.
 	 */
 	public String search() {
 		// String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20%20(platformname:Sentinel-1%20AND%20producttype:GRD%20AND%20polarisationmode:VV+VH))&offset=0&limit=25&sortedby=beginposition&order=desc");// set base url
