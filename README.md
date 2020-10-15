@@ -9,7 +9,7 @@ Our Program is analyzing radarpictures of the Sentinel-1 satellite (from the Cop
 ## Input:
 * SciHub Credentials 
 * ingestion timeframe
-* origin x-y-coordinate in WGS 84 Referencesystem
+* origin x-y-coordinate in *WGS 84* Referencesystem
 
 ## Workflow:
 ![workflowDiagram_diviningRod](https://user-images.githubusercontent.com/61976211/96110552-4e0efb80-0ee0-11eb-92cf-b4135e20c406.png)
@@ -19,11 +19,13 @@ Our Program is analyzing radarpictures of the Sentinel-1 satellite (from the Cop
 3. Finds and counts all pixels within the coherent waterbody through a scanline-algorithm. Returns number of pixels.
 4. One pixel has the area of 100m^2. Calculates the area of the waterbody.
 ![fill_algo](https://user-images.githubusercontent.com/61976211/96111127-13f22980-0ee1-11eb-9647-8f51196b4f91.gif)
+* GIF Sample shows *Labussee* (lake in the *Mecklenburgische Seenplatte* district in *Mecklenburg-Vorpommern*, Germany. At an elevation of 57.5 metres (189 ft), its surface area is 2.51 square kilometres (0.97 sq mi)).  
 
 ## Software architecture
-Zum [UML-Diagram](https://github.com/xcomagent95/softwarepraktikum2020/blob/master/UML.pdf)
-## Output:
+Consult our [UML-Diagram](https://github.com/xcomagent95/softwarepraktikum2020/blob/master/UML.pdf)
 
+## Output:
+* an Integer that represents the approximate area (in squaremeters) of water-sureface
 
 ## Projectteam:
 * Alexander Pilz            [@xcomagent95](https://github.com/xcomagent95)
