@@ -1,5 +1,6 @@
 package org.lakedetection;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Main {
   		// gespeichert werden, um die File zu initialisieren und herunterzuladen.
     	//FindSets findsets = new FindSets();
     	//File file = findsets.downloadZip(findsets.search());
-    	System.out.println("search done"); // Kommentar auf der Konsole zur Überprüfung des Fortschritts 
+    	//System.out.println("search done"); // Kommentar auf der Konsole zur Überprüfung des Fortschritts 
 
     	// Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset
     	//Loadzip dataset = new Loadzip(file.getAbsolutePath());
@@ -24,7 +25,7 @@ public class Main {
     	// Pfade zur Test-Datei auf beiden PCs zur Ueberpruefung von Methoden und Funktionen
     	// ohne diese Datei neu herunterladen zu muessen:
     	// Pfad Josi:
-    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/S1B_IW_GRDH_1SDV_20201013T165207_20201013T165232_023797_02D38A_0D7E.zip");
+    	Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/S1B_IW_GRDH_1SDV_20201015T052435_20201015T052500_023819_02D439_34BD.zip");
     	// Pfad Alex:
     	//Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
   		

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -26,10 +27,33 @@ public class FindSets {
 	 * @return Einen String, der in die Anfrage für den expliziten Datensatz eingebettet wird.
 	 */
 	public String search() {
-		// String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20%20(platformname:Sentinel-1%20AND%20producttype:GRD%20AND%20polarisationmode:VV+VH))&offset=0&limit=25&sortedby=beginposition&order=desc");// set base url
-		String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20beginPosition:[");
 		
-		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
+		// String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20beginPosition:[");
+		// 12.847298091933668 53.18180695455385, 12.949362582961403 53.18180695455385,12.949362582961403 53.22056068128961,12.847298091933668 53.22056068128961,
+		// 12.847298091933668 53.18180695455385 
+	
+		
+		// Initialisierung eines Scanners zum Lesen der Benutzereingaben:
+    	Scanner consoleScanner = new Scanner(System.in);
+		
+		Double centerPointLat; // Initialisierung eines centerPoint Latitude vom Typ Double
+		
+		System.out.println("Insert the Latitude of the center point of the polygon you want to request e.g. 12,898330338");
+		
+		centerPointLat = consoleScanner.nextDouble(); // Lesen der Benutzereingabe
+		
+		Double centerPointLon; // Initialisierung eines centerPoint Longitude vom Typ Double
+		System.out.println("Insert the Longitude of the center point of the polygon you want to request e.g. 53,201183818");
+		centerPointLon = consoleScanner.nextDouble(); // Lesen der Benutzereingabe
+		
+		String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON(("
+				+ (centerPointLat-(0.05103224551)) +"%20"+(centerPointLon-(0.01937686336))+","+(centerPointLat+(0.05103224551))+"%20"+(centerPointLon-(0.01937686336))+","
+				+ (centerPointLat+(0.05103224551))+"%20"+(centerPointLon+(0.01937686336))+","+(centerPointLat-(0.05103224551))+"%20"+(centerPointLon+(0.01937686336))+","
+				+ (centerPointLat-(0.05103224551))+"%20"+(centerPointLon-(0.01937686336))+")))%22%20)%20AND%20(%20beginPosition:[");
+		
+		// Initialisierung eines reader Objekts, um die Nutzereingaben einzulesen
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		
    		String startdate = null; // Initialiserung des Startdatum des Zeitfensters 
 		System.out.println("Insert the startdate e.g. 2020-08-01");
 		try {
@@ -84,7 +108,7 @@ public class FindSets {
 					e.printStackTrace();
 				}
 		        imageNumber = images[number-1]; // Zuweisung der passenden uuid
-		    } else System.out.println("Request does not work");
+		    } else System.out.println("Request does not work: "+request.body());
 		    return imageNumber; // Rueckgabe der korrekten uuid
 		} catch (HttpRequestException exception) {
 			System.out.println(exception);
@@ -147,8 +171,8 @@ public class FindSets {
 	       		JSONObject jsonProduct = (JSONObject) namearr.get(i);
 	       		// Intialisierung eines JSONArrays welches die Summary der i-ten Produkts enthaelt
 	       		JSONArray dateArr = (JSONArray)jsonProduct.get("summary");
-	       		// Ausgabe des Datums des i-ten Objekts
-	          	System.out.println((i+1)+". "+dateArr.get(0));
+	       		// Ausgabe des Datums und der Groeße des i-ten Objekts
+	          	System.out.println((i+1)+". "+dateArr.get(0)+", Size: "+dateArr.get(6));
 	          	images[i] = (String)jsonProduct.get("uuid"); // Zuweisung der uuid des i-ten Objekts in ein Array
 	       	}
 		 } catch (Exception ex) {
