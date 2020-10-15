@@ -1,6 +1,7 @@
-# softwarepraktikum2020 - Wishing rod
+# softwarepraktikum2020 - Divining Rod
+https://github.com/xcomagent95/softwarepraktikum2020/issues/8#issue-722173380
 
-Program analyzing radarpictures of the Sentinel-1 satellite (from the Copernicus-Project of ESA). It calculates the area of a coherent waterbody. It is supposed to compare seasonal deviations of waterlevels and long-/middle term tendencies of shrinking  or growing.
+Our Program is analyzing radarpictures of the Sentinel-1 satellite (from the Copernicus-Project of ESA). It calculates the area of a coherent waterbody and is supposed to compare seasonal deviations of waterlevels and long-/middle term tendencies of shrinking  or growing.
 
 ## Technology:
 ### Input:
