@@ -12,7 +12,7 @@ Our Program is analyzing radarpictures of the Sentinel-1 satellite from the Cope
 * origin x-y-coordinate in *WGS 84* Referencesystem
 
 ## Workflow:
-![workflowDiagram_diviningRod](https://user-images.githubusercontent.com/61976211/96110552-4e0efb80-0ee0-11eb-92cf-b4135e20c406.png)
+![neu1(1)](https://user-images.githubusercontent.com/61976211/96146058-2af74280-0f06-11eb-889f-699fe66b3792.jpg)
 
 1. Downloads namend data fromm ESA's Copernicus Open Access Hub and loads it into the program
 2. Detects watersurfaces in radarpictures after colour-smoothing and recolouring into a black/white scheme
