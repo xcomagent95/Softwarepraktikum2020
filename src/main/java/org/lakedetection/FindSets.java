@@ -13,7 +13,6 @@ import org.json.simple.parser.JSONParser;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.github.kevinsawicki.http.HttpRequest.HttpRequestException;
 
-
 /**
  * @author Josefina Balzer & Dorian Henningfeld
  * @version 1.0 (current version number of program)

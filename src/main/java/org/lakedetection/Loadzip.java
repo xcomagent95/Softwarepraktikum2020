@@ -5,9 +5,11 @@ import java.io.IOException;
 import org.esa.snap.core.dataio.ProductIO;
 import org.esa.snap.core.datamodel.Product;
 
+/**
+ * @author Alexander Pilz
+ * @version 1.0 (current version number of program)
+ */
 public class Loadzip {
-
-	//File Attribut
 	private Product product;
 	/**
 	 * Loadzip Konstruktor, der das Produkt aus einer Zip-Datei liest und als Variable speichert.

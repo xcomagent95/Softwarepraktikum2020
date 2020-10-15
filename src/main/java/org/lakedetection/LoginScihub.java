@@ -1,11 +1,10 @@
 package org.lakedetection;
 
-
 import java.io.BufferedReader; 
 import java.io.IOException; 
 import java.io.InputStreamReader;
 /**
- * @author Josefina Balzer & Dorian
+ * @author Dorian Henningfeld
  * @version     1.0       
  *  */
 public class LoginScihub {

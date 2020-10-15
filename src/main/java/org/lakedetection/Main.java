@@ -134,7 +134,7 @@ public class Main {
 	  	if(color_or_greyscale == true) {
 	  		rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
 	  	  	System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m2");
-	  		rops.waterrize(connectedBandsNormalisedBlack, 150);
+	  		rops.waterrize(connectedBandsNormalisedBlack);
 	  		ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, outputpath, "normal_blue.png");
 	  	}
 	  	else {
@@ -147,7 +147,7 @@ public class Main {
 	  	if(color_or_greyscale == true) {
 	  		rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
 	  	  	System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m2");
-	  		rops.waterrize(connectedBandsNormalisedGaussBlack, 150);
+	  		rops.waterrize(connectedBandsNormalisedGaussBlack);
 	  		ArrayUtils.arrayToImage(connectedBandsNormalisedGaussBlack, outputpath, "gauss_blue.png");
 	  	}
 	  	else {
@@ -160,7 +160,7 @@ public class Main {
 	  	if(color_or_greyscale == true) {
 	  		rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
 	  	  	System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m2");
-	  		rops.waterrize(connectedBandsNormalisedMedianBlack, 150);
+	  		rops.waterrize(connectedBandsNormalisedMedianBlack);
 	  		ArrayUtils.arrayToImage(connectedBandsNormalisedMedianBlack, outputpath, "median_blue.png");
 	  	}
 	  	else {
