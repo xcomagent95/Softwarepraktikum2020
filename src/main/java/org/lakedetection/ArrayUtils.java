@@ -13,15 +13,6 @@ import javax.imageio.ImageIO;
  */
 public class ArrayUtils {
 
-	/* || Bilder uebereinanderlegen ||
-	 * 
-	 * Es liegen 2 2D-Arrays vor. 
-	 * Nun sollen beide Arrays durchlaufen werden 
-	 * und die Werte an den jeweils gleichen Pos. miteinander addiert 
-	 * und durch 2 dividiert werden. 
-	 * */
-
-	/// Doku einfuegen
 	/**
 	 * Die Farbwert der Bilder, die im Array stehen werden auf den RGB-Wertebereich normalisiert. 
 	 * @param 2D-Float-Array (datasetArray), welches das Bild enthaelt
