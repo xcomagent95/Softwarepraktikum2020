@@ -10,6 +10,9 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) throws IOException { //main Methode
+  		//Initialize Utils und ROP`s
+  		ArrayUtils connected = new ArrayUtils();
+  		ROPs rops = new ROPs();
 
     	//FindSets findsets = new FindSets();
     	//Request req = new Request();
@@ -25,7 +28,8 @@ public class Main {
     	//Loadzip dataset = new Loadzip("/Users/josefinabalzer/Desktop/softwarepraktikum2020/S1B_IW_GRDH_1SDV_20201013T165207_20201013T165232_023797_02D38A_0D7E.zip");
     	//Pfad Alex
     	Loadzip dataset = new Loadzip("E:\\Raster\\S1A_IW_GRDH_1SDV_20200307T052505_20200307T052530_031565_03A2FE_508A.zip");
-    	
+  		Georeference georeference = new Georeference(dataset.getProduct());
+  		
     	//Parameter
     	int tile_width;
     	int tile_height;
@@ -48,11 +52,17 @@ public class Main {
         tile_height = consoleScanner.nextInt();
         System.out.println("Enter requested tile with:");
         tile_width = consoleScanner.nextInt();
-        
-        System.out.println("Enter requested Coord-X:");
-        requestedCoordX = consoleScanner.nextDouble();
-        System.out.println("Enter requested Coord-Y:");
-        requestedCoordY = consoleScanner.nextDouble();
+    	PixelPos requestedPos;
+    	
+        do {
+        	System.out.println("Enter requested Coord-X:");
+        	requestedCoordX = consoleScanner.nextDouble();
+        	System.out.println("Enter requested Coord-Y:");
+        	requestedCoordY = consoleScanner.nextDouble();
+        	requestedPos = georeference.getPixPos(requestedCoordX, requestedCoordY); 
+        } while(Double.isNaN(requestedPos.x) || Double.isNaN(requestedCoordY));
+        	
+        	//53,213489 12,863988 //53,205902 12,890525
 
         /*
         while((x_in_lake > tile_height || y_in_lake > tile_width) || (x_in_lake < 0 || y_in_lake < 0)) {
@@ -81,13 +91,8 @@ public class Main {
         
         System.out.println("running......");
 
-  		//Initialize Utils und ROP`s
-  		ArrayUtils connected = new ArrayUtils();
-  		ROPs rops = new ROPs();
-
   		// PixPos
-  		Georeference georeference = new Georeference(dataset.getProduct());
-  		PixelPos pixelpos = georeference.getPixPos(requestedCoordX, requestedCoordY); //53,213489 12,863988 //50,205902 12,890525
+  		PixelPos pixelpos = georeference.getPixPos(requestedCoordX, requestedCoordY); //53,213489 12,863988 //53,205902 12,890525
   		int pixx = (int)pixelpos.getX();
   		int pixy = (int)pixelpos.getY();
   		
@@ -120,49 +125,49 @@ public class Main {
   		int[][] connectedBandsNormalisedGauss = ArrayUtils.connectNormalised(normalisedVVGauss, normalisedVHGauss);
   		int[][] connectedBandsNormalisedMedian = ArrayUtils.connectNormalised(normalisedvvMedian, normalisedvhMedian);
 
-  		//convert to binary Color-Scheme
-  		int[][] connectedBandsNormalisedBlack = rops.convertTobinaryColorScheme(connectedBandsNormalised, 50);
-  		int[][] connectedBandsNormalisedGaussBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedGauss, 60); //passt???
-  		int[][] connectedBandsNormalisedMedianBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedMedian, 35);
-
-	  	//Lake detect
-  		if(color_or_greyscale == true) {
-  			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m2");
-  			rops.waterrize(connectedBandsNormalisedBlack, 150);
-  			ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, outputpath, "normal_blue.png");
-  		}
-  		else {
-  			rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m2");
-  			int[][] outputNormal = ArrayUtils.convertToGreyscale(connectedBandsNormalisedBlack);
-  			ArrayUtils.arrayToImage(outputNormal, outputpath, "normal_grey.png");
-  		}
-
-  		if(color_or_greyscale == true) {
-  			rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m2");
-  			rops.waterrize(connectedBandsNormalisedGaussBlack, 150);
-  			ArrayUtils.arrayToImage(connectedBandsNormalisedGaussBlack, outputpath, "gauss_blue.png");
-  		}
-  		else {
-  			rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m2");
-  			int[][] outputGauss = ArrayUtils.convertToGreyscale(connectedBandsNormalisedGaussBlack);
-  			ArrayUtils.arrayToImage(outputGauss, outputpath, "gauss_grey.png");
-  		}
-
-  		if(color_or_greyscale == true) {
-  			rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m2");
-  			rops.waterrize(connectedBandsNormalisedMedianBlack, 150);
-  			ArrayUtils.arrayToImage(connectedBandsNormalisedMedianBlack, outputpath, "median_blue.png");
-  		}
-  		else {
-  			rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
-  	  		System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m2");
-  			int[][] outputMedian = ArrayUtils.convertToGreyscale(connectedBandsNormalisedMedianBlack);
-  			ArrayUtils.arrayToImage(outputMedian, outputpath, "median_grey.png");
-  		}
+	  	//convert to binary Color-Scheme
+	  	int[][] connectedBandsNormalisedBlack = rops.convertTobinaryColorScheme(connectedBandsNormalised, 30); //30
+	  	int[][] connectedBandsNormalisedGaussBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedGauss, 50); //50
+	  	int[][] connectedBandsNormalisedMedianBlack = rops.convertTobinaryColorScheme(connectedBandsNormalisedMedian, 30); //30
+	
+		  //Lake detect
+	  	if(color_or_greyscale == true) {
+	  		rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
+	  	  	System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m2");
+	  		rops.waterrize(connectedBandsNormalisedBlack, 150);
+	  		ArrayUtils.arrayToImage(connectedBandsNormalisedBlack, outputpath, "normal_blue.png");
+	  	}
+	  	else {
+	  		rops.scan(connectedBandsNormalisedBlack, x_in_lake, y_in_lake);
+	  	  	System.out.println("Wasserflaeche (filterlos) ca. " + rops.calculateSurface(connectedBandsNormalisedBlack) + "m2");
+	  		int[][] outputNormal = ArrayUtils.convertToGreyscale(connectedBandsNormalisedBlack);
+	  		ArrayUtils.arrayToImage(outputNormal, outputpath, "normal_grey.png");
+	  	}
+	
+	  	if(color_or_greyscale == true) {
+	  		rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
+	  	  	System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m2");
+	  		rops.waterrize(connectedBandsNormalisedGaussBlack, 150);
+	  		ArrayUtils.arrayToImage(connectedBandsNormalisedGaussBlack, outputpath, "gauss_blue.png");
+	  	}
+	  	else {
+	  		rops.scan(connectedBandsNormalisedGaussBlack, x_in_lake, y_in_lake);
+	  	  	System.out.println("Wasserflaeche (gauss) ca. " + rops.calculateSurface(connectedBandsNormalisedGaussBlack) + "m2");
+	  		int[][] outputGauss = ArrayUtils.convertToGreyscale(connectedBandsNormalisedGaussBlack);
+	  		ArrayUtils.arrayToImage(outputGauss, outputpath, "gauss_grey.png");
+	  	}
+	
+	  	if(color_or_greyscale == true) {
+	  		rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
+	  	  	System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m2");
+	  		rops.waterrize(connectedBandsNormalisedMedianBlack, 150);
+	  		ArrayUtils.arrayToImage(connectedBandsNormalisedMedianBlack, outputpath, "median_blue.png");
+	  	}
+	  	else {
+	  		rops.scan(connectedBandsNormalisedMedianBlack, x_in_lake, y_in_lake);
+	  	  	System.out.println("Wasserflaeche (median) ca. " + rops.calculateSurface(connectedBandsNormalisedMedianBlack) + "m2");
+	  		int[][] outputMedian = ArrayUtils.convertToGreyscale(connectedBandsNormalisedMedianBlack);
+	  		ArrayUtils.arrayToImage(outputMedian, outputpath, "median_grey.png");
+	  	}
     }
 }
