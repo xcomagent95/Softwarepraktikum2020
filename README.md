@@ -1,7 +1,7 @@
 # softwarepraktikum2020 - Divining Rod
 ![NeueLogo_DiviningRod](https://user-images.githubusercontent.com/61976211/96106434-88c26500-0edb-11eb-8529-3a5e7c3fcbde.png)
 
-Our Program is analyzing radarpictures of the Sentinel-1 satellite (from the Copernicus-Project of ESA). It calculates the area of a coherent waterbody and is supposed to compare seasonal deviations of waterlevels and long-/middle term tendencies of shrinking  or growing.
+Our Program is analyzing radarpictures of the Sentinel-1 satellite from the Copernicus-Project of ESA. It calculates the area of a coherent waterbody and is supposed to compare seasonal deviations of waterlevels and long-/middle term tendencies of shrinking  or growing.
 
 ## Technology:
 * The SENTINEL-1 Toolbox ([s1tbx](https://github.com/senbox-org/s1tbx))
