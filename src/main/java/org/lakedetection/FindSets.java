@@ -30,21 +30,20 @@ public class FindSets {
 		String url = new String("https://scihub.copernicus.eu/dhus/api/stub/products?filter=(%20footprint:%22Intersects(POLYGON((12.847298091933668%2053.18180695455385,12.949362582961403%2053.18180695455385,12.949362582961403%2053.22056068128961,12.847298091933668%2053.22056068128961,12.847298091933668%2053.18180695455385)))%22%20)%20AND%20(%20beginPosition:[");
 		
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in)); 
-   		String startdate = null; // initialize startdate
-		//System.out.println("Insert the startdate e.g. 2015-01-01T00:00:00.000Z OR NOW-XDays"); // Console show Info
+   		String startdate = null; // Initialiserung des Startdatum des Zeitfensters 
 		System.out.println("Insert the startdate e.g. 2020-08-01");
 		try {
-			startdate = reader.readLine(); //get startdate
-			url += startdate;
+			startdate = reader.readLine(); // Lesen der Benutzereingabe
+			url += startdate; // Erweitern des URL um das Startdatum
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		url+= "T00:00:00.000Z%20TO%20NOW]%20AND%20endPosition:[";
-		String enddate = null;
+		String enddate = null; // Initialiserung des Startdatum des Zeitfensters 
 		System.out.println("Insert the enddate e.g. 2020-10-01");
 		try {
-			enddate = reader.readLine(); // add enddate in url
-			url += enddate;
+			enddate = reader.readLine(); // Lesen der Benutzereingabe
+			url += enddate; // Erweitern des URL um das Enddatum
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -55,32 +54,38 @@ public class FindSets {
 	    
 	    try {
 			HttpRequest request =  HttpRequest.get(url).basic(userdata.getUsername(), userdata.getPassword());
-		    File file = null;
+		    File file = null; // Initialisierung der Datei 
 		    System.out.println("Status: " + request.code());
-		    String imageNumber = "Variable 'imageNumber' has not been initialized";
-		    if (request.ok()) { // check request if Code 200  
+		    // Initialisierung eines Strings, welches die uuid enthalten wird
+		    String imageNumber = "Variable 'imageNumber' has not been initialized"; 
+		    if (request.ok()) { // Ueberpruefung, ob die Anfrage erfolgreich war 
 		    	try {
-		    		file = File.createTempFile("sets", ".json", new File(".//")); //set file
-		    		System.out.println("File path: "+ file.getAbsolutePath()); // show filepath on user pc
-		    		System.out.println("Downloading"); // show user progress
+		    		// Eine leere Datei wird auf dem Computer lokal erstellt
+		    		file = File.createTempFile("sets", ".json", new File(".//"));
+		    		// Ausgabe des Dateipfades auf der Konsole
+		    		System.out.println("File path: "+ file.getAbsolutePath()); 
+		    		System.out.println("Downloading"); 
 		    	} catch(IOException exception) {
 		    		System.out.println(exception);
 		    	}
+		    	// Fuellen der leeren Datei
 		        request.receive(file);
 		        
 		        int number = 0;
-		        String[] images = parse(file.getAbsolutePath());
+		        // Initialisierung eines String-Arrays, in dem spaeter die uuids gespeichter werden,
+		        // die zur vervollstaendigung eines weiteren URL fuer eine Anfrage der zip-Datei 
+		        // benoetigt wird.
+		        String[] images = parse(file.getAbsolutePath()); 
 		        System.out.println("Insert the the index of the date of the image you want e.g. if it is the first one (1.), enter 1");
 				try {
-					number = Integer.valueOf(reader.readLine()); //get number of the date 
-					System.out.println(number);
+					// Abfragen des Datums, von dem die Datei sein soll
+					number = Integer.valueOf(reader.readLine()); 
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-		        imageNumber = images[number-1];
+		        imageNumber = images[number-1]; // Zuweisung der passenden uuid
 		    } else System.out.println("Request does not work");
-		    return imageNumber;
+		    return imageNumber; // Rueckgabe der korrekten uuid
 		} catch (HttpRequestException exception) {
 			System.out.println(exception);
 			return null;
@@ -95,25 +100,25 @@ public class FindSets {
 	 */
 	public File downloadZip(String firstImage) {
 		try {
+			// Initialisierung der Anfrage 
 			HttpRequest request =  HttpRequest.get("https://scihub.copernicus.eu/dhus/odata/v1/Products('"+ firstImage +"')/$value").basic(userdata.getUsername(), userdata.getPassword());
-		    
-			File file = null;
+			File file = null; // Initialisierung einer File
 		    System.out.println("Status: " + request.code());
-		    if (request.ok()) { // check request if Code 200  
+		    if (request.ok()) { // Ueberpruefung, ob die Anfrage erfolgreich war 
 		    	try {
 		    		// Speichert die Datei unter dem "Identiefier" als Namen 
 		    		String fileName = request.header("Content-Disposition").substring(17, request.header("Content-Disposition").length()-1);
-		    		file = new File(".//"+fileName);
-		    		file.createNewFile();//fileName, ".zip", new File(".//")); //set file
-		    		System.out.println("File path: "+ file.getAbsolutePath()); // show filepath on user pc
-		    		System.out.println("Downloading"); // show user progress
+		    		file = new File(".//"+fileName); // Der Datei wird ein Name zugewiesen, sowie ein Speicherort 
+		    		file.createNewFile(); // Anlegen einer neuen Datei
+		    		System.out.println("File path: "+ file.getAbsolutePath()); // Ausgabe des Dateipfades auf der Konsole
+		    		System.out.println("Downloading"); // Ausgabe des Prozesszustands auf der Konsole
 		    	} catch(IOException exception) {
 		    		System.out.println(exception);
 		    	}
 		        // Der Speicherort ist erstellt und wird befuellt
 		    	request.receive(file);
 		    } else System.out.println("Request does not work");
-		    return file;
+		    return file; // Rueckgabe der Datei
 		} catch (HttpRequestException exception) {
 			System.out.println(exception);
 			return null;			
@@ -131,21 +136,25 @@ public class FindSets {
 	public static String[] parse(String stringpath) {
 		String[] images; // Enthaelt alle uuids, bzw. alle Bez. für Bilder, die hier gefunden werden
 		try {
-			JSONParser parser = new JSONParser();
-	        Object obj = parser.parse(new FileReader(stringpath));
+			JSONParser parser = new JSONParser(); // Intialisierung eines Objekt vom Typ JSONParse
+	        Object obj = parser.parse(new FileReader(stringpath)); // Intialisierung eines Objekt vom Typ Object
 	        JSONObject jsonObject = (JSONObject) obj; 
-	       	JSONArray namearr = (JSONArray) jsonObject.get("products");
-	       	images = new String[namearr.size()]; 
+	        // Intialisierung eines Objekt vom Typ JSONArray und Befuellung des Arrays mit allen Produkten des JSONs  
+	       	JSONArray namearr = (JSONArray) jsonObject.get("products"); 
+	       	images = new String[namearr.size()]; // Intialisierung eines Objekt vom Typ String
 	       	for(int i=0; i<namearr.size(); i++) {
+	       		// Intialisierung eines JSONObjects welches das i-te Produkt enthaelt
 	       		JSONObject jsonProduct = (JSONObject) namearr.get(i);
+	       		// Intialisierung eines JSONArrays welches die Summary der i-ten Produkts enthaelt
 	       		JSONArray dateArr = (JSONArray)jsonProduct.get("summary");
+	       		// Ausgabe des Datums des i-ten Objekts
 	          	System.out.println((i+1)+". "+dateArr.get(0));
-	          	images[i] = (String)jsonProduct.get("uuid");
+	          	images[i] = (String)jsonProduct.get("uuid"); // Zuweisung der uuid des i-ten Objekts in ein Array
 	       	}
 		 } catch (Exception ex) {
 	     	System.out.println(ex.getMessage());
 	     	images = null;
 	  	}
-		return images;
+		return images; // Rueckgabe des String-Arrays mit den uuids
 	}
 }
