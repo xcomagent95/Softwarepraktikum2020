@@ -31,7 +31,7 @@ Consult our [UML-Diagram](https://github.com/xcomagent95/softwarepraktikum2020/b
 * and the choosen smippet of sentinel-1 radar image gets saved, filtered (Gauß, Median or non) and the chosen lake gets colored
 
 ![output](https://user-images.githubusercontent.com/51150328/96171907-e4b1db80-0f25-11eb-94fc-26daddeb4a3d.PNG)
-* Ausgaben sind grau oder blau eingefärbt und werden ohne Filter, mit Median-Filter und Gauss-Filter bearbeitet.
+* Outputs are colored grey or blue and have been altered with a median-filter, a gauss-filter or non at all.
 
 
 ## Projectteam:
