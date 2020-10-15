@@ -30,6 +30,8 @@ Consult our [UML-Diagram](https://github.com/xcomagent95/softwarepraktikum2020/b
 * an Integer that represents the approximate area (in squaremeters) of water-sureface
 * and the choosen smippet of sentinel-1 radar image gets saved, filtered (Gauß, Median or non) and the chosen lake gets colored
 
+![grey_normal](https://github.com/xcomagent95/softwarepraktikum2020/issues/8#issuecomment-709381308)
+
 ## Projectteam:
 * Alexander Pilz            [@xcomagent95](https://github.com/xcomagent95)
 * Josefina Balzer           [@jbalzer12](https://github.com/jbalzer12)
