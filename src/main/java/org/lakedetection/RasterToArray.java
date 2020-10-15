@@ -90,7 +90,7 @@ public class RasterToArray {
 		//buffered Image aus Produkt hohlen
 		Band loadedBand = product.getBand(this.requested_Band);
 		try {
-			float[] data = loadedBand.readPixels(this.requestedCornerX, this.requestedCornerY, this.arrayWidth, this.arrayHeight, (float[]) null);
+			float[] data = loadedBand.readPixels(this.requestedCornerX-(this.arrayHeight/2), this.requestedCornerY-(this.arrayWidth/2), this.arrayWidth, this.arrayHeight, (float[]) null);
 
 			loadeddata = data;
 
