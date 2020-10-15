@@ -5,8 +5,6 @@ import java.util.Scanner;
 
 import org.esa.snap.core.datamodel.PixelPos;
 
-import java.io.File;
-
 public class Main {
 
     public static void main(String[] args) throws IOException { //main Methode
