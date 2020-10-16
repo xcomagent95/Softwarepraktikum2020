@@ -72,24 +72,33 @@ public class ROPs {
 	 */
 	public void scan(int[][] input, int px, int py) {
 		int origin_color = input[px][py];
+		
+		//Initialisieren der Queue
 		ArrayList<Point> pointList = new ArrayList<Point>();  
 		input[px][py] = origin_color;	
+		
+		//BBox
 		int boundX = input.length;
 		int boundY = input[0].length;
 		
+		//Startpunkt einfuegen
 		pointList.add(new Point(px, py));
 		
+		//Queue abarbeiten
 		while(!pointList.isEmpty()) {
 			int x = pointList.get(0).x;
 			int y = pointList.get(0).y;
 			if(pointList.get(0) != null) {
 				if((x-1 >= 0 && input[x-1][y] != 150) || (x+1 < boundX && input[x+1][y] != 150)) {
+					//vertkalen Scan starten
 					verticalScanLine(input,  x, y, pointList);
 				}
 				if((y-1 >= 0 && input[x][y-1] != 150) || (y+1 < boundY && input[x][y+1] != 150)) {
+					//horizontalen Scan starten
 					horizontalScanLine(input, x,  y, pointList);
 				}
 			}
+			//bearbeiteten Punkt dequeuen
 			pointList.remove(0);
 		}
 	}
@@ -104,17 +113,22 @@ public class ROPs {
 	 */
 	public void horizontalScanLine(int[][] input, int px, int py, ArrayList<Point> pointList) {
 		int basepy = py;
+		
+		//Y-Bound
 		int boundY = input[0].length;
 		 
 		if(input[px][py] == 0) {
 			while(py < boundY && input[px][py] == 0) {
+				//Punkt einfaerben
 				input[px][py] = 150;
 				pointList.add(new Point(px, py));
 				py++;
 			}
+			//auf Ausgangspunkt zuruecksetzen
 			py = basepy;
 			input[px][py] = 0;
 			while(py >= 0 && input[px][py] == 0) {
+				//Punkt einfaerben
 				input[px][py] = 150;
 				pointList.add(new Point(px, py));
 				py--;
@@ -132,19 +146,25 @@ public class ROPs {
 	 */
 	public void verticalScanLine(int[][] input, int px, int py, ArrayList<Point> pointList) {
 		int basepx = px;
+		
+		//X-Bound
 		int boundX = input.length;
 		if(input[px][py] == 0 || input[px][py] == 150) {
 			while(px < boundX && (input[px][py] == 0 || input[px][py] == 150)) {
 				if (input[px][py] == 0) {	
+					//nicht eingefaerbte Punkte hinzufuegen
 					pointList.add(new Point(px, py));
 				} 
+				//"nach oben laufen"
 				px++;
 			}
 			px = basepx;
 			while(px >= 0 && (input[px][py] == 0 || input[px][py] == 150)) {
 				if (input[px][py] == 0) {
+					//nicht eingefaerbte Punkte hinzufuegen
 					pointList.add(new Point(px, py));
 				}
+				//"nach unten laufen"
 				px--;
 			}
 		}
