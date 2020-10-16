@@ -1,34 +1,45 @@
 package org.lakedetection;
 
 /**
- * author: OTI2020 && heilandoo
- * title: SoPraTestBand 
- * aim: count coherent Pixels of same color
- * latest date: 11.03.2020; 11:20 am 
+ * 
+ * @author: OTI2020 && heilandoo
+ * @title: SoPraTestBand 
+ * @version: preealpha
+ * latest @date: 11.03.2020; 11:20 am 
  **/
-
 public class FloodFillAlgo {
 	private static int px;
 	private static int py;
 	private static int numPixel = 0;
 	private static int[][] inputArr;
 	
-	//Kernstuek des Algor. ist die checkNeighbour()
+	
+	/**
+	 * 
+	 * Hier wird der checkneighbour(), der wesentliche Teil dieser Klasse, und zum Abschluss des Programms
+	 * presentPixelCount() für die Konsolenausgabe aufgerufen
+	 * 
+	 * @param inInputArr ist das Binaerbild, welches aus dem Radarbildausschnitt entstanden ist.
+	 * @param inPx ist X-Wert der Startkoordinate
+	 * @param inPy ist Y-Wert der Startkoordinate
+	 */
 	public static void calcAndPrintNumOfConnenctedPixel(int[][] inInputArr, int inPx, int inPy){
 		px = inPx;
 		py = inPy;
 		inputArr = inInputArr;
-		checkNeighbour(px, py);
+		checkNeighbour(inputArr, px, py);
 		presentPixelCount();
 		}
-		
-	//pixelCounter() setzt den Zaehler anzPixel bei jedem Aufruf einshÃ¶her,
-	//was aber nur passiert, wenn checkNeighbour() eine bisher ununtersuchte 
-	//Nachbarzelle mit dem Wert 255 aufspuert
+	
+	/**
+	 * setzt bei jedem Aufruf numPixel um eins nach oben
+	 * Wird in checkNeighbour() aufgerufen, wenn bisher nicht untersuchte Nachbarzelle
+	 * mit dem Wert 255 aufspuert
+	 * 
+	 * @return numPixel
+	 */
 	private static int pixelCounter() {
 		numPixel += 1;
-		// Dies wird bei jedem neu gefundenem Pixel geprintet
-		//System.out.println("Die momentane Anzahl der zusammenhaengenden und untersuchten Pixel: " + anzPixel);
 		return numPixel;
 	}
 	
@@ -43,7 +54,21 @@ public class FloodFillAlgo {
 	//auskommentiert werden(ebenso die else-Anweisungen). Die letzte Zeile der 
 	//jeweiligen if-Abfragen enthaelt den Rekursionsschritt, der den untersuchten 
 	//Nachbarpixel zum neuen Startpixel macht.
-	private static void checkNeighbour(int inPx, int inPy) {
+	
+	/**
+	 * 
+	 * Alle acht Nachbarpixel werden im Uhrzeigersinn (unten beginnend) abgefragt,
+	 * ob Arrayindizes innerhalb des Bildausschnittes/Arraygrenzen liegen und
+	 * ob an entsprechender Stelle der Wert 255 gespeichert ist.
+	 * 
+	 * Wenn if-Bedingung erfüllt ist wird der Farbwert verändert, damit das Pixel
+	 * im rekursiven Verfahren nicht erneut mitgezaehlt wird.
+	 * 
+	 * @param inputArr ist das Binärbild, welches aus dem Radarbildausschnitt entstanden ist.
+	 * @param inPx ist X-Wert der Startkoordinate
+	 * @param inPy ist Y-Wert der Startkoordinate
+	 */
+	private static void checkNeighbour(int[][] inputArr, int inPx, int inPy) {
 		if((py < (inputArr[px].length - 1)) && (inputArr[px][py + 1] == 255)) {
 			pixelCounter();
 			py += 1;
@@ -52,7 +77,6 @@ public class FloodFillAlgo {
 			checkNeighbour(px, py);
 			py -= 1;
 		}//else System.err.println("unten");
-		
 		if((py < (inputArr[px].length - 1)) && (px > 0) && (inputArr[px - 1][py + 1] == 255)) {
 			pixelCounter();
 			px -= 1;
@@ -124,6 +148,11 @@ public class FloodFillAlgo {
 			py -= 1;
 		}//else System.err.println("unten rechts");
     }
+	
+	/**
+	 * 
+	 * printet Ergebnis von PixelCounter() aus und berechnet Flaecheninhalt mit konstantem Faktor
+	 */
 	private static void presentPixelCount() {
 		System.out.println("Die finale Anzahl der zusammenhaengenden und untersuchten Pixel mit ");
 		System.out.println("der urspruenglich abgespeicherten Gleitkommerzahl 255.0 belaeuft sich auf " + numPixel + "  :)");
