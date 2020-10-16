@@ -18,8 +18,9 @@ public class Main {
     	FindSets findsets = new FindSets();
     	//File file = findsets.downloadZip(findsets.search());
     	findsets.search();
-    	// ZUM TESTEN OHNE DOWNLOAD
+    	// --------------- ZUM TESTEN OHNE DOWNLOAD --------------------------------------
     	File file = new File("/Users/josefinabalzer/Desktop/softwarepraktikum2020/S1B_IW_GRDH_1SDV_20201015T052435_20201015T052500_023819_02D439_34BD.zip");
+    	// -------------------------------------------------------------------------------
     	System.out.println("search done"); // Kommentar auf der Konsole zur Überprüfung des Fortschritts 
 
     	// Laden des Datensatzes als Objekt vom Typ Loadzip und dem Namen dataset

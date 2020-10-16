@@ -94,10 +94,12 @@ public class FindSets {
 		    		System.out.println(exception);
 		    	}
 		    	*/
-		    	// ZUM TESTEN OHNE DOWNLOAD
+		    	
+		    	// --------------- ZUM TESTEN OHNE DOWNLOAD --------------------------------------
 		    	file = new File("/Users/josefinabalzer/Desktop/softwarepraktikum2020/sets8749057408278342050.json");
 	    		System.out.println("File path: /Users/josefinabalzer/Desktop/softwarepraktikum2020/sets8749057408278342050.json");
-		    	// Fuellen der leeren Datei
+		    	// -------------------------------------------------------------------------------
+	    		// Fuellen der leeren Datei
 		        //request.receive(file);
 		        
 		        int number = 0;
