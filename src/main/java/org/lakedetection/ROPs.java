@@ -35,7 +35,10 @@ public class ROPs {
 		float[][] output = new float[input.length][input[0].length];
 		for(int i=1; i<(input.length)-1; i++) {
 			for(int j=1; j<(input[i].length)-1; j++) {
-				float x = ( input[i-1][j-1] + input[i-1][j] + input[i-1][j+1] + input[i][j-1] + input[i][j] + input[i][j+1] + input[i+1][j-1] + input[i+1][j] + input[i+1][j+1]) / 9;
+				// Aus den Pixelwerten werden jeden betrachteten Punkt wird der Durchschnitt der insgesamt
+				// neun Werte errechet und für den mittleren Wert eingetragen. 
+				float x = ( input[i-1][j-1] + input[i-1][j] + input[i-1][j+1] + input[i][j-1] + input[i][j] 
+						+ input[i][j+1] + input[i+1][j-1] + input[i+1][j] + input[i+1][j+1]) / 9;
 				output[i][j] = x; 
 			}
 		}
@@ -53,6 +56,7 @@ public class ROPs {
 		int[][] output = new int[input.length][input[0].length]; // Initialisierung eines Output-Arrays
 		for(int i=0; i<input.length; i++) {
 			for(int j=0; j<input[i].length; j++) {
+				// Jeder Pixel wird komplett Schwarz oder Weiß gefärbt
 				if(input[i][j] <= schwellwert) {
 					output[i][j] = 0; // Fuellen des Arrays
 				} else output[i][j] = 255; 
@@ -201,7 +205,9 @@ public class ROPs {
 	}
 	
 	/**
-	 * Gauss-Filter mit 7x7-Matrix 
+	 * Gauss-Filter mit 7x7-Matrix.
+	 * Innerhalb einer 7x7-Matrix wird der Durchschnitt der Werte aller Zellen mit unterschiedlicher Gewichtung
+	 * berechnet. 
 	 * @param 2D-Float-Array (Bild)
 	 * @return 2D-Float-Array (gefiltertes Bild)
 	 */
