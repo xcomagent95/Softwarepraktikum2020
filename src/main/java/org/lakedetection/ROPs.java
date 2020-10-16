@@ -188,15 +188,16 @@ public class ROPs {
 	 * @return 2D-Float-Array (gefiltertes Bild)
 	 */
 	public float[][] medianFilter(float[][] img){
+		// output-Array wird initialisiert 
 		float[][] newimg = new float[img.length-2][img[0].length-2];
 		for(int i = 1; i < img.length - 1; i++) {
 			for(int j = 1; j < img[i].length - 1; j++) {
-				float[] medianarray = {
+				float[] medianarray = { // Array wird mit Werten aller FElder gefuellt
 						img[i - 1][j - 1], img[i - 1][j], img[i - 1][j + 1], 
 						img[i    ][j - 1], img[i    ][j], img[i    ][j + 1],
 						img[i + 1][j - 1], img[i + 1][j], img[i + 1][j + 1]};
 				
-				Arrays.sort(medianarray);
+				Arrays.sort(medianarray); // Array wird sortiert und Median ausgegeben
 				float median = medianarray[4];
 				newimg[i-1][j-1] = median;
 			}
@@ -212,9 +213,11 @@ public class ROPs {
 	 * @return 2D-Float-Array (gefiltertes Bild)
 	 */
 	public float[][] gaussFilter(float[][] img){
+		// output-Array wird initialisiert 
 		float[][] output = new float[img.length-6][img[0].length-6];
 		for(int i=3; i<(img.length)-3; i++) {
 			for(int j=3; j<(img[i].length)-3; j++) {
+				// Einzusetzender Wert wird berechnet
 				float x = (( (img[i-3][j-3] + img[i-3][j+3] + img[i+3][j-3] + img[i+3][j+3]) 
 									* 1)  // Gewicht = 1
 						
@@ -229,8 +232,8 @@ public class ROPs {
 								+  img[i-1][j+2] + img[i  ][j+2] + img[i+1][j+2]) 
 									* 3) // Gewicht = 3
 						+ ( (      img[i-1][j-1] + img[i-1][j  ] + img[i-1][j+1] 
-								+  img[i  ][j-1] + img[i  ][j] + img[i  ][j+1] 
-								+  img[i+1][j-1] + img[i+1][j] + img[i+1][j+1]) 
+								+  img[i  ][j-1] + img[i  ][j  ] + img[i  ][j+1] 
+								+  img[i+1][j-1] + img[i+1][j  ] + img[i+1][j+1]) 
 									* 5)     // Gewicht = 5
 						) / 128;	  
 						
