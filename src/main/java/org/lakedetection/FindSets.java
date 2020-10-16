@@ -83,17 +83,22 @@ public class FindSets {
 		    // Initialisierung eines Strings, welches die uuid enthalten wird
 		    String imageNumber = "Variable 'imageNumber' has not been initialized"; 
 		    if (request.ok()) { // Ueberpruefung, ob die Anfrage erfolgreich war 
+		    	/*
 		    	try {
 		    		// Eine leere Datei wird auf dem Computer lokal erstellt
 		    		file = File.createTempFile("sets", ".json", new File(".//"));
 		    		// Ausgabe des Dateipfades auf der Konsole
-		    		System.out.println("File path: "+ file.getAbsolutePath()); 
+		    		System.out.println("File path: "+ file.getAbsolutePath());
 		    		System.out.println("Downloading"); 
 		    	} catch(IOException exception) {
 		    		System.out.println(exception);
 		    	}
+		    	*/
+		    	// ZUM TESTEN OHNE DOWNLOAD
+		    	file = new File("/Users/josefinabalzer/Desktop/softwarepraktikum2020/sets8749057408278342050.json");
+	    		System.out.println("File path: /Users/josefinabalzer/Desktop/softwarepraktikum2020/sets8749057408278342050.json");
 		    	// Fuellen der leeren Datei
-		        request.receive(file);
+		        //request.receive(file);
 		        
 		        int number = 0;
 		        // Initialisierung eines String-Arrays, in dem spaeter die uuids gespeichter werden,
